@@ -88,12 +88,12 @@ static inline void PRINT_R(const register u128 &rt, bool newline) {
 #define RRR_OP_DO_III(OP, d, s, t) \
 	SET_U32<d>(rd); SET_U32<s>(rs); SET_U32<t>(rt); \
 	RRR_##OP(rd, rs, rt); \
-	printf("  %s %d, %d: ", #OP, (u32)rs, (u32)rt); PRINT_R(rd, true); \
+	printf("  %s %d, %d: ", #OP, (u32)rs, (u32)rt); PRINT_R(rd, true);
 
 #define RRR_OP_DO_MMM(OP, d, s, t) \
 	SET_M(rd, d); SET_M(rs, s); SET_M(rt, t); \
 	RRR_##OP(rd, rs, rt); \
-	printf("  %s %s, %s: ", #OP, #s, #t); PRINT_R(rd, true); \
+	printf("  %s %s, %s: ", #OP, #s, #t); PRINT_R(rd, true);
 
 #define TEST_RRR_FUNC(OP) \
 RRR_OP_FUNC(OP); \
@@ -132,12 +132,12 @@ static void test_##OP() { \
 #define RRI_OP_DO_III(OP, d, s, t) \
 	SET_U32<d>(rd); SET_U32<s>(rs); \
 	RRI_##OP<t>(rd, rs); \
-	printf("  %s %d, %d: ", #OP, (u32)rs, (u32)t); PRINT_R(rd, true); \
+	printf("  %s %d, %d: ", #OP, (u32)rs, (u32)t); PRINT_R(rd, true);
 
 #define RRI_OP_DO_MMI(OP, d, s, t) \
 	SET_M(rd, d); SET_M(rs, s); \
 	RRI_##OP<t>(rd, rs); \
-	printf("  %s %s, %d: ", #OP, #s, (u32)t); PRINT_R(rd, true); \
+	printf("  %s %s, %d: ", #OP, #s, (u32)t); PRINT_R(rd, true);
 
 #define TEST_RRI_FUNC(OP) \
 RRI_OP_FUNC(OP); \
@@ -212,12 +212,12 @@ static void test_##OP() { \
 #define RI_OP_DO_II(OP, d, t) \
 	SET_U32<d>(rd); \
 	RI_##OP<t>(rd); \
-	printf("  %s %d: ", #OP, (u32)t); PRINT_R(rd, true); \
+	printf("  %s %d: ", #OP, (u32)t); PRINT_R(rd, true);
 
 #define RI_OP_DO_MI(OP, d, t) \
 	SET_M(rd, d); \
 	RI_##OP<t>(rd); \
-	printf("  %s %d: ", #OP, (u32)t); PRINT_R(rd, true); \
+	printf("  %s %d: ", #OP, (u32)t); PRINT_R(rd, true);
 
 #define TEST_RI_FUNC(OP) \
 RI_OP_FUNC(OP); \

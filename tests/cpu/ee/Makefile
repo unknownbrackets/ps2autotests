@@ -1,4 +1,4 @@
-TARGETS = alu
+TARGETS = alu branch branchdelay
 EE_LIBS =
 
 COMMON_DIR=../../../common
