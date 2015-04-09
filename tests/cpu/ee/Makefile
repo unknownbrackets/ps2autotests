@@ -1,4 +1,4 @@
-TARGETS = alu branch branchdelay lsu lsudelay
+TARGETS = alu branch branchdelay lsu lsudelay muldiv
 EE_LIBS =
 
 COMMON_DIR=../../../common
