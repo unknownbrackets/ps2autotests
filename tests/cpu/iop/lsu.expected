@@ -1,0 +1,114 @@
+-- TEST BEGIN
+lb:
+  lb +0: ffffff89
+  lb +4: 00000001
+  lb -4: 00000037
+  lb +0: ffffff89
+  lb +4: 00000001
+  lb +-4: 00000037
+  lb -> $0: 00000000
+
+lbu:
+  lbu +0: 00000089
+  lbu +4: 00000001
+  lbu -4: 00000037
+  lbu +0: 00000089
+  lbu +4: 00000001
+  lbu +-4: 00000037
+  lbu -> $0: 00000000
+
+ld:
+  ld +0: 88888888
+  ld +4: 152231ac
+  ld -4: e39b74be
+  ld +0: 88888888
+  ld +4: 152231ac
+  ld +-4: e39b74be
+  ld -> $0: 00000000
+
+lh:
+  lh +0: 00006789
+  lh +4: ffffef01
+  lh -4: 00001337
+  lh +0: 00006789
+  lh +4: ffffef01
+  lh +-4: 00001337
+  lh -> $0: 00000000
+
+lhu:
+  lhu +0: 00006789
+  lhu +4: 0000ef01
+  lhu -4: 00001337
+  lhu +0: 00006789
+  lhu +4: 0000ef01
+  lhu +-4: 00001337
+  lhu -> $0: 00000000
+
+lw:
+  lw +0: 23456789
+  lw +4: abcdef01
+  lw -4: c0de1337
+  lw +0: 23456789
+  lw +4: abcdef01
+  lw +-4: c0de1337
+  lw -> $0: 00000000
+
+lwl / lwr:
+  lwl +0: 89de1337
+  lwr +0: 23456789
+  lwl +1: 67896789
+  lwr +1: 67234567
+  lwl +0/lwr +3: 89234523
+  lwl +0: 89234523
+  lwr +0: 23456789
+  lwl +1: 67896789
+  lwr +1: 67234567
+  lwl +0/lwr +3: 89234523
+  lwl -> $0: 00000000
+  lwr -> $0: 00000000
+
+sb:
+  sb +0: 9abcde21 deadbeef
+  sb +4: deadbe21 c0de1337
+  sb -4: 45678121 9abcdef0
+  sb +0: 9abcde37 deadbeef
+  sb +4: deadbe37 c0de1337
+  sb +-4: 45678137 9abcdef0
+
+sd:
+  sd +0: abcd4321 00000000
+  sd +4: abcd4321 00000000
+  sd -4: abcd4321 00000000
+  sd +0: 00001337 00000000
+  sd +4: 00001337 00000000
+  sd +-4: 00001337 00000000
+
+sh:
+  sh +0: 9abc4321 deadbeef
+  sh +4: dead4321 c0de1337
+  sh -4: 45674321 9abcdef0
+  sh +0: 9abc1337 deadbeef
+  sh +4: dead1337 c0de1337
+  sh +-4: 45671337 9abcdef0
+
+sw:
+  sw +0: abcd4321 deadbeef
+  sw +4: abcd4321 c0de1337
+  sw -4: abcd4321 9abcdef0
+  sw +0: 00001337 deadbeef
+  sw +4: 00001337 c0de1337
+  sw +-4: 00001337 9abcdef0
+
+swl / swr:
+  swl +0: 9abcdeab deadbeef
+  swr +0: abcd4321 deadbeef
+  swl +1: 9abcabcd deadbeef
+  swr +1: cd4321f0 deadbeef
+  swl +0/swr +3: 21bcdeab deadbeef
+  swl +0: 9abcde00 deadbeef
+  swr +0: 00001337 deadbeef
+  swl +1: 9abc0000 deadbeef
+  swr +1: 001337f0 deadbeef
+  swl +0/swr +3: 37bcde00 deadbeef
+
+-- TEST END

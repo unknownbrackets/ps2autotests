@@ -1,4 +1,4 @@
-TARGETS = alu
+TARGETS = alu lsu lsudelay
 
 COMMON_DIR=../../../common
 include $(COMMON_DIR)/common-iop.mk
