@@ -1,0 +1,170 @@
+-- TEST BEGIN
+beq:
+  beq 0, 0: followed, ignored ra, ran delay slot
+  beq 0, 1: skipped, ignored ra, ran delay slot
+  beq 1, 1: followed, ignored ra, ran delay slot
+  beq 1, 0: skipped, ignored ra, ran delay slot
+  beq 2, 2: followed, ignored ra, ran delay slot
+  beq -1, 1: skipped, ignored ra, ran delay slot
+  beq -1, -1: followed, ignored ra, ran delay slot
+  beq C_ZERO, C_ZERO: followed, ignored ra, ran delay slot
+  beq C_ZERO, C_ONE: skipped, ignored ra, ran delay slot
+  beq C_ONE, C_ZERO: skipped, ignored ra, ran delay slot
+  beq C_ONE, C_ONE: followed, ignored ra, ran delay slot
+  beq C_ONE, C_NEGONE: skipped, ignored ra, ran delay slot
+  beq C_S16_MAX, C_S16_MAX: followed, ignored ra, ran delay slot
+  beq C_S16_MIN, C_S16_MIN: followed, ignored ra, ran delay slot
+  beq C_S32_MAX, C_S32_MAX: followed, ignored ra, ran delay slot
+  beq C_S32_MIN, C_S32_MIN: followed, ignored ra, ran delay slot
+  beq C_S64_MAX, C_S64_MAX: followed, ignored ra, ran delay slot
+  beq C_S64_MIN, C_S64_MIN: followed, ignored ra, ran delay slot
+  beq C_GARBAGE1, C_GARBAGE2: skipped, ignored ra, ran delay slot
+
+bgez:
+  bgez 0: followed, ignored ra, ran delay slot
+  bgez 1: followed, ignored ra, ran delay slot
+  bgez 2: followed, ignored ra, ran delay slot
+  bgez -1: skipped, ignored ra, ran delay slot
+  bgez 2147483647: followed, ignored ra, ran delay slot
+  bgez -2147483648: skipped, ignored ra, ran delay slot
+  bgez C_ZERO: followed, ignored ra, ran delay slot
+  bgez C_ONE: followed, ignored ra, ran delay slot
+  bgez C_NEGONE: skipped, ignored ra, ran delay slot
+  bgez C_S16_MAX: followed, ignored ra, ran delay slot
+  bgez C_S16_MIN: skipped, ignored ra, ran delay slot
+  bgez C_S32_MAX: followed, ignored ra, ran delay slot
+  bgez C_S32_MIN: skipped, ignored ra, ran delay slot
+  bgez C_S64_MAX: skipped, ignored ra, ran delay slot
+  bgez C_S64_MIN: followed, ignored ra, ran delay slot
+  bgez C_GARBAGE1: followed, ignored ra, ran delay slot
+  bgez C_GARBAGE2: skipped, ignored ra, ran delay slot
+
+bgezal:
+  bgezal 0: followed, set ra, ran delay slot
+  bgezal 1: followed, set ra, ran delay slot
+  bgezal 2: followed, set ra, ran delay slot
+  bgezal -1: skipped, set ra, ran delay slot
+  bgezal 2147483647: followed, set ra, ran delay slot
+  bgezal -2147483648: skipped, set ra, ran delay slot
+  bgezal C_ZERO: followed, set ra, ran delay slot
+  bgezal C_ONE: followed, set ra, ran delay slot
+  bgezal C_NEGONE: skipped, set ra, ran delay slot
+  bgezal C_S16_MAX: followed, set ra, ran delay slot
+  bgezal C_S16_MIN: skipped, set ra, ran delay slot
+  bgezal C_S32_MAX: followed, set ra, ran delay slot
+  bgezal C_S32_MIN: skipped, set ra, ran delay slot
+  bgezal C_S64_MAX: skipped, set ra, ran delay slot
+  bgezal C_S64_MIN: followed, set ra, ran delay slot
+  bgezal C_GARBAGE1: followed, set ra, ran delay slot
+  bgezal C_GARBAGE2: skipped, set ra, ran delay slot
+
+bgtz:
+  bgtz 0: skipped, ignored ra, ran delay slot
+  bgtz 1: followed, ignored ra, ran delay slot
+  bgtz 2: followed, ignored ra, ran delay slot
+  bgtz -1: skipped, ignored ra, ran delay slot
+  bgtz 2147483647: followed, ignored ra, ran delay slot
+  bgtz -2147483648: skipped, ignored ra, ran delay slot
+  bgtz C_ZERO: skipped, ignored ra, ran delay slot
+  bgtz C_ONE: followed, ignored ra, ran delay slot
+  bgtz C_NEGONE: skipped, ignored ra, ran delay slot
+  bgtz C_S16_MAX: followed, ignored ra, ran delay slot
+  bgtz C_S16_MIN: skipped, ignored ra, ran delay slot
+  bgtz C_S32_MAX: followed, ignored ra, ran delay slot
+  bgtz C_S32_MIN: skipped, ignored ra, ran delay slot
+  bgtz C_S64_MAX: skipped, ignored ra, ran delay slot
+  bgtz C_S64_MIN: skipped, ignored ra, ran delay slot
+  bgtz C_GARBAGE1: followed, ignored ra, ran delay slot
+  bgtz C_GARBAGE2: skipped, ignored ra, ran delay slot
+
+blez:
+  blez 0: followed, ignored ra, ran delay slot
+  blez 1: skipped, ignored ra, ran delay slot
+  blez 2: skipped, ignored ra, ran delay slot
+  blez -1: followed, ignored ra, ran delay slot
+  blez 2147483647: skipped, ignored ra, ran delay slot
+  blez -2147483648: followed, ignored ra, ran delay slot
+  blez C_ZERO: followed, ignored ra, ran delay slot
+  blez C_ONE: skipped, ignored ra, ran delay slot
+  blez C_NEGONE: followed, ignored ra, ran delay slot
+  blez C_S16_MAX: skipped, ignored ra, ran delay slot
+  blez C_S16_MIN: followed, ignored ra, ran delay slot
+  blez C_S32_MAX: skipped, ignored ra, ran delay slot
+  blez C_S32_MIN: followed, ignored ra, ran delay slot
+  blez C_S64_MAX: followed, ignored ra, ran delay slot
+  blez C_S64_MIN: followed, ignored ra, ran delay slot
+  blez C_GARBAGE1: skipped, ignored ra, ran delay slot
+  blez C_GARBAGE2: followed, ignored ra, ran delay slot
+
+bltz:
+  bltz 0: skipped, ignored ra, ran delay slot
+  bltz 1: skipped, ignored ra, ran delay slot
+  bltz 2: skipped, ignored ra, ran delay slot
+  bltz -1: followed, ignored ra, ran delay slot
+  bltz 2147483647: skipped, ignored ra, ran delay slot
+  bltz -2147483648: followed, ignored ra, ran delay slot
+  bltz C_ZERO: skipped, ignored ra, ran delay slot
+  bltz C_ONE: skipped, ignored ra, ran delay slot
+  bltz C_NEGONE: followed, ignored ra, ran delay slot
+  bltz C_S16_MAX: skipped, ignored ra, ran delay slot
+  bltz C_S16_MIN: followed, ignored ra, ran delay slot
+  bltz C_S32_MAX: skipped, ignored ra, ran delay slot
+  bltz C_S32_MIN: followed, ignored ra, ran delay slot
+  bltz C_S64_MAX: followed, ignored ra, ran delay slot
+  bltz C_S64_MIN: skipped, ignored ra, ran delay slot
+  bltz C_GARBAGE1: skipped, ignored ra, ran delay slot
+  bltz C_GARBAGE2: followed, ignored ra, ran delay slot
+
+bltzal:
+  bltzal 0: skipped, set ra, ran delay slot
+  bltzal 1: skipped, set ra, ran delay slot
+  bltzal 2: skipped, set ra, ran delay slot
+  bltzal -1: followed, set ra, ran delay slot
+  bltzal 2147483647: skipped, set ra, ran delay slot
+  bltzal -2147483648: followed, set ra, ran delay slot
+  bltzal C_ZERO: skipped, set ra, ran delay slot
+  bltzal C_ONE: skipped, set ra, ran delay slot
+  bltzal C_NEGONE: followed, set ra, ran delay slot
+  bltzal C_S16_MAX: skipped, set ra, ran delay slot
+  bltzal C_S16_MIN: followed, set ra, ran delay slot
+  bltzal C_S32_MAX: skipped, set ra, ran delay slot
+  bltzal C_S32_MIN: followed, set ra, ran delay slot
+  bltzal C_S64_MAX: followed, set ra, ran delay slot
+  bltzal C_S64_MIN: skipped, set ra, ran delay slot
+  bltzal C_GARBAGE1: skipped, set ra, ran delay slot
+  bltzal C_GARBAGE2: followed, set ra, ran delay slot
+
+bne:
+  bne 0, 0: skipped, ignored ra, ran delay slot
+  bne 0, 1: followed, ignored ra, ran delay slot
+  bne 1, 1: skipped, ignored ra, ran delay slot
+  bne 1, 0: followed, ignored ra, ran delay slot
+  bne 2, 2: skipped, ignored ra, ran delay slot
+  bne -1, 1: followed, ignored ra, ran delay slot
+  bne -1, -1: skipped, ignored ra, ran delay slot
+  bne C_ZERO, C_ZERO: skipped, ignored ra, ran delay slot
+  bne C_ZERO, C_ONE: followed, ignored ra, ran delay slot
+  bne C_ONE, C_ZERO: followed, ignored ra, ran delay slot
+  bne C_ONE, C_ONE: skipped, ignored ra, ran delay slot
+  bne C_ONE, C_NEGONE: followed, ignored ra, ran delay slot
+  bne C_S16_MAX, C_S16_MAX: skipped, ignored ra, ran delay slot
+  bne C_S16_MIN, C_S16_MIN: skipped, ignored ra, ran delay slot
+  bne C_S32_MAX, C_S32_MAX: skipped, ignored ra, ran delay slot
+  bne C_S32_MIN, C_S32_MIN: skipped, ignored ra, ran delay slot
+  bne C_S64_MAX, C_S64_MAX: skipped, ignored ra, ran delay slot
+  bne C_S64_MIN, C_S64_MIN: skipped, ignored ra, ran delay slot
+  bne C_GARBAGE1, C_GARBAGE2: followed, ignored ra, ran delay slot
+
+j:
+  j: followed, ignored ra, ran delay slot
+
+jal:
+  jal: followed, set ra, ran delay slot
+
+jalr:
+  jalr: followed, set ra, ran delay slot
+
+jr:
+  jr: followed, ignored ra, ran delay slot
+
+-- TEST END
