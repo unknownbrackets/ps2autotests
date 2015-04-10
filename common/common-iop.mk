@@ -11,21 +11,17 @@
 # Define pefixes for the various toolchain binaries.
 include $(COMMON_DIR)/common-defines.mk
 
-IOP_CC_VERSION := $(shell $(IOP_CC) --version 2>&1 | sed -n 's/^.*(GCC) //p')
-
 ASFLAGS_TARGET = -mcpu=r3000
 
-ifeq ($(IOP_CC_VERSION),3.2.2)
 CFLAGS_TARGET  = -miop
 ASFLAGS_TARGET = -march=r3000
 LDFLAGS_TARGET = -miop
-endif
 
 # include dir
 IOP_INCS := -I$(PS2SDK)/iop/include -I$(PS2SDK)/common/include \
 	-I. $(IOP_INCS)
 # C compiler flags
-IOP_CFLAGS := $(CFLAGS_TARGET) -O2 -G0 -c $(IOP_INCS) $(IOP_CFLAGS)
+IOP_CFLAGS := $(CFLAGS_TARGET) -O2 -G0 $(IOP_INCS) $(IOP_CFLAGS)
 
 # linker flags
 IOP_LDFLAGS := $(LDFLAGS_TARGET) -nostdlib -L$(PS2SDK)/iop/lib $(IOP_LDFLAGS)
@@ -47,13 +43,12 @@ IOP_LIBS += -lkernel -lgcc
 %.o : %.s
 	$(IOP_AS) $(IOP_ASFLAGS) $< -o $@
 
-%.elf : %.o $(EXTRA_OBJS)
-	$(IOP_CC) $(IOP_CFLAGS) -o $@ $< $(EXTRA_OBJS) $(IOP_LDFLAGS) $(IOP_LIBS)
-	$(EE_STRIP) --strip-all $@
+%.irx : %.o $(EXTRA_OBJS)
+	$(IOP_CC) $(IOP_LDFLAGS) -o $@ $< $(EXTRA_OBJS) $(IOP_LIBS)
 
-all: $(TARGETS:=.elf)
+all: $(TARGETS:=.irx)
 
 clean:
-	-$(RM) -f $(TARGETS:=.elf) $(TARGETS:=.o)
+	-$(RM) -f $(TARGETS:=.irx) $(TARGETS:=.o)
 
 rebuild: clean all

@@ -77,8 +77,11 @@ def prepare_test(test, args):
 
 def gen_test(test, args):
   elf_path = TEST_ROOT + test + ".elf"
+  elf_exists = os.path.exists(elf_path);
+  irx_path = TEST_ROOT + test + ".irx"
+  irx_exists = os.path.exists(irx_path)
 
-  if not os.path.exists(elf_path):
+  if not elf_exists and not irx_exists:
     print("You must compile the test into a ELF first (" + elf_path + ")")
     return False
 
@@ -87,7 +90,11 @@ def gen_test(test, args):
   c.run(RECONNECT_TIMEOUT)
 
   # Okay, time to run the command.
-  c = Command([PS2CLIENT, "execee", "host:" + elf_path + " " + " ".join(args)])
+  if elf_exists:
+    c = Command([PS2CLIENT, "-t", str(TIMEOUT), "execee", "host:" + elf_path] + args)
+  else:
+    # For some reason, it says "invalid IOP module" with less than one extra arg.
+    c = Command([PS2CLIENT, "-t", str(TIMEOUT), "execiop", "host:" + irx_path, "host:" + irx_path] + args)
   c.run(TIMEOUT)
   output = c.output
 
@@ -97,6 +104,8 @@ def gen_test(test, args):
     # Strip out debug output from ps2link, etc.
     output = re.sub(r"\A[^\Z]+?-- TEST BEGIN", "-- TEST BEGIN", output, re.MULTILINE)
     output = re.sub(r"\n-- TEST END\s*\n[^\Z]+\Z", "\n-- TEST END\n", output, re.MULTILINE)
+    output = re.sub(r"\r\n", "\n", output)
+    # IOP seems to give an extra pair of \r\ns on Windows.
     output = re.sub(r"\r\n", "\n", output)
     return output
 
