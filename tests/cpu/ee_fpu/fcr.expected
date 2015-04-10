@@ -1,0 +1,53 @@
+-- TEST BEGIN
+Initial:
+  fcr0: 00002e30, fcr1: 00002e30, fcr2: 00002e30, fcr3: 00002e30, fcr4: 00002e30, fcr5: 00002e30, fcr6: 00002e30, fcr7: 00002e30, fcr8: 00002e30, fcr9: 00002e30, fcr10: 00002e30, fcr11: 00002e30, fcr12: 00002e30, fcr13: 00002e30, fcr14: 00002e30, fcr15: 00002e30, fcr16: 01000001, fcr17: 01000001, fcr18: 01000001, fcr19: 01000001, fcr20: 01000001, fcr21: 01000001, fcr22: 01000001, fcr23: 01000001, fcr24: 01000001, fcr25: 01000001, fcr26: 01000001, fcr27: 01000001, fcr28: 01000001, fcr29: 01000001, fcr30: 01000001, fcr31: 01000001
+Update fcr0:
+  fcr0: 00002e30, fcr31: 01000001
+Update rounding mode (RM):
+  fcr0: 00002e30, fcr31: 01000001
+Update flags:
+  fcr0: 00002e30, fcr31: 01000079
+All regs:
+  fcr0: 00002e30, fcr1: 00002e30, fcr2: 00002e30, fcr3: 00002e30, fcr4: 00002e30, fcr5: 00002e30, fcr6: 00002e30, fcr7: 00002e30, fcr8: 00002e30, fcr9: 00002e30, fcr10: 00002e30, fcr11: 00002e30, fcr12: 00002e30, fcr13: 00002e30, fcr14: 00002e30, fcr15: 00002e30, fcr16: 01000079, fcr17: 01000079, fcr18: 01000079, fcr19: 01000079, fcr20: 01000079, fcr21: 01000079, fcr22: 01000079, fcr23: 01000079, fcr24: 01000079, fcr25: 01000079, fcr26: 01000079, fcr27: 01000079, fcr28: 01000079, fcr29: 01000079, fcr30: 01000079, fcr31: 01000079
+Update enables:
+  fcr0: 00002e30, fcr31: 01000001
+Update cause:
+  fcr0: 00002e30, fcr31: 0101c001
+Update unimplemented (E):
+  fcr0: 00002e30, fcr31: 01020001
+Update flushing (FS):
+  fcr0: 00002e30, fcr31: 01000001
+Update flushing (FO):
+  fcr0: 00002e30, fcr31: 01000001
+Update flushing (FN):
+  fcr0: 00002e30, fcr31: 01000001
+Update FCC:
+  fcr0: 00002e30, fcr31: 01800001
+Update FCC1-7:
+  fcr0: 00002e30, fcr31: 01000001
+Update unknown:
+  fcr0: 00002e30, fcr31: 01000001
+
+Flag situations:
+sqrt(-1):
+  fcr0: 00002e30, fcr31: 01020041
+  result = 1.000000
+Divide zero by zero:
+  fcr0: 00002e30, fcr31: 01020041
+  result = NaN
+Divide one by zero:
+  fcr0: 00002e30, fcr31: 01010021
+  result = NaN
+NAN math:
+  fcr0: 00002e30, fcr31: 01008011
+  result = NaN
+Overflow:
+  fcr0: 00002e30, fcr31: 01008011
+  result = NaN
+Underflow:
+  fcr0: 00002e30, fcr31: 01000001
+  result = 0.000000
+Inexact:
+  fcr0: 00002e30, fcr31: 01000001
+  result = 0.331606
+-- TEST END
