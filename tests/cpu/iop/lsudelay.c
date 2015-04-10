@@ -1,6 +1,23 @@
 #include <stdio.h>
 #include <tamtypes.h>
 
+#define LOAD_DELAY0_FUNC(OP) \
+void test_delay0_##OP() { \
+	const static u32 data = 0x13371337; \
+	register u32 res = 0; \
+	asm volatile ( \
+		".set noreorder\n" \
+		"lui $t0, 0x1122\n" \
+		"ori $t0, $t0, 0x3344\n" \
+		#OP " $t0, 0(%1)\n" \
+		"ori $t0, $0, 0\n" \
+		"or %0, $0, $t0\n" \
+		"nop\n" \
+		: "+&r"(res) : "r"((u32)&data) : "t0" \
+	); \
+	printf("%s 0: %08x\n", #OP, res); \
+}
+
 #define LOAD_DELAY1_FUNC(OP) \
 void test_delay1_##OP() { \
 	const static u32 data = 0x13371337; \
@@ -31,7 +48,7 @@ void test_delay2_##OP() { \
 		"nop\n" \
 		: "+&r"(res) : "r"((u32)&data) : "t0" \
 	); \
-	printf("lw 2: %08x\n", res); \
+	printf("%s 2: %08x\n", #OP, res); \
 }
 
 void test_delay_lw_branch() {
@@ -97,6 +114,8 @@ void test_delay2_ld() {
 	printf("ld 2: %08x %08x\n", res1, res2);
 }
 
+LOAD_DELAY0_FUNC(lb)
+LOAD_DELAY0_FUNC(lw)
 LOAD_DELAY1_FUNC(lb)
 LOAD_DELAY1_FUNC(lw)
 LOAD_DELAY2_FUNC(lb)
@@ -104,7 +123,9 @@ LOAD_DELAY2_FUNC(lw)
 
 int _start(int argc, char *argv[]) {
 	printf("-- TEST BEGIN\n");
-
+	
+	test_delay0_lb();
+	test_delay0_lw();
 	test_delay1_lb();
 	test_delay1_lw();
 	test_delay2_lb();
