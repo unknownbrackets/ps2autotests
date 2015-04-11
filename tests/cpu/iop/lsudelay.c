@@ -65,6 +65,7 @@ void test_delay_lw_branch() {
 
 		"ori %0, $0, 1\n"
 		"b lw_branch_done\n"
+		"nop\n"
 
 		"lw_branch_equal:\n"
 		"ori %0, $0, 2\n"
