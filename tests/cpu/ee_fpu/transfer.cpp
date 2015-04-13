@@ -174,6 +174,16 @@ static void test_cfc1() {
 
 	printf("cfc1: ");
 	PRINT_R(fcr31, true);
+
+	asm volatile (
+		"cfc1 $0, $31\n"
+		"sync\n"
+		"por %0, $0, $0\n"
+		: "+&r"(fcr31) : : "t6"
+	);
+
+	printf("cfc1 -> $0: ");
+	PRINT_R(fcr31, true);
 }
 
 static void test_ctc1() {
@@ -222,6 +232,16 @@ static void test_mfc1() {
 	);
 
 	printf("mfc1 positive: ");
+	PRINT_R(r, true);
+
+	asm volatile (
+		"mfc1 $0, %1\n"
+		"sync\n"
+		"por %0, $0, $0\n"
+		: "+&r"(r) : "f"(f) : "t6"
+	);
+
+	printf("mfc1 -> $0: ");
 	PRINT_R(r, true);
 }
 
