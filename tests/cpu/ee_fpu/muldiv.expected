@@ -1,0 +1,360 @@
+-- TEST BEGIN
+div:
+  div 00000000/+0.00, 00000000/+0.00: 7fffffff/+NaN
+  div 00000000/+0.00, 80000000/-0.00: ffffffff/-NaN
+  div 80000000/-0.00, 00000000/+0.00: ffffffff/-NaN
+  div 80000000/-0.00, 80000000/-0.00: 7fffffff/+NaN
+  div 00000000/+0.00, 3f800000/+1.00: 00000000/+0.00
+  div 3f800000/+1.00, 3f800000/+1.00: 3f800000/+1.00
+  div 3f800000/+1.00, 00000000/+0.00: 7fffffff/+NaN
+  div 40000000/+2.00, 40000000/+2.00: 3f800000/+1.00
+  div 40400000/+3.00, 3f800000/+1.00: 40400000/+3.00
+  div 40400000/+3.00, 40400000/+3.00: 3f800000/+1.00
+  div 7fffffff/+NaN, 7fffffff/+NaN: 3f800000/+1.00
+  div 7fffffff/+NaN, ffffffff/-NaN: bf800000/-1.00
+  div ffffffff/-NaN, 7fffffff/+NaN: bf800000/-1.00
+  div ffffffff/-NaN, ffffffff/-NaN: 3f800000/+1.00
+  div 7fffffff/+NaN, 00000000/+0.00: 7fffffff/+NaN
+  div 00000000/+0.00, 7fffffff/+NaN: 00000000/+0.00
+  div 00000000/+0.00, 7f800000/+NaN: 00000000/+0.00
+  div 7f800000/+NaN, 7f800000/+NaN: 3f800000/+1.00
+  div ff800000/-NaN, 7f800000/+NaN: bf800000/-1.00
+  div CF_ZERO, CF_ZERO: 7fffffff/+NaN
+  div CF_ZERO, CF_NEGZERO: ffffffff/-NaN
+  div CF_ONE, CF_ONE: 3f800000/+1.00
+  div CF_ONE, CF_NEGONE: bf800000/-1.00
+  div CF_MAX_MANTISSA, CF_ONE: 3fffffff/+2.00
+  div CF_MAX_EXP, CF_ONE: 7f800001/+NaN
+  div CF_MIN_EXP, CF_ONE: 00000000/+0.00
+  div CF_ONE, CF_MAX_MANTISSA: 3f000001/+0.50
+  div CF_ONE, CF_MAX_EXP: 00000000/+0.00
+  div CF_ONE, CF_MIN_EXP: 7fffffff/+NaN
+  div CF_MAX, CF_ONE: 7fffffff/+NaN
+  div CF_MIN, CF_ONE: ffffffff/-NaN
+  div CF_ONE, CF_MAX: 00000000/+0.00
+  div CF_ONE, CF_MIN: 80000000/-0.00
+  div CF_MAX, CF_MAX: 3f800000/+1.00
+  div CF_MIN, CF_MIN: 3f800000/+1.00
+  div CF_GARBAGE1, CF_GARBAGE2: 80000000/-0.00
+
+madd:
+  madd (00000000/+0.00) 00000000/+0.00, 00000000/+0.00: 00000000/+0.00 (00000000/+0.00)
+  madd (00000000/+0.00) 00000000/+0.00, 80000000/-0.00: 00000000/+0.00 (00000000/+0.00)
+  madd (80000000/-0.00) 00000000/+0.00, 80000000/-0.00: 80000000/-0.00 (80000000/-0.00)
+  madd (00000000/+0.00) 80000000/-0.00, 00000000/+0.00: 00000000/+0.00 (00000000/+0.00)
+  madd (00000000/+0.00) 80000000/-0.00, 80000000/-0.00: 00000000/+0.00 (00000000/+0.00)
+  madd (80000000/-0.00) 80000000/-0.00, 80000000/-0.00: 00000000/+0.00 (80000000/-0.00)
+  madd (00000000/+0.00) 00000000/+0.00, 3f800000/+1.00: 00000000/+0.00 (00000000/+0.00)
+  madd (00000000/+0.00) 3f800000/+1.00, 3f800000/+1.00: 3f800000/+1.00 (00000000/+0.00)
+  madd (3f800000/+1.00) 3f800000/+1.00, 3f800000/+1.00: 40000000/+2.00 (3f800000/+1.00)
+  madd (3f800000/+1.00) 3f800000/+1.00, 00000000/+0.00: 3f800000/+1.00 (3f800000/+1.00)
+  madd (40000000/+2.00) 40000000/+2.00, 40000000/+2.00: 40c00000/+6.00 (40000000/+2.00)
+  madd (40400000/+3.00) 40400000/+3.00, 3f800000/+1.00: 40c00000/+6.00 (40400000/+3.00)
+  madd (00000000/+0.00) 40400000/+3.00, 40400000/+3.00: 41100000/+9.00 (00000000/+0.00)
+  madd (00000000/+0.00) 7fffffff/+NaN, 7fffffff/+NaN: 7fffffff/+NaN (00000000/+0.00)
+  madd (7fffffff/+NaN) 00000000/+0.00, 00000000/+0.00: 7fffffff/+NaN (7fffffff/+NaN)
+  madd (7fffffff/+NaN) 7fffffff/+NaN, 7fffffff/+NaN: 7fffffff/+NaN (7fffffff/+NaN)
+  madd (ffffffff/-NaN) 7fffffff/+NaN, 7fffffff/+NaN: 7fffffff/+NaN (ffffffff/-NaN)
+  madd (00000000/+0.00) 7fffffff/+NaN, ffffffff/-NaN: ffffffff/-NaN (00000000/+0.00)
+  madd (7fffffff/+NaN) 7fffffff/+NaN, ffffffff/-NaN: ffffffff/-NaN (7fffffff/+NaN)
+  madd (ffffffff/-NaN) 7fffffff/+NaN, ffffffff/-NaN: ffffffff/-NaN (ffffffff/-NaN)
+  madd (00000000/+0.00) ffffffff/-NaN, 7fffffff/+NaN: ffffffff/-NaN (00000000/+0.00)
+  madd (00000000/+0.00) ffffffff/-NaN, ffffffff/-NaN: 7fffffff/+NaN (00000000/+0.00)
+  madd (ffffffff/-NaN) ffffffff/-NaN, ffffffff/-NaN: 7fffffff/+NaN (ffffffff/-NaN)
+  madd (ffffffff/-NaN) 00000000/+0.00, 00000000/+0.00: ffffffff/-NaN (ffffffff/-NaN)
+  madd (00000000/+0.00) 7fffffff/+NaN, 00000000/+0.00: 00000000/+0.00 (00000000/+0.00)
+  madd (00000000/+0.00) 00000000/+0.00, 7fffffff/+NaN: 00000000/+0.00 (00000000/+0.00)
+  madd (00000000/+0.00) 00000000/+0.00, 7f800000/+NaN: 00000000/+0.00 (00000000/+0.00)
+  madd (00000000/+0.00) 7f800000/+NaN, 7f800000/+NaN: 7fffffff/+NaN (00000000/+0.00)
+  madd (7f800000/+NaN) 7f800000/+NaN, 7f800000/+NaN: 7fffffff/+NaN (7f800000/+NaN)
+  madd (00000000/+0.00) ff800000/-NaN, 7f800000/+NaN: ffffffff/-NaN (00000000/+0.00)
+  madd (ff800000/-NaN) ff800000/-NaN, 7f800000/+NaN: ffffffff/-NaN (ff800000/-NaN)
+  madd (ff800000/-NaN) 00000000/+0.00, 00000000/+0.00: ff800000/-NaN (ff800000/-NaN)
+  madd (CF_ZERO) CF_ZERO, CF_ZERO: 00000000/+0.00 (00000000/+0.00)
+  madd (CF_ZERO) CF_ZERO, CF_NEGZERO: 00000000/+0.00 (00000000/+0.00)
+  madd (CF_NEGZERO) CF_ZERO, CF_NEGZERO: 80000000/-0.00 (80000000/-0.00)
+  madd (CF_NEGZERO) CF_ZERO, CF_ZERO: 00000000/+0.00 (80000000/-0.00)
+  madd (CF_ZERO) CF_ONE, CF_ONE: 3f800000/+1.00 (00000000/+0.00)
+  madd (CF_ONE) CF_ONE, CF_ONE: 40000000/+2.00 (3f800000/+1.00)
+  madd (CF_MIN_EXP) CF_ONE, CF_ONE: 3f800000/+1.00 (00000000/+0.00)
+  madd (CF_MIN_EXP) CF_MIN_EXP, CF_MIN_EXP: 00000000/+0.00 (00000000/+0.00)
+  madd (CF_MAX_EXP) CF_ONE, CF_ONE: 7f800001/+NaN (7f800001/+NaN)
+  madd (CF_MAX_EXP) CF_MAX_EXP, CF_MAX_EXP: 7fffffff/+NaN (7f800001/+NaN)
+  madd (CF_ZERO) CF_ONE, CF_NEGONE: bf800000/-1.00 (00000000/+0.00)
+  madd (CF_ZERO) CF_MAX_MANTISSA, CF_ONE: 3fffffff/+2.00 (00000000/+0.00)
+  madd (CF_ZERO) CF_MAX_EXP, CF_ONE: 7f800001/+NaN (00000000/+0.00)
+  madd (CF_ZERO) CF_MIN_EXP, CF_ONE: 00000000/+0.00 (00000000/+0.00)
+  madd (CF_ZERO) CF_ONE, CF_MAX_MANTISSA: 3ffffffe/+2.00 (00000000/+0.00)
+  madd (CF_ZERO) CF_ONE, CF_MAX_EXP: 7f800001/+NaN (00000000/+0.00)
+  madd (CF_ZERO) CF_ONE, CF_MIN_EXP: 00000000/+0.00 (00000000/+0.00)
+  madd (CF_ZERO) CF_MAX_MANTISSA, CF_MAX_MANTISSA: 407ffffe/+4.00 (00000000/+0.00)
+  madd (CF_ZERO) CF_MAX_EXP, CF_MAX_EXP: 7fffffff/+NaN (00000000/+0.00)
+  madd (CF_ZERO) CF_MIN_EXP, CF_MIN_EXP: 00000000/+0.00 (00000000/+0.00)
+  madd (CF_ZERO) CF_MAX, CF_ONE: 7fffffff/+NaN (00000000/+0.00)
+  madd (CF_ZERO) CF_MIN, CF_ONE: ffffffff/-NaN (00000000/+0.00)
+  madd (CF_ZERO) CF_ONE, CF_MAX: 7ffffffe/+NaN (00000000/+0.00)
+  madd (CF_ZERO) CF_ONE, CF_MIN: fffffffe/-NaN (00000000/+0.00)
+  madd (CF_ZERO) CF_MAX, CF_MAX: 7fffffff/+NaN (00000000/+0.00)
+  madd (CF_ZERO) CF_MIN, CF_MIN: 7fffffff/+NaN (00000000/+0.00)
+  madd (CF_ZERO) CF_GARBAGE1, CF_GARBAGE2: 00000000/+0.00 (00000000/+0.00)
+
+madda:
+  madda (00000000/+0.00) 00000000/+0.00, 00000000/+0.00: 00000000/+0.00
+  madda (00000000/+0.00) 00000000/+0.00, 80000000/-0.00: 00000000/+0.00
+  madda (80000000/-0.00) 00000000/+0.00, 80000000/-0.00: 80000000/-0.00
+  madda (00000000/+0.00) 80000000/-0.00, 00000000/+0.00: 00000000/+0.00
+  madda (00000000/+0.00) 80000000/-0.00, 80000000/-0.00: 00000000/+0.00
+  madda (80000000/-0.00) 80000000/-0.00, 80000000/-0.00: 00000000/+0.00
+  madda (00000000/+0.00) 00000000/+0.00, 3f800000/+1.00: 00000000/+0.00
+  madda (00000000/+0.00) 3f800000/+1.00, 3f800000/+1.00: 3f800000/+1.00
+  madda (3f800000/+1.00) 3f800000/+1.00, 3f800000/+1.00: 40000000/+2.00
+  madda (3f800000/+1.00) 3f800000/+1.00, 00000000/+0.00: 3f800000/+1.00
+  madda (40000000/+2.00) 40000000/+2.00, 40000000/+2.00: 40c00000/+6.00
+  madda (40400000/+3.00) 40400000/+3.00, 3f800000/+1.00: 40c00000/+6.00
+  madda (00000000/+0.00) 40400000/+3.00, 40400000/+3.00: 41100000/+9.00
+  madda (00000000/+0.00) 7fffffff/+NaN, 7fffffff/+NaN: 7fffffff/+NaN
+  madda (7fffffff/+NaN) 00000000/+0.00, 00000000/+0.00: 7fffffff/+NaN
+  madda (7fffffff/+NaN) 7fffffff/+NaN, 7fffffff/+NaN: 7fffffff/+NaN
+  madda (ffffffff/-NaN) 7fffffff/+NaN, 7fffffff/+NaN: 7fffffff/+NaN
+  madda (00000000/+0.00) 7fffffff/+NaN, ffffffff/-NaN: ffffffff/-NaN
+  madda (7fffffff/+NaN) 7fffffff/+NaN, ffffffff/-NaN: ffffffff/-NaN
+  madda (ffffffff/-NaN) 7fffffff/+NaN, ffffffff/-NaN: ffffffff/-NaN
+  madda (00000000/+0.00) ffffffff/-NaN, 7fffffff/+NaN: ffffffff/-NaN
+  madda (00000000/+0.00) ffffffff/-NaN, ffffffff/-NaN: 7fffffff/+NaN
+  madda (ffffffff/-NaN) ffffffff/-NaN, ffffffff/-NaN: 7fffffff/+NaN
+  madda (ffffffff/-NaN) 00000000/+0.00, 00000000/+0.00: ffffffff/-NaN
+  madda (00000000/+0.00) 7fffffff/+NaN, 00000000/+0.00: 00000000/+0.00
+  madda (00000000/+0.00) 00000000/+0.00, 7fffffff/+NaN: 00000000/+0.00
+  madda (00000000/+0.00) 00000000/+0.00, 7f800000/+NaN: 00000000/+0.00
+  madda (00000000/+0.00) 7f800000/+NaN, 7f800000/+NaN: 7fffffff/+NaN
+  madda (7f800000/+NaN) 7f800000/+NaN, 7f800000/+NaN: 7fffffff/+NaN
+  madda (00000000/+0.00) ff800000/-NaN, 7f800000/+NaN: ffffffff/-NaN
+  madda (ff800000/-NaN) ff800000/-NaN, 7f800000/+NaN: ffffffff/-NaN
+  madda (ff800000/-NaN) 00000000/+0.00, 00000000/+0.00: ff800000/-NaN
+  madda (CF_ZERO) CF_ZERO, CF_ZERO: 00000000/+0.00
+  madda (CF_ZERO) CF_ZERO, CF_NEGZERO: 00000000/+0.00
+  madda (CF_NEGZERO) CF_ZERO, CF_NEGZERO: 80000000/-0.00
+  madda (CF_NEGZERO) CF_ZERO, CF_ZERO: 00000000/+0.00
+  madda (CF_ZERO) CF_ONE, CF_ONE: 3f800000/+1.00
+  madda (CF_ONE) CF_ONE, CF_ONE: 40000000/+2.00
+  madda (CF_MIN_EXP) CF_ONE, CF_ONE: 3f800000/+1.00
+  madda (CF_MIN_EXP) CF_MIN_EXP, CF_MIN_EXP: 00000000/+0.00
+  madda (CF_MAX_EXP) CF_ONE, CF_ONE: 7f800001/+NaN
+  madda (CF_MAX_EXP) CF_MAX_EXP, CF_MAX_EXP: 7fffffff/+NaN
+  madda (CF_ZERO) CF_ONE, CF_NEGONE: bf800000/-1.00
+  madda (CF_ZERO) CF_MAX_MANTISSA, CF_ONE: 3fffffff/+2.00
+  madda (CF_ZERO) CF_MAX_EXP, CF_ONE: 7f800001/+NaN
+  madda (CF_ZERO) CF_MIN_EXP, CF_ONE: 00000000/+0.00
+  madda (CF_ZERO) CF_ONE, CF_MAX_MANTISSA: 3ffffffe/+2.00
+  madda (CF_ZERO) CF_ONE, CF_MAX_EXP: 7f800001/+NaN
+  madda (CF_ZERO) CF_ONE, CF_MIN_EXP: 00000000/+0.00
+  madda (CF_ZERO) CF_MAX_MANTISSA, CF_MAX_MANTISSA: 407ffffe/+4.00
+  madda (CF_ZERO) CF_MAX_EXP, CF_MAX_EXP: 7fffffff/+NaN
+  madda (CF_ZERO) CF_MIN_EXP, CF_MIN_EXP: 00000000/+0.00
+  madda (CF_ZERO) CF_MAX, CF_ONE: 7fffffff/+NaN
+  madda (CF_ZERO) CF_MIN, CF_ONE: ffffffff/-NaN
+  madda (CF_ZERO) CF_ONE, CF_MAX: 7ffffffe/+NaN
+  madda (CF_ZERO) CF_ONE, CF_MIN: fffffffe/-NaN
+  madda (CF_ZERO) CF_MAX, CF_MAX: 7fffffff/+NaN
+  madda (CF_ZERO) CF_MIN, CF_MIN: 7fffffff/+NaN
+  madda (CF_ZERO) CF_GARBAGE1, CF_GARBAGE2: 00000000/+0.00
+
+msub:
+  msub (00000000/+0.00) 00000000/+0.00, 00000000/+0.00: 00000000/+0.00 (00000000/+0.00)
+  msub (00000000/+0.00) 00000000/+0.00, 80000000/-0.00: 00000000/+0.00 (00000000/+0.00)
+  msub (80000000/-0.00) 00000000/+0.00, 80000000/-0.00: 00000000/+0.00 (80000000/-0.00)
+  msub (00000000/+0.00) 80000000/-0.00, 00000000/+0.00: 00000000/+0.00 (00000000/+0.00)
+  msub (00000000/+0.00) 80000000/-0.00, 80000000/-0.00: 00000000/+0.00 (00000000/+0.00)
+  msub (80000000/-0.00) 80000000/-0.00, 80000000/-0.00: 80000000/-0.00 (80000000/-0.00)
+  msub (00000000/+0.00) 00000000/+0.00, 3f800000/+1.00: 00000000/+0.00 (00000000/+0.00)
+  msub (00000000/+0.00) 3f800000/+1.00, 3f800000/+1.00: bf800000/-1.00 (00000000/+0.00)
+  msub (3f800000/+1.00) 3f800000/+1.00, 3f800000/+1.00: 00000000/+0.00 (3f800000/+1.00)
+  msub (3f800000/+1.00) 3f800000/+1.00, 00000000/+0.00: 3f800000/+1.00 (3f800000/+1.00)
+  msub (40000000/+2.00) 40000000/+2.00, 40000000/+2.00: c0000000/-2.00 (40000000/+2.00)
+  msub (40400000/+3.00) 40400000/+3.00, 3f800000/+1.00: 00000000/+0.00 (40400000/+3.00)
+  msub (00000000/+0.00) 40400000/+3.00, 40400000/+3.00: c1100000/-9.00 (00000000/+0.00)
+  msub (00000000/+0.00) 7fffffff/+NaN, 7fffffff/+NaN: ffffffff/-NaN (00000000/+0.00)
+  msub (7fffffff/+NaN) 00000000/+0.00, 00000000/+0.00: 7fffffff/+NaN (7fffffff/+NaN)
+  msub (7fffffff/+NaN) 7fffffff/+NaN, 7fffffff/+NaN: ffffffff/-NaN (7fffffff/+NaN)
+  msub (ffffffff/-NaN) 7fffffff/+NaN, 7fffffff/+NaN: ffffffff/-NaN (ffffffff/-NaN)
+  msub (00000000/+0.00) 7fffffff/+NaN, ffffffff/-NaN: 7fffffff/+NaN (00000000/+0.00)
+  msub (7fffffff/+NaN) 7fffffff/+NaN, ffffffff/-NaN: 7fffffff/+NaN (7fffffff/+NaN)
+  msub (ffffffff/-NaN) 7fffffff/+NaN, ffffffff/-NaN: 7fffffff/+NaN (ffffffff/-NaN)
+  msub (00000000/+0.00) ffffffff/-NaN, 7fffffff/+NaN: 7fffffff/+NaN (00000000/+0.00)
+  msub (00000000/+0.00) ffffffff/-NaN, ffffffff/-NaN: ffffffff/-NaN (00000000/+0.00)
+  msub (ffffffff/-NaN) ffffffff/-NaN, ffffffff/-NaN: ffffffff/-NaN (ffffffff/-NaN)
+  msub (ffffffff/-NaN) 00000000/+0.00, 00000000/+0.00: ffffffff/-NaN (ffffffff/-NaN)
+  msub (00000000/+0.00) 7fffffff/+NaN, 00000000/+0.00: 00000000/+0.00 (00000000/+0.00)
+  msub (00000000/+0.00) 00000000/+0.00, 7fffffff/+NaN: 00000000/+0.00 (00000000/+0.00)
+  msub (00000000/+0.00) 00000000/+0.00, 7f800000/+NaN: 00000000/+0.00 (00000000/+0.00)
+  msub (00000000/+0.00) 7f800000/+NaN, 7f800000/+NaN: ffffffff/-NaN (00000000/+0.00)
+  msub (7f800000/+NaN) 7f800000/+NaN, 7f800000/+NaN: ffffffff/-NaN (7f800000/+NaN)
+  msub (00000000/+0.00) ff800000/-NaN, 7f800000/+NaN: 7fffffff/+NaN (00000000/+0.00)
+  msub (ff800000/-NaN) ff800000/-NaN, 7f800000/+NaN: 7fffffff/+NaN (ff800000/-NaN)
+  msub (ff800000/-NaN) 00000000/+0.00, 00000000/+0.00: ff800000/-NaN (ff800000/-NaN)
+  msub (CF_ZERO) CF_ZERO, CF_ZERO: 00000000/+0.00 (00000000/+0.00)
+  msub (CF_ZERO) CF_ZERO, CF_NEGZERO: 00000000/+0.00 (00000000/+0.00)
+  msub (CF_NEGZERO) CF_ZERO, CF_NEGZERO: 00000000/+0.00 (80000000/-0.00)
+  msub (CF_NEGZERO) CF_ZERO, CF_ZERO: 80000000/-0.00 (80000000/-0.00)
+  msub (CF_ZERO) CF_ONE, CF_ONE: bf800000/-1.00 (00000000/+0.00)
+  msub (CF_ONE) CF_ONE, CF_ONE: 00000000/+0.00 (3f800000/+1.00)
+  msub (CF_MIN_EXP) CF_ONE, CF_ONE: bf800000/-1.00 (00000000/+0.00)
+  msub (CF_MIN_EXP) CF_MIN_EXP, CF_MIN_EXP: 00000000/+0.00 (00000000/+0.00)
+  msub (CF_MAX_EXP) CF_ONE, CF_ONE: 7f800001/+NaN (7f800001/+NaN)
+  msub (CF_MAX_EXP) CF_MAX_EXP, CF_MAX_EXP: ffffffff/-NaN (7f800001/+NaN)
+  msub (CF_ZERO) CF_ONE, CF_NEGONE: 3f800000/+1.00 (00000000/+0.00)
+  msub (CF_ZERO) CF_MAX_MANTISSA, CF_ONE: bfffffff/-2.00 (00000000/+0.00)
+  msub (CF_ZERO) CF_MAX_EXP, CF_ONE: ff800001/-NaN (00000000/+0.00)
+  msub (CF_ZERO) CF_MIN_EXP, CF_ONE: 00000000/+0.00 (00000000/+0.00)
+  msub (CF_ZERO) CF_ONE, CF_MAX_MANTISSA: bffffffe/-2.00 (00000000/+0.00)
+  msub (CF_ZERO) CF_ONE, CF_MAX_EXP: ff800001/-NaN (00000000/+0.00)
+  msub (CF_ZERO) CF_ONE, CF_MIN_EXP: 00000000/+0.00 (00000000/+0.00)
+  msub (CF_ZERO) CF_MAX_MANTISSA, CF_MAX_MANTISSA: c07ffffe/-4.00 (00000000/+0.00)
+  msub (CF_ZERO) CF_MAX_EXP, CF_MAX_EXP: ffffffff/-NaN (00000000/+0.00)
+  msub (CF_ZERO) CF_MIN_EXP, CF_MIN_EXP: 00000000/+0.00 (00000000/+0.00)
+  msub (CF_ZERO) CF_MAX, CF_ONE: ffffffff/-NaN (00000000/+0.00)
+  msub (CF_ZERO) CF_MIN, CF_ONE: 7fffffff/+NaN (00000000/+0.00)
+  msub (CF_ZERO) CF_ONE, CF_MAX: fffffffe/-NaN (00000000/+0.00)
+  msub (CF_ZERO) CF_ONE, CF_MIN: 7ffffffe/+NaN (00000000/+0.00)
+  msub (CF_ZERO) CF_MAX, CF_MAX: ffffffff/-NaN (00000000/+0.00)
+  msub (CF_ZERO) CF_MIN, CF_MIN: ffffffff/-NaN (00000000/+0.00)
+  msub (CF_ZERO) CF_GARBAGE1, CF_GARBAGE2: 00000000/+0.00 (00000000/+0.00)
+
+msuba:
+  msuba (00000000/+0.00) 00000000/+0.00, 00000000/+0.00: 00000000/+0.00
+  msuba (00000000/+0.00) 00000000/+0.00, 80000000/-0.00: 00000000/+0.00
+  msuba (80000000/-0.00) 00000000/+0.00, 80000000/-0.00: 00000000/+0.00
+  msuba (00000000/+0.00) 80000000/-0.00, 00000000/+0.00: 00000000/+0.00
+  msuba (00000000/+0.00) 80000000/-0.00, 80000000/-0.00: 00000000/+0.00
+  msuba (80000000/-0.00) 80000000/-0.00, 80000000/-0.00: 80000000/-0.00
+  msuba (00000000/+0.00) 00000000/+0.00, 3f800000/+1.00: 00000000/+0.00
+  msuba (00000000/+0.00) 3f800000/+1.00, 3f800000/+1.00: bf800000/-1.00
+  msuba (3f800000/+1.00) 3f800000/+1.00, 3f800000/+1.00: 00000000/+0.00
+  msuba (3f800000/+1.00) 3f800000/+1.00, 00000000/+0.00: 3f800000/+1.00
+  msuba (40000000/+2.00) 40000000/+2.00, 40000000/+2.00: c0000000/-2.00
+  msuba (40400000/+3.00) 40400000/+3.00, 3f800000/+1.00: 00000000/+0.00
+  msuba (00000000/+0.00) 40400000/+3.00, 40400000/+3.00: c1100000/-9.00
+  msuba (00000000/+0.00) 7fffffff/+NaN, 7fffffff/+NaN: ffffffff/-NaN
+  msuba (7fffffff/+NaN) 00000000/+0.00, 00000000/+0.00: 7fffffff/+NaN
+  msuba (7fffffff/+NaN) 7fffffff/+NaN, 7fffffff/+NaN: ffffffff/-NaN
+  msuba (ffffffff/-NaN) 7fffffff/+NaN, 7fffffff/+NaN: ffffffff/-NaN
+  msuba (00000000/+0.00) 7fffffff/+NaN, ffffffff/-NaN: 7fffffff/+NaN
+  msuba (7fffffff/+NaN) 7fffffff/+NaN, ffffffff/-NaN: 7fffffff/+NaN
+  msuba (ffffffff/-NaN) 7fffffff/+NaN, ffffffff/-NaN: 7fffffff/+NaN
+  msuba (00000000/+0.00) ffffffff/-NaN, 7fffffff/+NaN: 7fffffff/+NaN
+  msuba (00000000/+0.00) ffffffff/-NaN, ffffffff/-NaN: ffffffff/-NaN
+  msuba (ffffffff/-NaN) ffffffff/-NaN, ffffffff/-NaN: ffffffff/-NaN
+  msuba (ffffffff/-NaN) 00000000/+0.00, 00000000/+0.00: ffffffff/-NaN
+  msuba (00000000/+0.00) 7fffffff/+NaN, 00000000/+0.00: 00000000/+0.00
+  msuba (00000000/+0.00) 00000000/+0.00, 7fffffff/+NaN: 00000000/+0.00
+  msuba (00000000/+0.00) 00000000/+0.00, 7f800000/+NaN: 00000000/+0.00
+  msuba (00000000/+0.00) 7f800000/+NaN, 7f800000/+NaN: ffffffff/-NaN
+  msuba (7f800000/+NaN) 7f800000/+NaN, 7f800000/+NaN: ffffffff/-NaN
+  msuba (00000000/+0.00) ff800000/-NaN, 7f800000/+NaN: 7fffffff/+NaN
+  msuba (ff800000/-NaN) ff800000/-NaN, 7f800000/+NaN: 7fffffff/+NaN
+  msuba (ff800000/-NaN) 00000000/+0.00, 00000000/+0.00: ff800000/-NaN
+  msuba (CF_ZERO) CF_ZERO, CF_ZERO: 00000000/+0.00
+  msuba (CF_ZERO) CF_ZERO, CF_NEGZERO: 00000000/+0.00
+  msuba (CF_NEGZERO) CF_ZERO, CF_NEGZERO: 00000000/+0.00
+  msuba (CF_NEGZERO) CF_ZERO, CF_ZERO: 80000000/-0.00
+  msuba (CF_ZERO) CF_ONE, CF_ONE: bf800000/-1.00
+  msuba (CF_ONE) CF_ONE, CF_ONE: 00000000/+0.00
+  msuba (CF_MIN_EXP) CF_ONE, CF_ONE: bf800000/-1.00
+  msuba (CF_MIN_EXP) CF_MIN_EXP, CF_MIN_EXP: 00000000/+0.00
+  msuba (CF_MAX_EXP) CF_ONE, CF_ONE: 7f800001/+NaN
+  msuba (CF_MAX_EXP) CF_MAX_EXP, CF_MAX_EXP: ffffffff/-NaN
+  msuba (CF_ZERO) CF_ONE, CF_NEGONE: 3f800000/+1.00
+  msuba (CF_ZERO) CF_MAX_MANTISSA, CF_ONE: bfffffff/-2.00
+  msuba (CF_ZERO) CF_MAX_EXP, CF_ONE: ff800001/-NaN
+  msuba (CF_ZERO) CF_MIN_EXP, CF_ONE: 00000000/+0.00
+  msuba (CF_ZERO) CF_ONE, CF_MAX_MANTISSA: bffffffe/-2.00
+  msuba (CF_ZERO) CF_ONE, CF_MAX_EXP: ff800001/-NaN
+  msuba (CF_ZERO) CF_ONE, CF_MIN_EXP: 00000000/+0.00
+  msuba (CF_ZERO) CF_MAX_MANTISSA, CF_MAX_MANTISSA: c07ffffe/-4.00
+  msuba (CF_ZERO) CF_MAX_EXP, CF_MAX_EXP: ffffffff/-NaN
+  msuba (CF_ZERO) CF_MIN_EXP, CF_MIN_EXP: 00000000/+0.00
+  msuba (CF_ZERO) CF_MAX, CF_ONE: ffffffff/-NaN
+  msuba (CF_ZERO) CF_MIN, CF_ONE: 7fffffff/+NaN
+  msuba (CF_ZERO) CF_ONE, CF_MAX: fffffffe/-NaN
+  msuba (CF_ZERO) CF_ONE, CF_MIN: 7ffffffe/+NaN
+  msuba (CF_ZERO) CF_MAX, CF_MAX: ffffffff/-NaN
+  msuba (CF_ZERO) CF_MIN, CF_MIN: ffffffff/-NaN
+  msuba (CF_ZERO) CF_GARBAGE1, CF_GARBAGE2: 00000000/+0.00
+
+mul:
+  mul 00000000/+0.00, 00000000/+0.00: 00000000/+0.00
+  mul 00000000/+0.00, 80000000/-0.00: 80000000/-0.00
+  mul 80000000/-0.00, 00000000/+0.00: 80000000/-0.00
+  mul 80000000/-0.00, 80000000/-0.00: 00000000/+0.00
+  mul 00000000/+0.00, 3f800000/+1.00: 00000000/+0.00
+  mul 3f800000/+1.00, 3f800000/+1.00: 3f800000/+1.00
+  mul 3f800000/+1.00, 00000000/+0.00: 00000000/+0.00
+  mul 40000000/+2.00, 40000000/+2.00: 40800000/+4.00
+  mul 40400000/+3.00, 3f800000/+1.00: 40400000/+3.00
+  mul 40400000/+3.00, 40400000/+3.00: 41100000/+9.00
+  mul 7fffffff/+NaN, 7fffffff/+NaN: 7fffffff/+NaN
+  mul 7fffffff/+NaN, ffffffff/-NaN: ffffffff/-NaN
+  mul ffffffff/-NaN, 7fffffff/+NaN: ffffffff/-NaN
+  mul ffffffff/-NaN, ffffffff/-NaN: 7fffffff/+NaN
+  mul 7fffffff/+NaN, 00000000/+0.00: 00000000/+0.00
+  mul 00000000/+0.00, 7fffffff/+NaN: 00000000/+0.00
+  mul 00000000/+0.00, 7f800000/+NaN: 00000000/+0.00
+  mul 7f800000/+NaN, 7f800000/+NaN: 7fffffff/+NaN
+  mul ff800000/-NaN, 7f800000/+NaN: ffffffff/-NaN
+  mul CF_ZERO, CF_ZERO: 00000000/+0.00
+  mul CF_ZERO, CF_NEGZERO: 80000000/-0.00
+  mul CF_ONE, CF_ONE: 3f800000/+1.00
+  mul CF_ONE, CF_NEGONE: bf800000/-1.00
+  mul CF_MAX_MANTISSA, CF_ONE: 3fffffff/+2.00
+  mul CF_MAX_EXP, CF_ONE: 7f800001/+NaN
+  mul CF_MIN_EXP, CF_ONE: 00000000/+0.00
+  mul CF_ONE, CF_MAX_MANTISSA: 3ffffffe/+2.00
+  mul CF_ONE, CF_MAX_EXP: 7f800001/+NaN
+  mul CF_ONE, CF_MIN_EXP: 00000000/+0.00
+  mul CF_MAX, CF_ONE: 7fffffff/+NaN
+  mul CF_MIN, CF_ONE: ffffffff/-NaN
+  mul CF_ONE, CF_MAX: 7ffffffe/+NaN
+  mul CF_ONE, CF_MIN: fffffffe/-NaN
+  mul CF_MAX, CF_MAX: 7fffffff/+NaN
+  mul CF_MIN, CF_MIN: 7fffffff/+NaN
+  mul CF_GARBAGE1, CF_GARBAGE2: 80000000/-0.00
+
+mula:
+  mula 00000000/+0.00, 00000000/+0.00: 00000000/+0.00
+  mula 00000000/+0.00, 80000000/-0.00: 80000000/-0.00
+  mula 80000000/-0.00, 00000000/+0.00: 80000000/-0.00
+  mula 80000000/-0.00, 80000000/-0.00: 00000000/+0.00
+  mula 00000000/+0.00, 3f800000/+1.00: 00000000/+0.00
+  mula 3f800000/+1.00, 3f800000/+1.00: 3f800000/+1.00
+  mula 3f800000/+1.00, 00000000/+0.00: 00000000/+0.00
+  mula 40000000/+2.00, 40000000/+2.00: 40800000/+4.00
+  mula 40400000/+3.00, 3f800000/+1.00: 40400000/+3.00
+  mula 40400000/+3.00, 40400000/+3.00: 41100000/+9.00
+  mula 7fffffff/+NaN, 7fffffff/+NaN: 7fffffff/+NaN
+  mula 7fffffff/+NaN, ffffffff/-NaN: ffffffff/-NaN
+  mula ffffffff/-NaN, 7fffffff/+NaN: ffffffff/-NaN
+  mula ffffffff/-NaN, ffffffff/-NaN: 7fffffff/+NaN
+  mula 7fffffff/+NaN, 00000000/+0.00: 00000000/+0.00
+  mula 00000000/+0.00, 7fffffff/+NaN: 00000000/+0.00
+  mula 00000000/+0.00, 7f800000/+NaN: 00000000/+0.00
+  mula 7f800000/+NaN, 7f800000/+NaN: 7fffffff/+NaN
+  mula ff800000/-NaN, 7f800000/+NaN: ffffffff/-NaN
+  mula CF_ZERO, CF_ZERO: 00000000/+0.00
+  mula CF_ZERO, CF_NEGZERO: 80000000/-0.00
+  mula CF_ONE, CF_ONE: 3f800000/+1.00
+  mula CF_ONE, CF_NEGONE: bf800000/-1.00
+  mula CF_MAX_MANTISSA, CF_ONE: 3fffffff/+2.00
+  mula CF_MAX_EXP, CF_ONE: 7f800001/+NaN
+  mula CF_MIN_EXP, CF_ONE: 00000000/+0.00
+  mula CF_ONE, CF_MAX_MANTISSA: 3ffffffe/+2.00
+  mula CF_ONE, CF_MAX_EXP: 7f800001/+NaN
+  mula CF_ONE, CF_MIN_EXP: 00000000/+0.00
+  mula CF_MAX, CF_ONE: 7fffffff/+NaN
+  mula CF_MIN, CF_ONE: ffffffff/-NaN
+  mula CF_ONE, CF_MAX: 7ffffffe/+NaN
+  mula CF_ONE, CF_MIN: fffffffe/-NaN
+  mula CF_MAX, CF_MAX: 7fffffff/+NaN
+  mula CF_MIN, CF_MIN: 7fffffff/+NaN
+  mula CF_GARBAGE1, CF_GARBAGE2: 80000000/-0.00
+
+-- TEST END
