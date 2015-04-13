@@ -1,4 +1,4 @@
-TARGETS = arithmetic fcr muldiv
+TARGETS = arithmetic fcr muldiv sqrt
 EE_LIBS =
 
 COMMON_DIR=../../../common
