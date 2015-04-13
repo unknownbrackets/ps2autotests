@@ -105,13 +105,14 @@ static inline void PRINT_F(const register float &ft, bool newline) {
 static inline void PRINT_ACC(bool newline) {
 	static FloatBits result = {0};
 	static const float negz = -0.0f;
+	static const float posz = 0.0f;
 
 	asm volatile (
 		// To grab ACC, we use madd.s 0, 0 -> fd = ACC + 0 * 0.
-		// We use negative zero to avoid changing the sign of ACC.
-		"madd.s $f4, %0, %0\n"
-		"swc1 $f4, 0(%1)\n"
-		: : "f"(negz), "r"((u32)&result.f) : "$f4"
+		// We use negative zero to avoid changing the sign of ACC (note that it's a multiply, -0 * -0 = +0.)
+		"madd.s $f4, %0, %1\n"
+		"swc1 $f4, 0(%2)\n"
+		: : "f"(negz), "f"(posz), "r"((u32)&result.f) : "$f4"
 	);
 
 	printf("%08x/", result.u);
