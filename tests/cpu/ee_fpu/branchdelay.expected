@@ -1,0 +1,4 @@
+-- TEST BEGIN
+bc1t: delay branch: 00000004
+bc1tl: delay branch: 00000002
+-- TEST END

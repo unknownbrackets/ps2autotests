@@ -1,4 +1,4 @@
-TARGETS = arithmetic compare convert fcr muldiv sqrt
+TARGETS = arithmetic branch branchdelay compare convert fcr muldiv sqrt
 EE_LIBS =
 
 COMMON_DIR=../../../common

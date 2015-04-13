@@ -1,0 +1,26 @@
+-- TEST BEGIN
+bc1f:
+  bc1f 1: skipped, ignored ra, ran delay slot
+  bc1f 0: followed, ignored ra, ran delay slot
+  bc1f c.eq: skipped, ignored ra, ran delay slot
+  bc1f c.f: followed, ignored ra, ran delay slot
+
+bc1fl:
+  bc1fl 1: skipped, ignored ra, skipped delay slot
+  bc1fl 0: followed, ignored ra, ran delay slot
+  bc1fl c.eq: skipped, ignored ra, skipped delay slot
+  bc1fl c.f: followed, ignored ra, ran delay slot
+
+bc1t:
+  bc1t 1: followed, ignored ra, ran delay slot
+  bc1t 0: skipped, ignored ra, ran delay slot
+  bc1t c.eq: followed, ignored ra, ran delay slot
+  bc1t c.f: skipped, ignored ra, ran delay slot
+
+bc1tl:
+  bc1tl 1: followed, ignored ra, ran delay slot
+  bc1tl 0: skipped, ignored ra, skipped delay slot
+  bc1tl c.eq: followed, ignored ra, ran delay slot
+  bc1tl c.f: skipped, ignored ra, skipped delay slot
+
+-- TEST END
