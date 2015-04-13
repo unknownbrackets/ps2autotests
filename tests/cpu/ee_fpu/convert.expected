@@ -1,0 +1,58 @@
+-- TEST BEGIN
+cvt.w.s:
+  cvt.w.s 00000000/+0.00: 00000000/+0.00
+  cvt.w.s 80000000/-0.00: 00000000/+0.00
+  cvt.w.s 3f800000/+1.00: 00000001/+0.00
+  cvt.w.s 40000000/+2.00: 00000002/+0.00
+  cvt.w.s 40400000/+3.00: 00000003/+0.00
+  cvt.w.s 7fffffff/+NaN: 7fffffff/+NaN
+  cvt.w.s ffffffff/-NaN: 80000000/-0.00
+  cvt.w.s 7f800000/+NaN: 7fffffff/+NaN
+  cvt.w.s ff800000/-NaN: 80000000/-0.00
+  cvt.w.s 00000005/+0.00: 00000000/+0.00
+  cvt.w.s 0000ffff/+0.00: 00000000/+0.00
+  cvt.w.s 4f000000/+2147483648.00: 7fffffff/+NaN
+  cvt.w.s cf000000/-2147483648.00: 80000000/-0.00
+  cvt.w.s 4effffff/+2147483520.00: 7fffff80/+NaN
+  cvt.w.s ceffffff/-2147483520.00: 80000080/-0.00
+  cvt.w.s CF_ZERO: 00000000/+0.00
+  cvt.w.s CF_NEGZERO: 00000000/+0.00
+  cvt.w.s CF_ONE: 00000001/+0.00
+  cvt.w.s CF_NEGONE: ffffffff/-NaN
+  cvt.w.s CF_MAX_MANTISSA: 00000001/+0.00
+  cvt.w.s CF_MAX_EXP: 7fffffff/+NaN
+  cvt.w.s CF_MIN_EXP: 00000000/+0.00
+  cvt.w.s CF_MAX: 7fffffff/+NaN
+  cvt.w.s CF_MIN: 80000000/-0.00
+  cvt.w.s CF_GARBAGE1: 00000000/+0.00
+  cvt.w.s CF_GARBAGE2: 80000000/-0.00
+
+cvt.s.w:
+  cvt.s.w 00000000/+0.00: 00000000/+0.00
+  cvt.s.w 80000000/-0.00: cf000000/-2147483648.00
+  cvt.s.w 3f800000/+1.00: 4e7e0000/+1065353216.00
+  cvt.s.w 40000000/+2.00: 4e800000/+1073741824.00
+  cvt.s.w 40400000/+3.00: 4e808000/+1077936128.00
+  cvt.s.w 7fffffff/+NaN: 4effffff/+2147483520.00
+  cvt.s.w ffffffff/-NaN: bf800000/-1.00
+  cvt.s.w 7f800000/+NaN: 4eff0000/+2139095040.00
+  cvt.s.w ff800000/-NaN: cb000000/-8388608.00
+  cvt.s.w 00000005/+0.00: 40a00000/+5.00
+  cvt.s.w 0000ffff/+0.00: 477fff00/+65535.00
+  cvt.s.w 4f000000/+2147483648.00: 4e9e0000/+1325400064.00
+  cvt.s.w cf000000/-2147483648.00: ce440000/-822083584.00
+  cvt.s.w 4effffff/+2147483520.00: 4e9dffff/+1325399936.00
+  cvt.s.w ceffffff/-2147483520.00: ce440000/-822083584.00
+  cvt.s.w CF_ZERO: 00000000/+0.00
+  cvt.s.w CF_NEGZERO: cf000000/-2147483648.00
+  cvt.s.w CF_ONE: 4e7e0000/+1065353216.00
+  cvt.s.w CF_NEGONE: ce810000/-1082130432.00
+  cvt.s.w CF_MAX_MANTISSA: 4e7fffff/+1073741760.00
+  cvt.s.w CF_MAX_EXP: 4eff0000/+2139095040.00
+  cvt.s.w CF_MIN_EXP: 3f800000/+1.00
+  cvt.s.w CF_MAX: 4effffff/+2147483520.00
+  cvt.s.w CF_MIN: bf800000/-1.00
+  cvt.s.w CF_GARBAGE1: 4599b800/+4919.00
+  cvt.s.w CF_GARBAGE2: ce054904/-559038720.00
+
+-- TEST END
