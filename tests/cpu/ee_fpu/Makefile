@@ -1,4 +1,4 @@
-TARGETS = fcr
+TARGETS = arithmetic fcr
 EE_LIBS =
 
 COMMON_DIR=../../../common
