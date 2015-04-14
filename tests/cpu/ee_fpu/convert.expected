@@ -15,6 +15,12 @@ cvt.w.s:
   cvt.w.s cf000000/-2147483648.00: 80000000/-0.00
   cvt.w.s 4effffff/+2147483520.00: 7fffff80/+NaN
   cvt.w.s ceffffff/-2147483520.00: 80000080/-0.00
+  cvt.w.s 3fbeb852/+1.49: 00000001/+0.00
+  cvt.w.s 3fc00000/+1.50: 00000001/+0.00
+  cvt.w.s 3fc147ae/+1.51: 00000001/+0.00
+  cvt.w.s bfbeb852/-1.49: ffffffff/-NaN
+  cvt.w.s bfc00000/-1.50: ffffffff/-NaN
+  cvt.w.s bfc147ae/-1.51: ffffffff/-NaN
   cvt.w.s CF_ZERO: 00000000/+0.00
   cvt.w.s CF_NEGZERO: 00000000/+0.00
   cvt.w.s CF_ONE: 00000001/+0.00
@@ -43,6 +49,12 @@ cvt.s.w:
   cvt.s.w cf000000/-2147483648.00: ce440000/-822083584.00
   cvt.s.w 4effffff/+2147483520.00: 4e9dffff/+1325399936.00
   cvt.s.w ceffffff/-2147483520.00: ce440000/-822083584.00
+  cvt.s.w 3fbeb852/+1.49: 4e7efae1/+1069463616.00
+  cvt.s.w 3fc00000/+1.50: 4e7f0000/+1069547520.00
+  cvt.s.w 3fc147ae/+1.51: 4e7f051e/+1069631360.00
+  cvt.s.w bfbeb852/-1.49: ce80828f/-1078019968.00
+  cvt.s.w bfc00000/-1.50: ce808000/-1077936128.00
+  cvt.s.w bfc147ae/-1.51: ce807d70/-1077852160.00
   cvt.s.w CF_ZERO: 00000000/+0.00
   cvt.s.w CF_NEGZERO: cf000000/-2147483648.00
   cvt.s.w CF_ONE: 4e7e0000/+1065353216.00
