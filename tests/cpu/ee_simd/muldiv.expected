@@ -1,0 +1,764 @@
+-- TEST BEGIN
+pdivbw:
+  pdivbw 0, 0: H: 0000000000000000 0000000000000000 L: ffffffffffffffff ffffffffffffffff
+  pdivbw 0, 1: H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pdivbw 1, 0: H: 0000000000000001 0000000000000001 L: ffffffffffffffff ffffffffffffffff
+  pdivbw 1, 1: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivbw 2, 2: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivbw 53, 2: H: 0000000000000001 0000000000000001 L: 000000000000001a 000000000000001a
+  pdivbw 53, 0: H: 0000000000000035 0000000000000035 L: ffffffffffffffff ffffffffffffffff
+  pdivbw -1, 1: H: 0000000000000000 0000000000000000 L: ffffffffffffffff ffffffffffffffff
+  pdivbw 1, -1: H: 0000000000000000 0000000000000000 L: 00000000ffffffff 00000000ffffffff
+  pdivbw -1, -1: H: 0000000000000000 0000000000000000 L: 0000000100000001 0000000100000001
+  pdivbw -2147483648, -1: H: 0000000000000000 0000000000000000 L: 0000000180000000 0000000180000000
+  pdivbw -2147483648, 0: H: ffffffff80000000 ffffffff80000000 L: 0000000100000001 0000000100000001
+  pdivbw 305402420, 1450727032: H: 0000000000003754 0000000000003754 L: 00000000000035e4 00000000000035e4
+  pdivbw C_ZERO, C_ONE: H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pdivbw C_ONE, C_ONE: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000000
+  pdivbw C_ONE, C_NEGONE: H: 0000000000000000 0000000000000000 L: 00000000ffffffff 0000000000000000
+  pdivbw C_S16_MAX, C_S16_MAX: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000000
+  pdivbw C_S16_MIN, C_S16_MIN: H: ffffffff00000000 ffffffffffffffff L: 0000000000000001 0000000000000000
+  pdivbw C_S32_MAX, C_S32_MAX: H: 0000000000000000 0000000000000000 L: 0000000080000001 0000000000000000
+  pdivbw C_S32_MIN, C_S32_MIN: H: ffffffff80000000 ffffffffffffffff L: 0000000100000001 0000000100000001
+  pdivbw C_S64_MAX, C_S64_MAX: H: 0000000000000000 0000000000000000 L: 8000000100000001 0000000000000000
+  pdivbw C_S64_MIN, C_S64_MIN: H: 8000000000000000 ffffffffffffffff L: 00000001ffffffff 0000000100000001
+  pdivbw C_GARBAGE1, C_GARBAGE2: H: 0000133800001337 0000133a00001339 L: 0000000000000000 0000000000000000
+  pdivbw C_TWOTWOTWOTWO, C_ONEONEONEONE: H: 0000000000000000 0000000000000000 L: 0000000200000002 0000000200000002
+  pdivbw C_P_S8_A, C_P_S8_B: H: fffffffffffff755 000008aa00000b6e L: 00000000fff91b55 0006e4ab0000fbf6
+  pdivbw C_P_S16_A, C_P_S16_B: H: 0000000000000000 0000000000000000 L: 000000017fff8000 80008001edcba988
+  pdivbw C_P_S32_A, C_P_S32_B: H: 0000000000000000 0000000000000000 L: 0000000180000000 80000001edcba988
+  pdivbw C_P_S32_B, C_P_S32_A: H: 80000000ffffffff 123456787fffffff L: 0000000100000001 ffffffffffffffff
+  pdivbw C_P_S32_C, C_P_S32_D: H: 0000000000000000 0000000000000000 L: 0000000180000000 80000001edcba988
+  pdivbw C_P_S32_D, C_P_S32_C: H: 123456787fffffff 80000000ffffffff L: ffffffffffffffff 0000000100000001
+  pdivbw C_P_S32_E, C_P_S32_F: H: 0000000000000000 0000000000000000 L: 8000000100000000 8000000000000001
+  pdivbw C_P_S32_F, C_P_S32_E: H: 80000000ffffffff 7fffffff00000000 L: 0000000100000001 ffffffffffffffff
+
+pdivuw:
+  pdivuw 0, 0: H: 0000000000000000 0000000000000000 L: ffffffffffffffff ffffffffffffffff
+  pdivuw 0, 1: H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pdivuw 1, 0: H: 0000000000000001 0000000000000001 L: ffffffffffffffff ffffffffffffffff
+  pdivuw 1, 1: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivuw 2, 2: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivuw 53, 2: H: 0000000000000001 0000000000000001 L: 000000000000001a 000000000000001a
+  pdivuw 53, 0: H: 0000000000000035 0000000000000035 L: ffffffffffffffff ffffffffffffffff
+  pdivuw -1, 1: H: 0000000000000000 0000000000000000 L: ffffffffffffffff ffffffffffffffff
+  pdivuw 1, -1: H: 0000000000000001 0000000000000001 L: 0000000000000000 0000000000000000
+  pdivuw -1, -1: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivuw -2147483648, -1: H: ffffffff80000000 ffffffff80000000 L: 0000000000000000 0000000000000000
+  pdivuw -2147483648, 0: H: ffffffff80000000 ffffffff80000000 L: ffffffffffffffff ffffffffffffffff
+  pdivuw 305402420, 1450727032: H: 0000000012341234 0000000012341234 L: 0000000000000000 0000000000000000
+  pdivuw C_ZERO, C_ONE: H: 0000000000000000 0000000000000000 L: 0000000000000000 ffffffffffffffff
+  pdivuw C_ONE, C_ONE: H: 0000000000000000 0000000000000000 L: 0000000000000001 ffffffffffffffff
+  pdivuw C_ONE, C_NEGONE: H: 0000000000000001 0000000000000000 L: 0000000000000000 0000000000000000
+  pdivuw C_S16_MAX, C_S16_MAX: H: 0000000000000000 0000000000000000 L: 0000000000000001 ffffffffffffffff
+  pdivuw C_S16_MIN, C_S16_MIN: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivuw C_S32_MAX, C_S32_MAX: H: 0000000000000000 0000000000000000 L: 0000000000000001 ffffffffffffffff
+  pdivuw C_S32_MIN, C_S32_MIN: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivuw C_S64_MAX, C_S64_MAX: H: 0000000000000000 0000000000000000 L: 0000000000000001 ffffffffffffffff
+  pdivuw C_S64_MIN, C_S64_MIN: H: 0000000000000000 0000000000000000 L: ffffffffffffffff 0000000000000001
+  pdivuw C_GARBAGE1, C_GARBAGE2: H: 0000000000001337 0000000000001339 L: 0000000000000000 0000000000000000
+  pdivuw C_TWOTWOTWOTWO, C_ONEONEONEONE: H: 0000000000000000 0000000000000000 L: 0000000000000002 0000000000000002
+  pdivuw C_P_S8_A, C_P_S8_B: H: ffffffff80808080 0000000012345678 L: 0000000000000000 0000000000000000
+  pdivuw C_P_S16_A, C_P_S16_B: H: ffffffff80008000 0000000012345678 L: 0000000000000000 0000000000000000
+  pdivuw C_P_S32_A, C_P_S32_B: H: ffffffff80000000 0000000012345678 L: 0000000000000000 0000000000000000
+  pdivuw C_P_S32_B, C_P_S32_A: H: 000000007fffffff 000000000091a2b7 L: 0000000000000001 0000000000000007
+  pdivuw C_P_S32_C, C_P_S32_D: H: 0000000000000001 0000000012345678 L: 0000000000000001 0000000000000000
+  pdivuw C_P_S32_D, C_P_S32_C: H: 000000007fffffff 000000000123456f L: 0000000000000000 000000000000000e
+  pdivuw C_P_S32_E, C_P_S32_F: H: 0000000000000000 ffffffffffffffff L: 0000000000000000 ffffffffffffffff
+  pdivuw C_P_S32_F, C_P_S32_E: H: ffffffffffffffff 0000000000000000 L: ffffffffffffffff 0000000000000000
+
+pdivw:
+  pdivw 0, 0: H: 0000000000000000 0000000000000000 L: ffffffffffffffff ffffffffffffffff
+  pdivw 0, 1: H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pdivw 1, 0: H: 0000000000000001 0000000000000001 L: ffffffffffffffff ffffffffffffffff
+  pdivw 1, 1: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivw 2, 2: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivw 53, 2: H: 0000000000000001 0000000000000001 L: 000000000000001a 000000000000001a
+  pdivw 53, 0: H: 0000000000000035 0000000000000035 L: ffffffffffffffff ffffffffffffffff
+  pdivw -1, 1: H: 0000000000000000 0000000000000000 L: ffffffffffffffff ffffffffffffffff
+  pdivw 1, -1: H: 0000000000000000 0000000000000000 L: ffffffffffffffff ffffffffffffffff
+  pdivw -1, -1: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivw -2147483648, -1: H: 0000000000000000 0000000000000000 L: ffffffff80000000 ffffffff80000000
+  pdivw -2147483648, 0: H: ffffffff80000000 ffffffff80000000 L: 0000000000000001 0000000000000001
+  pdivw 305402420, 1450727032: H: 0000000012341234 0000000012341234 L: 0000000000000000 0000000000000000
+  pdivw C_ZERO, C_ONE: H: 0000000000000000 0000000000000000 L: 0000000000000000 ffffffffffffffff
+  pdivw C_ONE, C_ONE: H: 0000000000000000 0000000000000000 L: 0000000000000001 ffffffffffffffff
+  pdivw C_ONE, C_NEGONE: H: 0000000000000000 0000000000000000 L: ffffffffffffffff 0000000000000000
+  pdivw C_S16_MAX, C_S16_MAX: H: 0000000000000000 0000000000000000 L: 0000000000000001 ffffffffffffffff
+  pdivw C_S16_MIN, C_S16_MIN: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivw C_S32_MAX, C_S32_MAX: H: 0000000000000000 0000000000000000 L: 0000000000000001 ffffffffffffffff
+  pdivw C_S32_MIN, C_S32_MIN: H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pdivw C_S64_MAX, C_S64_MAX: H: 0000000000000000 0000000000000000 L: 0000000000000001 ffffffffffffffff
+  pdivw C_S64_MIN, C_S64_MIN: H: 0000000000000000 0000000000000000 L: ffffffffffffffff 0000000000000001
+  pdivw C_GARBAGE1, C_GARBAGE2: H: 0000000000001337 0000000000001339 L: 0000000000000000 0000000000000000
+  pdivw C_TWOTWOTWOTWO, C_ONEONEONEONE: H: 0000000000000000 0000000000000000 L: 0000000000000002 0000000000000002
+  pdivw C_P_S8_A, C_P_S8_B: H: ffffffffff816e01 0000000012345678 L: 0000000000000001 0000000000000000
+  pdivw C_P_S16_A, C_P_S16_B: H: ffffffffffff8001 0000000000005678 L: 0000000000000001 ffffffffffffdb98
+  pdivw C_P_S32_A, C_P_S32_B: H: 0000000000000000 0000000012345678 L: ffffffff80000000 0000000000000000
+  pdivw C_P_S32_B, C_P_S32_A: H: ffffffffffffffff 000000000091a2b7 L: 0000000000000000 0000000000000007
+  pdivw C_P_S32_C, C_P_S32_D: H: ffffffffffffffff 0000000000000000 L: ffffffffffffffff ffffffffedcba988
+  pdivw C_P_S32_D, C_P_S32_C: H: 000000007fffffff ffffffffffffffff L: 0000000000000000 0000000000000000
+  pdivw C_P_S32_E, C_P_S32_F: H: 0000000000000000 ffffffffffffffff L: 0000000000000000 0000000000000001
+  pdivw C_P_S32_F, C_P_S32_E: H: ffffffffffffffff 0000000000000000 L: 0000000000000001 0000000000000000
+
+phmadh:
+  phmadh 0, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  phmadh 0, 1: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  phmadh 1, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  phmadh 1, 1: 00000000 00000001 00000000 00000001 H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  phmadh 2, 2: 00000000 00000004 00000000 00000004 H: 0000000000000000 0000000000000000 L: 0000000000000004 0000000000000004
+  phmadh 53, 2: 00000000 0000006a 00000000 0000006a H: 0000000000000000 0000000000000000 L: 000000000000006a 000000000000006a
+  phmadh 53, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  phmadh -1, 1: 00000000 ffffffff 00000000 ffffffff H: 0000000000000000 0000000000000000 L: 00000000ffffffff 00000000ffffffff
+  phmadh 1, -1: 00000000 ffffffff 00000000 ffffffff H: 0000000000000000 0000000000000000 L: 00000000ffffffff 00000000ffffffff
+  phmadh -1, -1: 00000002 00000002 00000002 00000002 H: 0000000100000002 0000000100000002 L: 0000000100000002 0000000100000002
+  phmadh -2147483648, -1: 00000002 00008000 00000002 00008000 H: 0000000100000002 0000000100000002 L: 0000800000008000 0000800000008000
+  phmadh -2147483648, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  phmadh 305402420, 1450727032: 00000000 0c4c00c0 00000000 0c4c00c0 H: 0000000000000000 0000000000000000 L: 062600600c4c00c0 062600600c4c00c0
+  phmadh C_ZERO, C_ONE: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  phmadh C_ONE, C_ONE: 00000000 00000000 00000000 00000001 H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000000
+  phmadh C_ONE, C_NEGONE: 00000000 00000000 00000000 ffffffff H: 0000000000000000 0000000000000000 L: 00000000ffffffff 0000000000000000
+  phmadh C_S16_MAX, C_S16_MAX: 00000000 00000000 00000000 3fff0001 H: 0000000000000000 0000000000000000 L: 000000003fff0001 0000000000000000
+  phmadh C_S16_MIN, C_S16_MIN: 00000002 00000002 00000002 40000001 H: 0000000100000002 0000000100000002 L: 0000000140000001 0000000100000002
+  phmadh C_S32_MAX, C_S32_MAX: 00000000 00000000 00000000 3fff0002 H: 0000000000000000 0000000000000000 L: 3fff00013fff0002 0000000000000000
+  phmadh C_S32_MIN, C_S32_MIN: 00000002 00000002 00000002 40000000 H: 0000000100000002 0000000100000002 L: 4000000040000000 0000000100000002
+  phmadh C_S64_MAX, C_S64_MAX: 00000000 00000000 3fff0002 00000002 H: 3fff00013fff0002 0000000000000000 L: 0000000100000002 0000000000000000
+  phmadh C_S64_MIN, C_S64_MIN: 00000002 00000002 40000000 00000000 H: 4000000040000000 0000000100000002 L: 0000000000000000 0000000100000002
+  phmadh C_GARBAGE1, C_GARBAGE2: fb1cc578 fb1d19c5 fb1d6e10 fb1dc259 H: 00000000fb1d6e10 00000000fb1cc578 L: 00000000fb1dc259 00000000fb1d19c5
+  phmadh C_TWOTWOTWOTWO, C_ONEONEONEONE: 00000002 00000002 00000002 00000002 H: 0000000000000002 0000000000000002 L: 0000000000000002 0000000000000002
+  phmadh C_P_S8_A, C_P_S8_B: 3f3c0508 db40a154 ffff814c 360abf00 H: 00000080ffff814c 3f7bc4883f3c0508 L: 3f40ff80360abf00 06267fccdb40a154
+  phmadh C_P_S16_A, C_P_S16_B: 6b3aa989 d4c3edcc ffff6dcd 40008000 H: ffffedccffff6dcd 3fff00016b3aa989 L: 4000000040008000 ffffedccd4c3edcc
+  phmadh C_P_S32_A, C_P_S32_B: 09199754 09199754 00008000 00008000 H: 0000800000008000 0919edcc09199754 L: 0000800000008000 0919edcc09199754
+  phmadh C_P_S32_B, C_P_S32_A: 09199754 09199754 00008000 00008000 H: 0000800000008000 0919edcc09199754 L: 0000800000008000 0919edcc09199754
+  phmadh C_P_S32_C, C_P_S32_D: c0008000 ffff9754 ffff9754 c0008000 H: ffffedccffff9754 c0008000c0008000 L: c0008000c0008000 ffffedccffff9754
+  phmadh C_P_S32_D, C_P_S32_C: c0008000 ffff9754 ffff9754 c0008000 H: ffffedccffff9754 c0008000c0008000 L: c0008000c0008000 ffffedccffff9754
+  phmadh C_P_S32_E, C_P_S32_F: c0008000 00000000 c0008000 00000000 H: c0008000c0008000 c0008000c0008000 L: 0000000000000000 0000000000000000
+  phmadh C_P_S32_F, C_P_S32_E: c0008000 00000000 c0008000 00000000 H: c0008000c0008000 c0008000c0008000 L: 0000000000000000 0000000000000000
+  phmadh -> $0: 00000000 00000000 00000000 00000000
+
+phmsbh:
+  phmsbh 0, 0: 00000000 00000000 00000000 00000000 H: ffffffff00000000 ffffffff00000000 L: ffffffff00000000 ffffffff00000000
+  phmsbh 0, 1: 00000000 00000000 00000000 00000000 H: ffffffff00000000 ffffffff00000000 L: ffffffff00000000 ffffffff00000000
+  phmsbh 1, 0: 00000000 00000000 00000000 00000000 H: ffffffff00000000 ffffffff00000000 L: ffffffff00000000 ffffffff00000000
+  phmsbh 1, 1: 00000000 ffffffff 00000000 ffffffff H: ffffffff00000000 ffffffff00000000 L: ffffffffffffffff ffffffffffffffff
+  phmsbh 2, 2: 00000000 fffffffc 00000000 fffffffc H: ffffffff00000000 ffffffff00000000 L: fffffffffffffffc fffffffffffffffc
+  phmsbh 53, 2: 00000000 ffffff96 00000000 ffffff96 H: ffffffff00000000 ffffffff00000000 L: ffffffffffffff96 ffffffffffffff96
+  phmsbh 53, 0: 00000000 00000000 00000000 00000000 H: ffffffff00000000 ffffffff00000000 L: ffffffff00000000 ffffffff00000000
+  phmsbh -1, 1: 00000000 00000001 00000000 00000001 H: ffffffff00000000 ffffffff00000000 L: ffffffff00000001 ffffffff00000001
+  phmsbh 1, -1: 00000000 00000001 00000000 00000001 H: ffffffff00000000 ffffffff00000000 L: ffffffff00000001 ffffffff00000001
+  phmsbh -1, -1: 00000000 00000000 00000000 00000000 H: fffffffe00000000 fffffffe00000000 L: fffffffe00000000 fffffffe00000000
+  phmsbh -2147483648, -1: 00000000 00008000 00000000 00008000 H: fffffffe00000000 fffffffe00000000 L: ffff7fff00008000 ffff7fff00008000
+  phmsbh -2147483648, 0: 00000000 00000000 00000000 00000000 H: ffffffff00000000 ffffffff00000000 L: ffffffff00000000 ffffffff00000000
+  phmsbh 305402420, 1450727032: 00000000 00000000 00000000 00000000 H: ffffffff00000000 ffffffff00000000 L: f9d9ff9f00000000 f9d9ff9f00000000
+  phmsbh C_ZERO, C_ONE: 00000000 00000000 00000000 00000000 H: ffffffff00000000 ffffffff00000000 L: ffffffff00000000 ffffffff00000000
+  phmsbh C_ONE, C_ONE: 00000000 00000000 00000000 ffffffff H: ffffffff00000000 ffffffff00000000 L: ffffffffffffffff ffffffff00000000
+  phmsbh C_ONE, C_NEGONE: 00000000 00000000 00000000 00000001 H: ffffffff00000000 ffffffff00000000 L: ffffffff00000001 ffffffff00000000
+  phmsbh C_S16_MAX, C_S16_MAX: 00000000 00000000 00000000 c000ffff H: ffffffff00000000 ffffffff00000000 L: ffffffffc000ffff ffffffff00000000
+  phmsbh C_S16_MIN, C_S16_MIN: 00000000 00000000 00000000 c0000001 H: fffffffe00000000 fffffffe00000000 L: fffffffec0000001 fffffffe00000000
+  phmsbh C_S32_MAX, C_S32_MAX: 00000000 00000000 00000000 3fff0000 H: ffffffff00000000 ffffffff00000000 L: c000fffe3fff0000 ffffffff00000000
+  phmsbh C_S32_MIN, C_S32_MIN: 00000000 00000000 00000000 40000000 H: fffffffe00000000 fffffffe00000000 L: bfffffff40000000 fffffffe00000000
+  phmsbh C_S64_MAX, C_S64_MAX: 00000000 00000000 3fff0000 00000000 H: c000fffe3fff0000 ffffffff00000000 L: fffffffe00000000 ffffffff00000000
+  phmsbh C_S64_MIN, C_S64_MIN: 00000000 00000000 40000000 00000000 H: bfffffff40000000 fffffffe00000000 L: ffffffff00000000 fffffffe00000000
+  phmsbh C_GARBAGE1, C_GARBAGE2: 04e33a88 04e2e63b 04e291f0 04e23da7 H: ffffffff04e291f0 ffffffff04e33a88 L: ffffffff04e23da7 ffffffff04e2e63b
+  phmsbh C_TWOTWOTWOTWO, C_ONEONEONEONE: fffffffe fffffffe fffffffe fffffffe H: fffffffffffffffe fffffffffffffffe L: fffffffffffffffe fffffffffffffffe
+  phmsbh C_P_S8_A, C_P_S8_B: 3fbb8408 310c5e44 00007fb4 48774000 H: ffffff7f00007fb4 c0843b773fbb8408 L: c0bf007f48774000 f9d98033310c5e44
+  phmsbh C_P_S16_A, C_P_S16_B: 14c35679 2b3bedcc 00006dcb 3fff8000 H: 0000123300006dcb c000fffe14c35679 L: bfffffff3fff8000 000012332b3bedcc
+  phmsbh C_P_S32_A, C_P_S32_B: 091a4444 091a4444 00008000 00008000 H: ffff7fff00008000 f6e61233091a4444 L: ffff7fff00008000 f6e61233091a4444
+  phmsbh C_P_S32_B, C_P_S32_A: 091a4444 091a4444 00008000 00008000 H: ffff7fff00008000 f6e61233091a4444 L: ffff7fff00008000 f6e61233091a4444
+  phmsbh C_P_S32_C, C_P_S32_D: c0008000 00004444 00004444 c0008000 H: 0000123300004444 3fff7fffc0008000 L: 3fff7fffc0008000 0000123300004444
+  phmsbh C_P_S32_D, C_P_S32_C: c0008000 00004444 00004444 c0008000 H: 0000123300004444 3fff7fffc0008000 L: 3fff7fffc0008000 0000123300004444
+  phmsbh C_P_S32_E, C_P_S32_F: c0008000 00000000 c0008000 00000000 H: 3fff7fffc0008000 3fff7fffc0008000 L: ffffffff00000000 ffffffff00000000
+  phmsbh C_P_S32_F, C_P_S32_E: c0008000 00000000 c0008000 00000000 H: 3fff7fffc0008000 3fff7fffc0008000 L: ffffffff00000000 ffffffff00000000
+  phmsbh -> $0: 00000000 00000000 00000000 00000000
+
+pmaddh:
+  pmaddh 0, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmaddh 0, 1: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmaddh 1, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmaddh 1, 1: abcdef01 cdef0124 89abcdef 9abcdef1 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef1 456789abcdef0124
+  pmaddh 2, 2: abcdef01 cdef0127 89abcdef 9abcdef4 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef4 456789abcdef0127
+  pmaddh 53, 2: abcdef01 cdef018d 89abcdef 9abcdf5a H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdf5a 456789abcdef018d
+  pmaddh 53, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmaddh -1, 1: abcdef01 cdef0122 89abcdef 9abcdeef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdeef 456789abcdef0122
+  pmaddh 1, -1: abcdef01 cdef0122 89abcdef 9abcdeef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdeef 456789abcdef0122
+  pmaddh -1, -1: abcdef02 cdef0124 89abcdf0 9abcdef1 H: 0123456889abcdf0 2345678aabcdef02 L: 123456799abcdef1 456789accdef0124
+  pmaddh -2147483648, -1: abcdef02 cdef0123 89abcdf0 9abcdef0 H: 0123456889abcdf0 2345678aabcdef02 L: 1234d6789abcdef0 456809abcdef0123
+  pmaddh -2147483648, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmaddh 305402420, 1450727032: abcdef01 d4150183 89abcdef a0e2df50 H: 0123456789abcdef 23456789abcdef01 L: 185a56d8a0e2df50 4b8d8a0bd4150183
+  pmaddh C_ZERO, C_ONE: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmaddh C_ONE, C_ONE: abcdef01 cdef0123 89abcdef 9abcdef1 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef1 456789abcdef0123
+  pmaddh C_ONE, C_NEGONE: abcdef01 cdef0123 89abcdef 9abcdeef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdeef 456789abcdef0123
+  pmaddh C_S16_MAX, C_S16_MAX: abcdef01 cdef0123 89abcdef dabbdef1 H: 0123456789abcdef 23456789abcdef01 L: 12345678dabbdef1 456789abcdef0123
+  pmaddh C_S16_MIN, C_S16_MIN: abcdef02 cdef0124 89abcdf0 dabcdef0 H: 0123456889abcdf0 2345678aabcdef02 L: 12345679dabcdef0 456789accdef0124
+  pmaddh C_S32_MAX, C_S32_MAX: abcdef01 cdef0123 89abcdef 9abcdef1 H: 0123456789abcdef 23456789abcdef01 L: 523356799abcdef1 456789abcdef0123
+  pmaddh C_S32_MIN, C_S32_MIN: abcdef02 cdef0124 89abcdf0 9abcdef0 H: 0123456889abcdf0 2345678aabcdef02 L: 523456789abcdef0 456789accdef0124
+  pmaddh C_S64_MAX, C_S64_MAX: abcdef01 cdef0123 89abcdf0 9abcdef1 H: 4122456889abcdf0 23456789abcdef01 L: 123456799abcdef1 456789abcdef0123
+  pmaddh C_S64_MIN, C_S64_MIN: abcdef02 cdef0124 89abcdef 9abcdef0 H: 4123456789abcdef 2345678aabcdef02 L: 123456789abcdef0 456789accdef0124
+  pmaddh C_GARBAGE1, C_GARBAGE2: a6eab479 c90c1ae8 84c93bff 95daa149 H: 0123456784c93bff 23456789a6eab479 L: 1234567895daa149 456789abc90c1ae8
+  pmaddh C_TWOTWOTWOTWO, C_ONEONEONEONE: abcdef03 cdef0125 89abcdf1 9abcdef2 H: 0123456789abcdf1 23456789abcdef03 L: 123456789abcdef2 456789abcdef0125
+  pmaddh C_P_S8_A, C_P_S8_B: ab8e2f81 a30922ab 89ab4ebb 91869e70 H: 012345e789ab4ebb 62c12c11ab8e2f81 L: 517555f891869e70 4b8e0977a30922ab
+  pmaddh C_P_S16_A, C_P_S16_B: d7099889 a2b30123 89ab4df0 9abd5ef0 H: 0123333389ab4df0 6344678ad7099889 L: 523456789abd5ef0 45677777a2b30123
+  pmaddh C_P_S32_A, C_P_S32_B: abcd9889 cdeeaaab 89abcdef 9abcdef0 H: 0123c56789abcdef 2c5f5555abcd9889 L: 1234d6789abcdef0 4e817777cdeeaaab
+  pmaddh C_P_S32_B, C_P_S32_A: abcd9889 cdeeaaab 89abcdef 9abcdef0 H: 0123c56789abcdef 2c5f5555abcd9889 L: 1234d6789abcdef0 4e817777cdeeaaab
+  pmaddh C_P_S32_C, C_P_S32_D: abcdef01 cdeeaaab 89ab7777 9abcdef0 H: 0123333389ab7777 e345e789abcdef01 L: d234d6789abcdef0 45677777cdeeaaab
+  pmaddh C_P_S32_D, C_P_S32_C: abcdef01 cdeeaaab 89ab7777 9abcdef0 H: 0123333389ab7777 e345e789abcdef01 L: d234d6789abcdef0 45677777cdeeaaab
+  pmaddh C_P_S32_E, C_P_S32_F: abcdef01 cdef0123 89abcdef 9abcdef0 H: c123c56789abcdef e345e789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmaddh C_P_S32_F, C_P_S32_E: abcdef01 cdef0123 89abcdef 9abcdef0 H: c123c56789abcdef e345e789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmaddh -> $0: 00000000 00000000 00000000 00000000
+
+pmadduw:
+  pmadduw 0, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmadduw 0, 1: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmadduw 1, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmadduw 1, 1: abcdef01 cdef0124 89abcdef 9abcdef1 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0124
+  pmadduw 2, 2: abcdef01 cdef0127 89abcdef 9abcdef4 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef4 ffffffffcdef0127
+  pmadduw 53, 2: abcdef01 cdef018d 89abcdef 9abcdf5a H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdf5a ffffffffcdef018d
+  pmadduw 53, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmadduw -1, 1: abcdef02 cdef0122 89abcdf0 9abcdeef H: ffffffff89abcdf0 ffffffffabcdef02 L: ffffffff9abcdeef ffffffffcdef0122
+  pmadduw 1, -1: abcdef02 cdef0122 89abcdf0 9abcdeef H: ffffffff89abcdf0 ffffffffabcdef02 L: ffffffff9abcdeef ffffffffcdef0122
+  pmadduw -1, -1: abcdeeff cdef0124 89abcded 9abcdef1 H: ffffffff89abcded ffffffffabcdeeff L: ffffffff9abcdef1 ffffffffcdef0124
+  pmadduw -2147483648, -1: 2bcdef01 4def0123 09abcdef 1abcdef0 H: 0000000009abcdef 000000002bcdef01 L: 000000001abcdef0 000000004def0123
+  pmadduw -2147483648, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmadduw 305402420, 1450727032: b1f3fbad d4d50183 8fd1da9b a1a2df50 H: ffffffff8fd1da9b ffffffffb1f3fbad L: ffffffffa1a2df50 ffffffffd4d50183
+  pmadduw C_ZERO, C_ONE: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmadduw C_ONE, C_ONE: abcdef01 cdef0123 89abcdef 9abcdef1 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0123
+  pmadduw C_ONE, C_NEGONE: abcdef01 cdef0123 89abcdf0 9abcdeef H: ffffffff89abcdf0 ffffffffabcdef01 L: ffffffff9abcdeef ffffffffcdef0123
+  pmadduw C_S16_MAX, C_S16_MAX: abcdef01 cdef0123 89abcdef dabbdef1 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffffdabbdef1 ffffffffcdef0123
+  pmadduw C_S16_MIN, C_S16_MIN: abcdeeff cdef0124 89aacdef dabcdef0 H: ffffffff89aacdef ffffffffabcdeeff L: ffffffffdabcdef0 ffffffffcdef0124
+  pmadduw C_S32_MAX, C_S32_MAX: abcdef01 cdef0123 c9abcdee 9abcdef1 H: ffffffffc9abcdee ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0123
+  pmadduw C_S32_MIN, C_S32_MIN: abcdeeff cdef0124 c9abcdef 9abcdef0 H: ffffffffc9abcdef ffffffffabcdeeff L: ffffffff9abcdef0 ffffffffcdef0124
+  pmadduw C_S64_MAX, C_S64_MAX: abcdef01 cdef0123 89abcded 9abcdef1 H: ffffffff89abcded ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0123
+  pmadduw C_S64_MIN, C_S64_MIN: abcdeeff cdef0124 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdeeff L: ffffffff9abcdef0 ffffffffcdef0124
+  pmadduw C_GARBAGE1, C_GARBAGE2: abcdffba 47ca1ae8 89abdea6 573ca149 H: ffffffff89abdea6 ffffffffabcdffba L: 00000000573ca149 0000000047ca1ae8
+  pmadduw C_TWOTWOTWOTWO, C_ONEONEONEONE: abcdef01 cdef0125 89abcdef 9abcdef2 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef2 ffffffffcdef0125
+  pmadduw C_P_S8_A, C_P_S8_B: b1f49531 50d522ab ca6c1778 63059e70 H: ffffffffca6c1778 ffffffffb1f49531 L: 0000000063059e70 0000000050d522ab
+  pmadduw C_P_S16_A, C_P_S16_B: be023c5f a2b30123 c9ac8def 9abc5ef0 H: ffffffffc9ac8def ffffffffbe023c5f L: ffffffff9abc5ef0 ffffffffa2b30123
+  pmadduw C_P_S32_A, C_P_S32_B: b4e81a3d bbbaaaab 09abcdef 1abcdef0 H: 0000000009abcdef ffffffffb4e81a3d L: 000000001abcdef0 ffffffffbbbaaaab
+  pmadduw C_P_S32_B, C_P_S32_A: b4e81a3d bbbaaaab 09abcdef 1abcdef0 H: 0000000009abcdef ffffffffb4e81a3d L: 000000001abcdef0 ffffffffbbbaaaab
+  pmadduw C_P_S32_C, C_P_S32_D: be024579 bbbaaaab c9abcdef 1abcdef0 H: ffffffffc9abcdef ffffffffbe024579 L: 000000001abcdef0 ffffffffbbbaaaab
+  pmadduw C_P_S32_D, C_P_S32_C: be024579 bbbaaaab c9abcdef 1abcdef0 H: ffffffffc9abcdef ffffffffbe024579 L: 000000001abcdef0 ffffffffbbbaaaab
+  pmadduw C_P_S32_E, C_P_S32_F: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmadduw C_P_S32_F, C_P_S32_E: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmadduw -> $0: 00000000 00000000 00000000 00000000
+
+pmaddw:
+  pmaddw 0, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmaddw 0, 1: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmaddw 1, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmaddw 1, 1: abcdef01 cdef0124 89abcdef 9abcdef1 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0124
+  pmaddw 2, 2: abcdef01 cdef0127 89abcdef 9abcdef4 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef4 ffffffffcdef0127
+  pmaddw 53, 2: abcdef01 cdef018d 89abcdef 9abcdf5a H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdf5a ffffffffcdef018d
+  pmaddw 53, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmaddw -1, 1: abcdef01 cdef0122 89abcdef 9abcdeef H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdeef ffffffffcdef0122
+  pmaddw 1, -1: abcdef01 cdef0122 89abcdef 9abcdeef H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdeef ffffffffcdef0122
+  pmaddw -1, -1: abcdef01 cdef0124 89abcdef 9abcdef1 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0124
+  pmaddw -2147483648, -1: abcdef02 4def0123 89abcdf0 1abcdef0 H: ffffffff89abcdf0 ffffffffabcdef02 L: 000000001abcdef0 000000004def0123
+  pmaddw -2147483648, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmaddw 305402420, 1450727032: b1f3fbad d4d50183 8fd1da9b a1a2df50 H: ffffffff8fd1da9b ffffffffb1f3fbad L: ffffffffa1a2df50 ffffffffd4d50183
+  pmaddw C_ZERO, C_ONE: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmaddw C_ONE, C_ONE: abcdef01 cdef0123 89abcdef 9abcdef1 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0123
+  pmaddw C_ONE, C_NEGONE: abcdef01 cdef0123 89abcdef 9abcdeef H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdeef ffffffffcdef0123
+  pmaddw C_S16_MAX, C_S16_MAX: abcdef01 cdef0123 89abcdef dabbdef1 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffffdabbdef1 ffffffffcdef0123
+  pmaddw C_S16_MIN, C_S16_MIN: abcdef01 cdef0124 89abcdef dabcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffffdabcdef0 ffffffffcdef0124
+  pmaddw C_S32_MAX, C_S32_MAX: abcdef01 cdef0123 c9abcdee 9abcdef1 H: ffffffffc9abcdee ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0123
+  pmaddw C_S32_MIN, C_S32_MIN: abcdef01 cdef0124 c9abcdef 9abcdef0 H: ffffffffc9abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0124
+  pmaddw C_S64_MAX, C_S64_MAX: abcdef01 cdef0123 89abcdef 9abcdef1 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0123
+  pmaddw C_S64_MIN, C_S64_MIN: abcdef01 cdef0124 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0124
+  pmaddw C_GARBAGE1, C_GARBAGE2: abcdec81 47ca1ae8 89abcb6f 573ca149 H: ffffffff89abcb6f ffffffffabcdec81 L: 00000000573ca149 0000000047ca1ae8
+  pmaddw C_TWOTWOTWOTWO, C_ONEONEONEONE: abcdef01 cdef0125 89abcdef 9abcdef2 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef2 ffffffffcdef0125
+  pmaddw C_P_S8_A, C_P_S8_B: b1f49531 50d522ab c8ec8479 63059e70 H: ffffffffc8ec8479 ffffffffb1f49531 L: 0000000063059e70 0000000050d522ab
+  pmaddw C_P_S16_A, C_P_S16_B: abcde5e7 a2b30123 c9ab0df0 9abc5ef0 H: ffffffffc9ab0df0 ffffffffabcde5e7 L: ffffffff9abc5ef0 ffffffffa2b30123
+  pmaddw C_P_S32_A, C_P_S32_B: b4e81a3d bbbaaaab 89abcdf0 1abcdef0 H: ffffffff89abcdf0 ffffffffb4e81a3d L: 000000001abcdef0 ffffffffbbbaaaab
+  pmaddw C_P_S32_B, C_P_S32_A: b4e81a3d bbbaaaab 89abcdf0 1abcdef0 H: ffffffff89abcdf0 ffffffffb4e81a3d L: 000000001abcdef0 ffffffffbbbaaaab
+  pmaddw C_P_S32_C, C_P_S32_D: abcdef01 bbbaaaab 49abcdf0 1abcdef0 H: 0000000049abcdf0 ffffffffabcdef01 L: 000000001abcdef0 ffffffffbbbaaaab
+  pmaddw C_P_S32_D, C_P_S32_C: abcdef01 bbbaaaab 49abcdf0 1abcdef0 H: 0000000049abcdf0 ffffffffabcdef01 L: 000000001abcdef0 ffffffffbbbaaaab
+  pmaddw C_P_S32_E, C_P_S32_F: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmaddw C_P_S32_F, C_P_S32_E: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmaddw -> $0: 00000000 00000000 00000000 00000000
+
+pmsubh:
+  pmsubh 0, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmsubh 0, 1: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmsubh 1, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmsubh 1, 1: abcdef01 cdef0122 89abcdef 9abcdeef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdeef 456789abcdef0122
+  pmsubh 2, 2: abcdef01 cdef011f 89abcdef 9abcdeec H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdeec 456789abcdef011f
+  pmsubh 53, 2: abcdef01 cdef00b9 89abcdef 9abcde86 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcde86 456789abcdef00b9
+  pmsubh 53, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmsubh -1, 1: abcdef01 cdef0124 89abcdef 9abcdef1 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef1 456789abcdef0124
+  pmsubh 1, -1: abcdef01 cdef0124 89abcdef 9abcdef1 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef1 456789abcdef0124
+  pmsubh -1, -1: abcdef00 cdef0122 89abcdee 9abcdeef H: 0123456689abcdee 23456788abcdef00 L: 123456779abcdeef 456789aacdef0122
+  pmsubh -2147483648, -1: abcdef00 cdef0123 89abcdee 9abcdef0 H: 0123456689abcdee 23456788abcdef00 L: 1233d6789abcdef0 456709abcdef0123
+  pmsubh -2147483648, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmsubh 305402420, 1450727032: abcdef01 c7c900c3 89abcdef 9496de90 H: 0123456789abcdef 23456789abcdef01 L: 0c0e56189496de90 3f41894bc7c900c3
+  pmsubh C_ZERO, C_ONE: abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmsubh C_ONE, C_ONE: abcdef01 cdef0123 89abcdef 9abcdeef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdeef 456789abcdef0123
+  pmsubh C_ONE, C_NEGONE: abcdef01 cdef0123 89abcdef 9abcdef1 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef1 456789abcdef0123
+  pmsubh C_S16_MAX, C_S16_MAX: abcdef01 cdef0123 89abcdef 5abddeef H: 0123456789abcdef 23456789abcdef01 L: 123456785abddeef 456789abcdef0123
+  pmsubh C_S16_MIN, C_S16_MIN: abcdef00 cdef0122 89abcdee 5abcdef0 H: 0123456689abcdee 23456788abcdef00 L: 123456775abcdef0 456789aacdef0122
+  pmsubh C_S32_MAX, C_S32_MAX: abcdef01 cdef0123 89abcdef 9abcdeef H: 0123456789abcdef 23456789abcdef01 L: d23556779abcdeef 456789abcdef0123
+  pmsubh C_S32_MIN, C_S32_MIN: abcdef00 cdef0122 89abcdee 9abcdef0 H: 0123456689abcdee 23456788abcdef00 L: d23456789abcdef0 456789aacdef0122
+  pmsubh C_S64_MAX, C_S64_MAX: abcdef01 cdef0123 89abcdee 9abcdeef H: c124456689abcdee 23456789abcdef01 L: 123456779abcdeef 456789abcdef0123
+  pmsubh C_S64_MIN, C_S64_MIN: abcdef00 cdef0122 89abcdef 9abcdef0 H: c123456789abcdef 23456788abcdef00 L: 123456789abcdef0 456789aacdef0122
+  pmsubh C_GARBAGE1, C_GARBAGE2: b0b12989 d2d1e75e 8e8e5fdf 9f9f1c97 H: 012345678e8e5fdf 23456789b0b12989 L: 123456789f9f1c97 456789abd2d1e75e
+  pmsubh C_TWOTWOTWOTWO, C_ONEONEONEONE: abcdeeff cdef0121 89abcded 9abcdeee H: 0123456789abcded 23456789abcdeeff L: 123456789abcdeee 456789abcdef0121
+  pmsubh C_P_S8_A, C_P_S8_B: ac0dae81 f8d4df9b 89ac4d23 a3f31f70 H: 012344e789ac4d23 e3c9a301ac0dae81 L: d2f356f8a3f31f70 3f4109dff8d4df9b
+  pmsubh C_P_S16_A, C_P_S16_B: 80924579 f92b0123 89ac4dee 9abc5ef0 H: 0123579b89ac4dee e346678880924579 L: d23456789abc5ef0 45679bdff92b0123
+  pmsubh C_P_S32_A, C_P_S32_B: abce4579 cdef579b 89abcdef 9abcdef0 H: 0122c56789abcdef 1a2b79bdabce4579 L: 1233d6789abcdef0 3c4d9bdfcdef579b
+  pmsubh C_P_S32_B, C_P_S32_A: abce4579 cdef579b 89abcdef 9abcdef0 H: 0122c56789abcdef 1a2b79bdabce4579 L: 1233d6789abcdef0 3c4d9bdfcdef579b
+  pmsubh C_P_S32_C, C_P_S32_D: abcdef01 cdef579b 89ac2467 9abcdef0 H: 0123579b89ac2467 6344e789abcdef01 L: 5233d6789abcdef0 45679bdfcdef579b
+  pmsubh C_P_S32_D, C_P_S32_C: abcdef01 cdef579b 89ac2467 9abcdef0 H: 0123579b89ac2467 6344e789abcdef01 L: 5233d6789abcdef0 45679bdfcdef579b
+  pmsubh C_P_S32_E, C_P_S32_F: abcdef01 cdef0123 89abcdef 9abcdef0 H: 4122c56789abcdef 6344e789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmsubh C_P_S32_F, C_P_S32_E: abcdef01 cdef0123 89abcdef 9abcdef0 H: 4122c56789abcdef 6344e789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmsubh -> $0: 00000000 00000000 00000000 00000000
+
+pmsubw:
+  pmsubw 0, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmsubw 0, 1: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmsubw 1, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmsubw 1, 1: abcdef01 cdef0122 89abcdef 9abcdeef H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdeef ffffffffcdef0122
+  pmsubw 2, 2: abcdef01 cdef011f 89abcdef 9abcdeec H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdeec ffffffffcdef011f
+  pmsubw 53, 2: abcdef01 cdef00b9 89abcdef 9abcde86 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcde86 ffffffffcdef00b9
+  pmsubw 53, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmsubw -1, 1: abcdef01 cdef0124 89abcdef 9abcdef1 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0124
+  pmsubw 1, -1: abcdef01 cdef0124 89abcdef 9abcdef1 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0124
+  pmsubw -1, -1: abcdef01 cdef0122 89abcdef 9abcdeef H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdeef ffffffffcdef0122
+  pmsubw -2147483648, -1: abcdef01 4def0123 89abcdef 1abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: 000000001abcdef0 000000004def0123
+  pmsubw -2147483648, 0: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmsubw 305402420, 1450727032: a5a7e255 c70900c3 8385c143 93d6de90 H: ffffffff8385c143 ffffffffa5a7e255 L: ffffffff93d6de90 ffffffffc70900c3
+  pmsubw C_ZERO, C_ONE: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmsubw C_ONE, C_ONE: abcdef01 cdef0123 89abcdef 9abcdeef H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdeef ffffffffcdef0123
+  pmsubw C_ONE, C_NEGONE: abcdef01 cdef0123 89abcdef 9abcdef1 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef1 ffffffffcdef0123
+  pmsubw C_S16_MAX, C_S16_MAX: abcdef01 cdef0123 89abcdef 5abddeef H: ffffffff89abcdef ffffffffabcdef01 L: 000000005abddeef ffffffffcdef0123
+  pmsubw C_S16_MIN, C_S16_MIN: abcdef01 cdef0122 89abcdef 5abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: 000000005abcdef0 ffffffffcdef0122
+  pmsubw C_S32_MAX, C_S32_MAX: abcdef01 cdef0123 49abcdf0 9abcdeef H: 0000000049abcdf0 ffffffffabcdef01 L: ffffffff9abcdeef ffffffffcdef0123
+  pmsubw C_S32_MIN, C_S32_MIN: abcdef01 cdef0122 49abcdef 9abcdef0 H: 0000000049abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0122
+  pmsubw C_S64_MAX, C_S64_MAX: abcdef01 cdef0123 89abcdef 9abcdeef H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdeef ffffffffcdef0123
+  pmsubw C_S64_MIN, C_S64_MIN: abcdef01 cdef0122 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0122
+  pmsubw C_GARBAGE1, C_GARBAGE2: abcdf182 5413e75e 89abd06f de3d1c97 H: ffffffff89abd06f ffffffffabcdf182 L: ffffffffde3d1c97 000000005413e75e
+  pmsubw C_TWOTWOTWOTWO, C_ONEONEONEONE: abcdef01 cdef0121 89abcdef 9abcdeee H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdeee ffffffffcdef0121
+  pmsubw C_P_S8_A, C_P_S8_B: a5a748d2 4b08df9b 4a6b1765 d2741f70 H: 000000004a6b1765 ffffffffa5a748d2 L: ffffffffd2741f70 000000004b08df9b
+  pmsubw C_P_S16_A, C_P_S16_B: abcdf81b f92b0123 49ac8dee 9abd5ef0 H: 0000000049ac8dee ffffffffabcdf81b L: ffffffff9abd5ef0 fffffffff92b0123
+  pmsubw C_P_S32_A, C_P_S32_B: a2b3c3c5 e023579b 89abcdef 1abcdef0 H: ffffffff89abcdef ffffffffa2b3c3c5 L: 000000001abcdef0 ffffffffe023579b
+  pmsubw C_P_S32_B, C_P_S32_A: a2b3c3c5 e023579b 89abcdef 1abcdef0 H: ffffffff89abcdef ffffffffa2b3c3c5 L: 000000001abcdef0 ffffffffe023579b
+  pmsubw C_P_S32_C, C_P_S32_D: abcdef01 e023579b c9abcdef 1abcdef0 H: ffffffffc9abcdef ffffffffabcdef01 L: 000000001abcdef0 ffffffffe023579b
+  pmsubw C_P_S32_D, C_P_S32_C: abcdef01 e023579b c9abcdef 1abcdef0 H: ffffffffc9abcdef ffffffffabcdef01 L: 000000001abcdef0 ffffffffe023579b
+  pmsubw C_P_S32_E, C_P_S32_F: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmsubw C_P_S32_F, C_P_S32_E: abcdef01 cdef0123 89abcdef 9abcdef0 H: ffffffff89abcdef ffffffffabcdef01 L: ffffffff9abcdef0 ffffffffcdef0123
+  pmsubw -> $0: 00000000 00000000 00000000 00000000
+
+pmulth:
+  pmulth 0, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmulth 0, 1: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmulth 1, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmulth 1, 1: 00000000 00000001 00000000 00000001 H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pmulth 2, 2: 00000000 00000004 00000000 00000004 H: 0000000000000000 0000000000000000 L: 0000000000000004 0000000000000004
+  pmulth 53, 2: 00000000 0000006a 00000000 0000006a H: 0000000000000000 0000000000000000 L: 000000000000006a 000000000000006a
+  pmulth 53, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmulth -1, 1: 00000000 ffffffff 00000000 ffffffff H: 0000000000000000 0000000000000000 L: 00000000ffffffff 00000000ffffffff
+  pmulth 1, -1: 00000000 ffffffff 00000000 ffffffff H: 0000000000000000 0000000000000000 L: 00000000ffffffff 00000000ffffffff
+  pmulth -1, -1: 00000001 00000001 00000001 00000001 H: 0000000100000001 0000000100000001 L: 0000000100000001 0000000100000001
+  pmulth -2147483648, -1: 00000001 00000000 00000001 00000000 H: 0000000100000001 0000000100000001 L: 0000800000000000 0000800000000000
+  pmulth -2147483648, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmulth 305402420, 1450727032: 00000000 06260060 00000000 06260060 H: 0000000000000000 0000000000000000 L: 0626006006260060 0626006006260060
+  pmulth C_ZERO, C_ONE: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmulth C_ONE, C_ONE: 00000000 00000000 00000000 00000001 H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000000
+  pmulth C_ONE, C_NEGONE: 00000000 00000000 00000000 ffffffff H: 0000000000000000 0000000000000000 L: 00000000ffffffff 0000000000000000
+  pmulth C_S16_MAX, C_S16_MAX: 00000000 00000000 00000000 3fff0001 H: 0000000000000000 0000000000000000 L: 000000003fff0001 0000000000000000
+  pmulth C_S16_MIN, C_S16_MIN: 00000001 00000001 00000001 40000000 H: 0000000100000001 0000000100000001 L: 0000000140000000 0000000100000001
+  pmulth C_S32_MAX, C_S32_MAX: 00000000 00000000 00000000 00000001 H: 0000000000000000 0000000000000000 L: 3fff000100000001 0000000000000000
+  pmulth C_S32_MIN, C_S32_MIN: 00000001 00000001 00000001 00000000 H: 0000000100000001 0000000100000001 L: 4000000000000000 0000000100000001
+  pmulth C_S64_MAX, C_S64_MAX: 00000000 00000000 00000001 00000001 H: 3fff000100000001 0000000000000000 L: 0000000100000001 0000000000000000
+  pmulth C_S64_MIN, C_S64_MIN: 00000001 00000001 00000000 00000000 H: 4000000000000000 0000000100000001 L: 0000000000000000 0000000100000001
+  pmulth C_GARBAGE1, C_GARBAGE2: fb1cc578 fb1d19c5 fb1d6e10 fb1dc259 H: 00000000fb1d6e10 00000000fb1cc578 L: 00000000fb1dc259 00000000fb1d19c5
+  pmulth C_TWOTWOTWOTWO, C_ONEONEONEONE: 00000002 00000002 00000002 00000002 H: 0000000000000002 0000000000000002 L: 0000000000000002 0000000000000002
+  pmulth C_P_S8_A, C_P_S8_B: ffc04080 d51a2188 ffff80cc f6c9bf80 H: 00000080ffff80cc 3f7bc488ffc04080 L: 3f40ff80f6c9bf80 06267fccd51a2188
+  pmulth C_P_S16_A, C_P_S16_B: 2b3ba988 d4c40000 ffff8001 00008000 H: ffffedccffff8001 3fff00012b3ba988 L: 4000000000008000 ffffedccd4c40000
+  pmulth C_P_S32_A, C_P_S32_B: ffffa988 ffffa988 00000000 00000000 H: 0000800000000000 0919edccffffa988 L: 0000800000000000 0919edccffffa988
+  pmulth C_P_S32_B, C_P_S32_A: ffffa988 ffffa988 00000000 00000000 H: 0000800000000000 0919edccffffa988 L: 0000800000000000 0919edccffffa988
+  pmulth C_P_S32_C, C_P_S32_D: 00000000 ffffa988 ffffa988 00000000 H: ffffedccffffa988 c000800000000000 L: c000800000000000 ffffedccffffa988
+  pmulth C_P_S32_D, C_P_S32_C: 00000000 ffffa988 ffffa988 00000000 H: ffffedccffffa988 c000800000000000 L: c000800000000000 ffffedccffffa988
+  pmulth C_P_S32_E, C_P_S32_F: 00000000 00000000 00000000 00000000 H: c000800000000000 c000800000000000 L: 0000000000000000 0000000000000000
+  pmulth C_P_S32_F, C_P_S32_E: 00000000 00000000 00000000 00000000 H: c000800000000000 c000800000000000 L: 0000000000000000 0000000000000000
+  pmulth -> $0: 00000000 00000000 00000000 00000000
+
+pmultuw:
+  pmultuw 0, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultuw 0, 1: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultuw 1, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultuw 1, 1: 00000000 00000001 00000000 00000001 H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pmultuw 2, 2: 00000000 00000004 00000000 00000004 H: 0000000000000000 0000000000000000 L: 0000000000000004 0000000000000004
+  pmultuw 53, 2: 00000000 0000006a 00000000 0000006a H: 0000000000000000 0000000000000000 L: 000000000000006a 000000000000006a
+  pmultuw 53, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultuw -1, 1: 00000000 ffffffff 00000000 ffffffff H: 0000000000000000 0000000000000000 L: ffffffffffffffff ffffffffffffffff
+  pmultuw 1, -1: 00000000 ffffffff 00000000 ffffffff H: 0000000000000000 0000000000000000 L: ffffffffffffffff ffffffffffffffff
+  pmultuw -1, -1: fffffffe 00000001 fffffffe 00000001 H: fffffffffffffffe fffffffffffffffe L: 0000000000000001 0000000000000001
+  pmultuw -2147483648, -1: 7fffffff 80000000 7fffffff 80000000 H: 000000007fffffff 000000007fffffff L: ffffffff80000000 ffffffff80000000
+  pmultuw -2147483648, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultuw 305402420, 1450727032: 06260cac 06e60060 06260cac 06e60060 H: 0000000006260cac 0000000006260cac L: 0000000006e60060 0000000006e60060
+  pmultuw C_ZERO, C_ONE: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultuw C_ONE, C_ONE: 00000000 00000000 00000000 00000001 H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000000
+  pmultuw C_ONE, C_NEGONE: 00000000 00000000 00000000 ffffffff H: 0000000000000000 0000000000000000 L: ffffffffffffffff 0000000000000000
+  pmultuw C_S16_MAX, C_S16_MAX: 00000000 00000000 00000000 3fff0001 H: 0000000000000000 0000000000000000 L: 000000003fff0001 0000000000000000
+  pmultuw C_S16_MIN, C_S16_MIN: fffffffe 00000001 ffff0000 40000000 H: ffffffffffff0000 fffffffffffffffe L: 0000000040000000 0000000000000001
+  pmultuw C_S32_MAX, C_S32_MAX: 00000000 00000000 3fffffff 00000001 H: 000000003fffffff 0000000000000000 L: 0000000000000001 0000000000000000
+  pmultuw C_S32_MIN, C_S32_MIN: fffffffe 00000001 40000000 00000000 H: 0000000040000000 fffffffffffffffe L: 0000000000000000 0000000000000001
+  pmultuw C_S64_MAX, C_S64_MAX: 00000000 00000000 fffffffe 00000001 H: fffffffffffffffe 0000000000000000 L: 0000000000000001 0000000000000000
+  pmultuw C_S64_MIN, C_S64_MIN: fffffffe 00000001 00000000 00000000 H: 0000000000000000 fffffffffffffffe L: 0000000000000000 0000000000000001
+  pmultuw C_GARBAGE1, C_GARBAGE2: 000010b8 79db19c5 000010b6 bc7fc259 H: 00000000000010b6 00000000000010b8 L: ffffffffbc7fc259 0000000079db19c5
+  pmultuw C_TWOTWOTWOTWO, C_ONEONEONEONE: 00000000 00000002 00000000 00000002 H: 0000000000000000 0000000000000000 L: 0000000000000002 0000000000000002
+  pmultuw C_P_S8_A, C_P_S8_B: 0626a62f 82e62188 40c04988 c848bf80 H: 0000000040c04988 000000000626a62f L: ffffffffc848bf80 ffffffff82e62188
+  pmultuw C_P_S16_A, C_P_S16_B: 12344d5d d4c40000 4000bfff ffff8000 H: 000000004000bfff 0000000012344d5d L: ffffffffffff8000 ffffffffd4c40000
+  pmultuw C_P_S32_A, C_P_S32_B: 091a2b3b edcba988 7fffffff 80000000 H: 000000007fffffff 00000000091a2b3b L: ffffffff80000000 ffffffffedcba988
+  pmultuw C_P_S32_B, C_P_S32_A: 091a2b3b edcba988 7fffffff 80000000 H: 000000007fffffff 00000000091a2b3b L: ffffffff80000000 ffffffffedcba988
+  pmultuw C_P_S32_C, C_P_S32_D: 12345677 edcba988 3fffffff 80000000 H: 000000003fffffff 0000000012345677 L: ffffffff80000000 ffffffffedcba988
+  pmultuw C_P_S32_D, C_P_S32_C: 12345677 edcba988 3fffffff 80000000 H: 000000003fffffff 0000000012345677 L: ffffffff80000000 ffffffffedcba988
+  pmultuw C_P_S32_E, C_P_S32_F: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultuw C_P_S32_F, C_P_S32_E: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultuw -> $0: 00000000 00000000 00000000 00000000
+
+pmultw:
+  pmultw 0, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultw 0, 1: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultw 1, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultw 1, 1: 00000000 00000001 00000000 00000001 H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pmultw 2, 2: 00000000 00000004 00000000 00000004 H: 0000000000000000 0000000000000000 L: 0000000000000004 0000000000000004
+  pmultw 53, 2: 00000000 0000006a 00000000 0000006a H: 0000000000000000 0000000000000000 L: 000000000000006a 000000000000006a
+  pmultw 53, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultw -1, 1: ffffffff ffffffff ffffffff ffffffff H: ffffffffffffffff ffffffffffffffff L: ffffffffffffffff ffffffffffffffff
+  pmultw 1, -1: ffffffff ffffffff ffffffff ffffffff H: ffffffffffffffff ffffffffffffffff L: ffffffffffffffff ffffffffffffffff
+  pmultw -1, -1: 00000000 00000001 00000000 00000001 H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000001
+  pmultw -2147483648, -1: 00000000 80000000 00000000 80000000 H: 0000000000000000 0000000000000000 L: ffffffff80000000 ffffffff80000000
+  pmultw -2147483648, 0: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultw 305402420, 1450727032: 06260cac 06e60060 06260cac 06e60060 H: 0000000006260cac 0000000006260cac L: 0000000006e60060 0000000006e60060
+  pmultw C_ZERO, C_ONE: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultw C_ONE, C_ONE: 00000000 00000000 00000000 00000001 H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000000
+  pmultw C_ONE, C_NEGONE: 00000000 00000000 ffffffff ffffffff H: ffffffffffffffff 0000000000000000 L: ffffffffffffffff 0000000000000000
+  pmultw C_S16_MAX, C_S16_MAX: 00000000 00000000 00000000 3fff0001 H: 0000000000000000 0000000000000000 L: 000000003fff0001 0000000000000000
+  pmultw C_S16_MIN, C_S16_MIN: 00000000 00000001 00000000 40000000 H: 0000000000000000 0000000000000000 L: 0000000040000000 0000000000000001
+  pmultw C_S32_MAX, C_S32_MAX: 00000000 00000000 3fffffff 00000001 H: 000000003fffffff 0000000000000000 L: 0000000000000001 0000000000000000
+  pmultw C_S32_MIN, C_S32_MIN: 00000000 00000001 40000000 00000000 H: 0000000040000000 0000000000000000 L: 0000000000000000 0000000000000001
+  pmultw C_S64_MAX, C_S64_MAX: 00000000 00000000 00000000 00000001 H: 0000000000000000 0000000000000000 L: 0000000000000001 0000000000000000
+  pmultw C_S64_MIN, C_S64_MIN: 00000000 00000001 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000001
+  pmultw C_GARBAGE1, C_GARBAGE2: fffffd7f 79db19c5 fffffd7f bc7fc259 H: fffffffffffffd7f fffffffffffffd7f L: ffffffffbc7fc259 0000000079db19c5
+  pmultw C_TWOTWOTWOTWO, C_ONEONEONEONE: 00000000 00000002 00000000 00000002 H: 0000000000000000 0000000000000000 L: 0000000000000002 0000000000000002
+  pmultw C_P_S8_A, C_P_S8_B: 0626a62f 82e62188 3f40b689 c848bf80 H: 000000003f40b689 000000000626a62f L: ffffffffc848bf80 ffffffff82e62188
+  pmultw C_P_S16_A, C_P_S16_B: fffff6e5 d4c40000 3fff4000 ffff8000 H: 000000003fff4000 fffffffffffff6e5 L: ffffffffffff8000 ffffffffd4c40000
+  pmultw C_P_S32_A, C_P_S32_B: 091a2b3b edcba988 00000000 80000000 H: 0000000000000000 00000000091a2b3b L: ffffffff80000000 ffffffffedcba988
+  pmultw C_P_S32_B, C_P_S32_A: 091a2b3b edcba988 00000000 80000000 H: 0000000000000000 00000000091a2b3b L: ffffffff80000000 ffffffffedcba988
+  pmultw C_P_S32_C, C_P_S32_D: ffffffff edcba988 c0000000 80000000 H: ffffffffc0000000 ffffffffffffffff L: ffffffff80000000 ffffffffedcba988
+  pmultw C_P_S32_D, C_P_S32_C: ffffffff edcba988 c0000000 80000000 H: ffffffffc0000000 ffffffffffffffff L: ffffffff80000000 ffffffffedcba988
+  pmultw C_P_S32_E, C_P_S32_F: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultw C_P_S32_F, C_P_S32_E: 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmultw -> $0: 00000000 00000000 00000000 00000000
+
+pmfhi:
+  pmfhi 0 (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi 1 (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi 2 (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi 53 (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi -1 (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi -2147483648 (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi 305402420 (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi 0 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhi 305402420 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhi -1 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhi 0 (C_HILO_PATTERN): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhi 305402420 (C_HILO_PATTERN): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhi -1 (C_HILO_PATTERN): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhi C_ZERO (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_ONE (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_NEGONE (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_S16_MAX (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_S16_MIN (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_S32_MAX (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_S32_MIN (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_S64_MAX (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_S64_MIN (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_GARBAGE1 (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_TWOTWOTWOTWO (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_P_S8_A (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_P_S16_A (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_P_S32_A (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi C_P_S32_E (C_HILO): 23456789 abcdef01 01234567 89abcdef H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhi -> $0: 00000000 00000000 00000000 00000000
+
+pmfhl.lh:
+  pmfhl.lh 0 (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh 1 (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh 2 (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh 53 (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh -1 (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh -2147483648 (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh 305402420 (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh 0 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.lh 305402420 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.lh -1 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.lh 0 (C_HILO_PATTERN): 00000000 0000abcd 00000000 00001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.lh 305402420 (C_HILO_PATTERN): 00000000 0000abcd 00000000 00001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.lh -1 (C_HILO_PATTERN): 00000000 0000abcd 00000000 00001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.lh C_ZERO (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_ONE (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_NEGONE (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_S16_MAX (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_S16_MIN (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_S32_MAX (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_S32_MIN (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_S64_MAX (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_S64_MIN (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_GARBAGE1 (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_TWOTWOTWOTWO (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_P_S8_A (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_P_S16_A (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_P_S32_A (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh C_P_S32_E (C_HILO): 6789ef01 89ab0123 4567cdef 5678def0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lh -> $0: 00000000 00000000 00000000 00000000
+
+pmfhl.lw:
+  pmfhl.lw 0 (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw 1 (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw 2 (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw 53 (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw -1 (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw -2147483648 (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw 305402420 (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw 0 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.lw 305402420 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.lw -1 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.lw 0 (C_HILO_PATTERN): 00000000 f000abcd 00000000 10001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.lw 305402420 (C_HILO_PATTERN): 00000000 f000abcd 00000000 10001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.lw -1 (C_HILO_PATTERN): 00000000 f000abcd 00000000 10001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.lw C_ZERO (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_ONE (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_NEGONE (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_S16_MAX (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_S16_MIN (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_S32_MAX (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_S32_MIN (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_S64_MAX (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_S64_MIN (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_GARBAGE1 (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_TWOTWOTWOTWO (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_P_S8_A (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_P_S16_A (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_P_S32_A (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw C_P_S32_E (C_HILO): abcdef01 cdef0123 89abcdef 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.lw -> $0: 00000000 00000000 00000000 00000000
+
+pmfhl.sh:
+  pmfhl.sh 0 (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh 1 (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh 2 (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh 53 (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh -1 (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh -2147483648 (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh 305402420 (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh 0 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.sh 305402420 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.sh -1 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.sh 0 (C_HILO_PATTERN): 00000000 00008000 00000000 00007fff H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.sh 305402420 (C_HILO_PATTERN): 00000000 00008000 00000000 00007fff H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.sh -1 (C_HILO_PATTERN): 00000000 00008000 00000000 00007fff H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.sh C_ZERO (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_ONE (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_NEGONE (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_S16_MAX (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_S16_MIN (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_S32_MAX (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_S32_MIN (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_S64_MAX (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_S64_MIN (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_GARBAGE1 (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_TWOTWOTWOTWO (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_P_S8_A (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_P_S16_A (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_P_S32_A (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh C_P_S32_E (C_HILO): 7fff8000 7fff8000 7fff8000 7fff8000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.sh -> $0: 00000000 00000000 00000000 00000000
+
+pmfhl.slw:
+  pmfhl.slw 0 (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw 1 (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw 2 (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw 53 (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw -1 (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw -2147483648 (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw 305402420 (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw 0 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.slw 305402420 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.slw -1 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.slw 0 (C_HILO_PATTERN): 00000000 7fffffff 00000000 10001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.slw 305402420 (C_HILO_PATTERN): 00000000 7fffffff 00000000 10001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.slw -1 (C_HILO_PATTERN): 00000000 7fffffff 00000000 10001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.slw C_ZERO (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_ONE (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_NEGONE (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_S16_MAX (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_S16_MIN (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_S32_MAX (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_S32_MIN (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_S64_MAX (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_S64_MIN (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_GARBAGE1 (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_TWOTWOTWOTWO (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_P_S8_A (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_P_S16_A (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_P_S32_A (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw C_P_S32_E (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.slw -> $0: 00000000 00000000 00000000 00000000
+
+pmfhl.uw:
+  pmfhl.uw 0 (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw 1 (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw 2 (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw 53 (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw -1 (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw -2147483648 (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw 305402420 (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw 0 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.uw 305402420 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.uw -1 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmfhl.uw 0 (C_HILO_PATTERN): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.uw 305402420 (C_HILO_PATTERN): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.uw -1 (C_HILO_PATTERN): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmfhl.uw C_ZERO (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_ONE (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_NEGONE (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_S16_MAX (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_S16_MIN (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_S32_MAX (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_S32_MIN (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_S64_MAX (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_S64_MIN (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_GARBAGE1 (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_TWOTWOTWOTWO (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_P_S8_A (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_P_S16_A (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_P_S32_A (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw C_P_S32_E (C_HILO): 23456789 456789ab 01234567 12345678 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmfhl.uw -> $0: 00000000 00000000 00000000 00000000
+
+pmflo:
+  pmflo 0 (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo 1 (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo 2 (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo 53 (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo -1 (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo -2147483648 (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo 305402420 (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo 0 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmflo 305402420 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmflo -1 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmflo 0 (C_HILO_PATTERN): 00000000 f000abcd 00000000 10001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmflo 305402420 (C_HILO_PATTERN): 00000000 f000abcd 00000000 10001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmflo -1 (C_HILO_PATTERN): 00000000 f000abcd 00000000 10001234 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmflo C_ZERO (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_ONE (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_NEGONE (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_S16_MAX (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_S16_MIN (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_S32_MAX (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_S32_MIN (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_S64_MAX (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_S64_MIN (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_GARBAGE1 (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_TWOTWOTWOTWO (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_P_S8_A (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_P_S16_A (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_P_S32_A (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo C_P_S32_E (C_HILO): 456789ab cdef0123 12345678 9abcdef0 H: 0123456789abcdef 23456789abcdef01 L: 123456789abcdef0 456789abcdef0123
+  pmflo -> $0: 00000000 00000000 00000000 00000000
+
+pmthi:
+  pmthi 0 (C_HILO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 123456789abcdef0 456789abcdef0123
+  pmthi 1 (C_HILO): 00000000 00000001 00000000 00000001 H: 0000000000000001 0000000000000001 L: 123456789abcdef0 456789abcdef0123
+  pmthi 2 (C_HILO): 00000000 00000002 00000000 00000002 H: 0000000000000002 0000000000000002 L: 123456789abcdef0 456789abcdef0123
+  pmthi 53 (C_HILO): 00000000 00000035 00000000 00000035 H: 0000000000000035 0000000000000035 L: 123456789abcdef0 456789abcdef0123
+  pmthi -1 (C_HILO): ffffffff ffffffff ffffffff ffffffff H: ffffffffffffffff ffffffffffffffff L: 123456789abcdef0 456789abcdef0123
+  pmthi -2147483648 (C_HILO): ffffffff 80000000 ffffffff 80000000 H: ffffffff80000000 ffffffff80000000 L: 123456789abcdef0 456789abcdef0123
+  pmthi 305402420 (C_HILO): 00000000 12341234 00000000 12341234 H: 0000000012341234 0000000012341234 L: 123456789abcdef0 456789abcdef0123
+  pmthi 0 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmthi 305402420 (C_HILO_ZERO): 00000000 12341234 00000000 12341234 H: 0000000012341234 0000000012341234 L: 0000000000000000 0000000000000000
+  pmthi -1 (C_HILO_ZERO): ffffffff ffffffff ffffffff ffffffff H: ffffffffffffffff ffffffffffffffff L: 0000000000000000 0000000000000000
+  pmthi 0 (C_HILO_PATTERN): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000010001234 00000000f000abcd
+  pmthi 305402420 (C_HILO_PATTERN): 00000000 12341234 00000000 12341234 H: 0000000012341234 0000000012341234 L: 0000000010001234 00000000f000abcd
+  pmthi -1 (C_HILO_PATTERN): ffffffff ffffffff ffffffff ffffffff H: ffffffffffffffff ffffffffffffffff L: 0000000010001234 00000000f000abcd
+  pmthi C_ZERO (C_HILO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 123456789abcdef0 456789abcdef0123
+  pmthi C_ONE (C_HILO): 00000000 00000000 00000000 00000001 H: 0000000000000001 0000000000000000 L: 123456789abcdef0 456789abcdef0123
+  pmthi C_NEGONE (C_HILO): ffffffff ffffffff ffffffff ffffffff H: ffffffffffffffff ffffffffffffffff L: 123456789abcdef0 456789abcdef0123
+  pmthi C_S16_MAX (C_HILO): 00000000 00000000 00000000 00007fff H: 0000000000007fff 0000000000000000 L: 123456789abcdef0 456789abcdef0123
+  pmthi C_S16_MIN (C_HILO): ffffffff ffffffff ffffffff ffff8000 H: ffffffffffff8000 ffffffffffffffff L: 123456789abcdef0 456789abcdef0123
+  pmthi C_S32_MAX (C_HILO): 00000000 00000000 00000000 7fffffff H: 000000007fffffff 0000000000000000 L: 123456789abcdef0 456789abcdef0123
+  pmthi C_S32_MIN (C_HILO): ffffffff ffffffff ffffffff 80000000 H: ffffffff80000000 ffffffffffffffff L: 123456789abcdef0 456789abcdef0123
+  pmthi C_S64_MAX (C_HILO): 00000000 00000000 7fffffff ffffffff H: 7fffffffffffffff 0000000000000000 L: 123456789abcdef0 456789abcdef0123
+  pmthi C_S64_MIN (C_HILO): ffffffff ffffffff 80000000 00000000 H: 8000000000000000 ffffffffffffffff L: 123456789abcdef0 456789abcdef0123
+  pmthi C_GARBAGE1 (C_HILO): 0000133a 00001339 00001338 00001337 H: 0000133800001337 0000133a00001339 L: 123456789abcdef0 456789abcdef0123
+  pmthi C_TWOTWOTWOTWO (C_HILO): 00000002 00000002 00000002 00000002 H: 0000000200000002 0000000200000002 L: 123456789abcdef0 456789abcdef0123
+  pmthi C_P_S8_A (C_HILO): 7f7f7f7f 12345678 ffffffff 80808080 H: ffffffff80808080 7f7f7f7f12345678 L: 123456789abcdef0 456789abcdef0123
+  pmthi C_P_S16_A (C_HILO): 7fff7fff 12345678 ffffffff 80008000 H: ffffffff80008000 7fff7fff12345678 L: 123456789abcdef0 456789abcdef0123
+  pmthi C_P_S32_A (C_HILO): 7fffffff 12345678 ffffffff 80000000 H: ffffffff80000000 7fffffff12345678 L: 123456789abcdef0 456789abcdef0123
+  pmthi C_P_S32_E (C_HILO): 80000000 ffffffff 7fffffff 00000000 H: 7fffffff00000000 80000000ffffffff L: 123456789abcdef0 456789abcdef0123
+  pmthi -> $0: 00000000 00000000 00000000 00000000
+
+pmthl.lw:
+  pmthl.lw 0 (C_HILO): 00000000 00000000 00000000 00000000 H: 0123456700000000 2345678900000000 L: 1234567800000000 456789ab00000000
+  pmthl.lw 1 (C_HILO): 00000000 00000001 00000000 00000001 H: 0123456700000000 2345678900000000 L: 1234567800000001 456789ab00000001
+  pmthl.lw 2 (C_HILO): 00000000 00000002 00000000 00000002 H: 0123456700000000 2345678900000000 L: 1234567800000002 456789ab00000002
+  pmthl.lw 53 (C_HILO): 00000000 00000035 00000000 00000035 H: 0123456700000000 2345678900000000 L: 1234567800000035 456789ab00000035
+  pmthl.lw -1 (C_HILO): ffffffff ffffffff ffffffff ffffffff H: 01234567ffffffff 23456789ffffffff L: 12345678ffffffff 456789abffffffff
+  pmthl.lw -2147483648 (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 01234567ffffffff 23456789ffffffff L: 1234567880000000 456789ab80000000
+  pmthl.lw 305402420 (C_HILO): 00000000 12341234 00000000 12341234 H: 0123456700000000 2345678900000000 L: 1234567812341234 456789ab12341234
+  pmthl.lw 0 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmthl.lw 305402420 (C_HILO_ZERO): 00000000 12341234 00000000 12341234 H: 0000000000000000 0000000000000000 L: 0000000012341234 0000000012341234
+  pmthl.lw -1 (C_HILO_ZERO): ffffffff ffffffff ffffffff ffffffff H: 00000000ffffffff 00000000ffffffff L: 00000000ffffffff 00000000ffffffff
+  pmthl.lw 0 (C_HILO_PATTERN): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmthl.lw 305402420 (C_HILO_PATTERN): 00000000 12341234 00000000 12341234 H: 0000000000000000 0000000000000000 L: 0000000012341234 0000000012341234
+  pmthl.lw -1 (C_HILO_PATTERN): ffffffff ffffffff ffffffff ffffffff H: 00000000ffffffff 00000000ffffffff L: 00000000ffffffff 00000000ffffffff
+  pmthl.lw C_ZERO (C_HILO): 00000000 00000000 00000000 00000000 H: 0123456700000000 2345678900000000 L: 1234567800000000 456789ab00000000
+  pmthl.lw C_ONE (C_HILO): 00000000 00000000 00000000 00000001 H: 0123456700000000 2345678900000000 L: 1234567800000001 456789ab00000000
+  pmthl.lw C_NEGONE (C_HILO): ffffffff ffffffff ffffffff ffffffff H: 01234567ffffffff 23456789ffffffff L: 12345678ffffffff 456789abffffffff
+  pmthl.lw C_S16_MAX (C_HILO): 00000000 00000000 00000000 00007fff H: 0123456700000000 2345678900000000 L: 1234567800007fff 456789ab00000000
+  pmthl.lw C_S16_MIN (C_HILO): ffffffff ffffffff ffffffff ffff8000 H: 01234567ffffffff 23456789ffffffff L: 12345678ffff8000 456789abffffffff
+  pmthl.lw C_S32_MAX (C_HILO): 00000000 00000000 00000000 7fffffff H: 0123456700000000 2345678900000000 L: 123456787fffffff 456789ab00000000
+  pmthl.lw C_S32_MIN (C_HILO): ffffffff ffffffff ffffffff 80000000 H: 01234567ffffffff 23456789ffffffff L: 1234567880000000 456789abffffffff
+  pmthl.lw C_S64_MAX (C_HILO): 00000000 00000000 7fffffff ffffffff H: 012345677fffffff 2345678900000000 L: 12345678ffffffff 456789ab00000000
+  pmthl.lw C_S64_MIN (C_HILO): ffffffff ffffffff 80000000 00000000 H: 0123456780000000 23456789ffffffff L: 1234567800000000 456789abffffffff
+  pmthl.lw C_GARBAGE1 (C_HILO): 0000133a 00001339 00001338 00001337 H: 0123456700001338 234567890000133a L: 1234567800001337 456789ab00001339
+  pmthl.lw C_TWOTWOTWOTWO (C_HILO): 00000002 00000002 00000002 00000002 H: 0123456700000002 2345678900000002 L: 1234567800000002 456789ab00000002
+  pmthl.lw C_P_S8_A (C_HILO): 7f7f7f7f 12345678 ffffffff 80808080 H: 01234567ffffffff 234567897f7f7f7f L: 1234567880808080 456789ab12345678
+  pmthl.lw C_P_S16_A (C_HILO): 7fff7fff 12345678 ffffffff 80008000 H: 01234567ffffffff 234567897fff7fff L: 1234567880008000 456789ab12345678
+  pmthl.lw C_P_S32_A (C_HILO): 7fffffff 12345678 ffffffff 80000000 H: 01234567ffffffff 234567897fffffff L: 1234567880000000 456789ab12345678
+  pmthl.lw C_P_S32_E (C_HILO): 80000000 ffffffff 7fffffff 00000000 H: 012345677fffffff 2345678980000000 L: 1234567800000000 456789abffffffff
+  pmthl.lw -> $0: 00000000 00000000 00000000 00000000
+
+pmtlo:
+  pmtlo 0 (C_HILO): 00000000 00000000 00000000 00000000 H: 0123456789abcdef 23456789abcdef01 L: 0000000000000000 0000000000000000
+  pmtlo 1 (C_HILO): 00000000 00000001 00000000 00000001 H: 0123456789abcdef 23456789abcdef01 L: 0000000000000001 0000000000000001
+  pmtlo 2 (C_HILO): 00000000 00000002 00000000 00000002 H: 0123456789abcdef 23456789abcdef01 L: 0000000000000002 0000000000000002
+  pmtlo 53 (C_HILO): 00000000 00000035 00000000 00000035 H: 0123456789abcdef 23456789abcdef01 L: 0000000000000035 0000000000000035
+  pmtlo -1 (C_HILO): ffffffff ffffffff ffffffff ffffffff H: 0123456789abcdef 23456789abcdef01 L: ffffffffffffffff ffffffffffffffff
+  pmtlo -2147483648 (C_HILO): ffffffff 80000000 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: ffffffff80000000 ffffffff80000000
+  pmtlo 305402420 (C_HILO): 00000000 12341234 00000000 12341234 H: 0123456789abcdef 23456789abcdef01 L: 0000000012341234 0000000012341234
+  pmtlo 0 (C_HILO_ZERO): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmtlo 305402420 (C_HILO_ZERO): 00000000 12341234 00000000 12341234 H: 0000000000000000 0000000000000000 L: 0000000012341234 0000000012341234
+  pmtlo -1 (C_HILO_ZERO): ffffffff ffffffff ffffffff ffffffff H: 0000000000000000 0000000000000000 L: ffffffffffffffff ffffffffffffffff
+  pmtlo 0 (C_HILO_PATTERN): 00000000 00000000 00000000 00000000 H: 0000000000000000 0000000000000000 L: 0000000000000000 0000000000000000
+  pmtlo 305402420 (C_HILO_PATTERN): 00000000 12341234 00000000 12341234 H: 0000000000000000 0000000000000000 L: 0000000012341234 0000000012341234
+  pmtlo -1 (C_HILO_PATTERN): ffffffff ffffffff ffffffff ffffffff H: 0000000000000000 0000000000000000 L: ffffffffffffffff ffffffffffffffff
+  pmtlo C_ZERO (C_HILO): 00000000 00000000 00000000 00000000 H: 0123456789abcdef 23456789abcdef01 L: 0000000000000000 0000000000000000
+  pmtlo C_ONE (C_HILO): 00000000 00000000 00000000 00000001 H: 0123456789abcdef 23456789abcdef01 L: 0000000000000001 0000000000000000
+  pmtlo C_NEGONE (C_HILO): ffffffff ffffffff ffffffff ffffffff H: 0123456789abcdef 23456789abcdef01 L: ffffffffffffffff ffffffffffffffff
+  pmtlo C_S16_MAX (C_HILO): 00000000 00000000 00000000 00007fff H: 0123456789abcdef 23456789abcdef01 L: 0000000000007fff 0000000000000000
+  pmtlo C_S16_MIN (C_HILO): ffffffff ffffffff ffffffff ffff8000 H: 0123456789abcdef 23456789abcdef01 L: ffffffffffff8000 ffffffffffffffff
+  pmtlo C_S32_MAX (C_HILO): 00000000 00000000 00000000 7fffffff H: 0123456789abcdef 23456789abcdef01 L: 000000007fffffff 0000000000000000
+  pmtlo C_S32_MIN (C_HILO): ffffffff ffffffff ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: ffffffff80000000 ffffffffffffffff
+  pmtlo C_S64_MAX (C_HILO): 00000000 00000000 7fffffff ffffffff H: 0123456789abcdef 23456789abcdef01 L: 7fffffffffffffff 0000000000000000
+  pmtlo C_S64_MIN (C_HILO): ffffffff ffffffff 80000000 00000000 H: 0123456789abcdef 23456789abcdef01 L: 8000000000000000 ffffffffffffffff
+  pmtlo C_GARBAGE1 (C_HILO): 0000133a 00001339 00001338 00001337 H: 0123456789abcdef 23456789abcdef01 L: 0000133800001337 0000133a00001339
+  pmtlo C_TWOTWOTWOTWO (C_HILO): 00000002 00000002 00000002 00000002 H: 0123456789abcdef 23456789abcdef01 L: 0000000200000002 0000000200000002
+  pmtlo C_P_S8_A (C_HILO): 7f7f7f7f 12345678 ffffffff 80808080 H: 0123456789abcdef 23456789abcdef01 L: ffffffff80808080 7f7f7f7f12345678
+  pmtlo C_P_S16_A (C_HILO): 7fff7fff 12345678 ffffffff 80008000 H: 0123456789abcdef 23456789abcdef01 L: ffffffff80008000 7fff7fff12345678
+  pmtlo C_P_S32_A (C_HILO): 7fffffff 12345678 ffffffff 80000000 H: 0123456789abcdef 23456789abcdef01 L: ffffffff80000000 7fffffff12345678
+  pmtlo C_P_S32_E (C_HILO): 80000000 ffffffff 7fffffff 00000000 H: 0123456789abcdef 23456789abcdef01 L: 7fffffff00000000 80000000ffffffff
+  pmtlo -> $0: 00000000 00000000 00000000 00000000
+
+-- TEST END

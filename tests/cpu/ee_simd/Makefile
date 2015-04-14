@@ -1,4 +1,4 @@
-TARGETS = arithmetic compare logic shuffle
+TARGETS = arithmetic compare logic muldiv shuffle
 EE_LIBS =
 
 COMMON_DIR=../../../common

@@ -9,6 +9,8 @@ struct HILOREGS {
 };
 
 static HILOREGS __attribute__((aligned(16))) C_HILO = {0x0123456789ABCDEF, 0x123456789ABCDEF0, 0x23456789ABCDEF01, 0x456789ABCDEF0123};
+static HILOREGS __attribute__((aligned(16))) C_HILO_ZERO = {0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000};
+static HILOREGS __attribute__((aligned(16))) C_HILO_PATTERN = {0x0000000000000000, 0x0000000010001234, 0x0000000000000000, 0x00000000F000ABCD};
 
 static u32 __attribute__((aligned(16))) C_ZERO[4] = {0, 0, 0, 0};
 static u32 __attribute__((aligned(16))) C_S16_MAX[4] = {0x7FFF, 0, 0, 0};
@@ -23,6 +25,16 @@ static u32 __attribute__((aligned(16))) C_GARBAGE1[4] = {0x1337, 0x1338, 0x1339,
 static u32 __attribute__((aligned(16))) C_GARBAGE2[4] = {0xDEADBEEF, 0xDEADBEEE, 0xDEADBEED, 0xDEADBEEC};
 static u32 __attribute__((aligned(16))) C_ONEONEONEONE[4] = {1, 1, 1, 1};
 static u32 __attribute__((aligned(16))) C_TWOTWOTWOTWO[4] = {2, 2, 2, 2};
+static u32 __attribute__((aligned(16))) C_P_S8_A[4] = {0x80808080, 0xFFFFFFFF, 0x12345678, 0x7F7F7F7F};
+static u32 __attribute__((aligned(16))) C_P_S8_B[4] = {0x80FF127F, 0xFF807F34, 0x567F80FF, 0x7F78FF80};
+static u32 __attribute__((aligned(16))) C_P_S16_A[4] = {0x80008000, 0xFFFFFFFF, 0x12345678, 0x7FFF7FFF};
+static u32 __attribute__((aligned(16))) C_P_S16_B[4] = {0x8000FFFF, 0x12347FFF, 0xFFFF8000, 0x7FFF5678};
+static u32 __attribute__((aligned(16))) C_P_S32_A[4] = {0x80000000, 0xFFFFFFFF, 0x12345678, 0x7FFFFFFF};
+static u32 __attribute__((aligned(16))) C_P_S32_B[4] = {0xFFFFFFFF, 0x80000000, 0x7FFFFFFF, 0x12345678};
+static u32 __attribute__((aligned(16))) C_P_S32_C[4] = {0x80000000, 0xFFFFFFFF, 0x12345678, 0x7FFFFFFF};
+static u32 __attribute__((aligned(16))) C_P_S32_D[4] = {0x7FFFFFFF, 0x12345678, 0xFFFFFFFF, 0x80000000};
+static u32 __attribute__((aligned(16))) C_P_S32_E[4] = {0x00000000, 0x7FFFFFFF, 0xFFFFFFFF, 0x80000000};
+static u32 __attribute__((aligned(16))) C_P_S32_F[4] = {0xFFFFFFFF, 0x80000000, 0x00000000, 0x7FFFFFFF};
 
 #define RRHL_OP_FUNC(OP) \
 static inline void RRHL_##OP(const register u128 &rs, const register u128 &rt) { \
@@ -32,25 +44,6 @@ static inline void RRHL_##OP(const register u128 &rs, const register u128 &rt) {
 		#OP " %0, %1\n" \
 		: : "r"(rs), "r"(rt) \
 	); \
-}
-
-// gas automatically inserts a divide by zero trap, annoyingly.
-static inline void RRHL_div(const register u128 &rs, const register u128 &rt) {
-	asm volatile (
-		"por $t8, $0, %0\n"
-		"por $t9, $0, %1\n"
-		".word 0x0319001A\n" // "div $t8, $t9\n"
-		: : "r"(rs), "r"(rt) : "t8", "t9"
-	);
-}
-
-static inline void RRHL_divu(const register u128 &rs, const register u128 &rt) {
-	asm volatile (
-		"por $t8, $0, %0\n"
-		"por $t9, $0, %1\n"
-		".word 0x0319001B\n" // "divu $t8, $t9\n"
-		: : "r"(rs), "r"(rt) : "t8", "t9"
-	);
 }
 
 #define RRRHL_OP_FUNC(OP) \
@@ -67,26 +60,26 @@ static inline void ZRRHL_##OP(register u128 &rd, const register u128 &rs, const 
 		".set noreorder\n" \
 		".set nomacro\n" \
 		#OP " $0, %1, %2\n" \
-		"ori %0, $0, 0\n" \
+		"por %0, $0, $0\n" \
 		: "+r"(rd) : "r"(rs), "r"(rt) \
 	); \
 }
 
-#define RHL_OP_FUNC(OP) \
-static inline void RHL_##OP(register u128 &rd) { \
+#define RHL_OP_FUNC(OP, IDENT) \
+static inline void RHL_##IDENT(register u128 &rd) { \
 	asm volatile ( \
 		".set noreorder\n" \
 		".set nomacro\n" \
-		#OP " %0\n" \
+		OP " %0\n" \
 		: "+r"(rd) \
 	); \
 } \
-static inline void ZHL_##OP(register u128 &rd) { \
+static inline void ZHL_##IDENT(register u128 &rd) { \
 	asm volatile ( \
 		".set noreorder\n" \
 		".set nomacro\n" \
-		#OP " $0\n" \
-		"ori %0, $0, 0\n" \
+		OP " $0\n" \
+		"por %0, $0, $0\n" \
 		: "+r"(rd) \
 	); \
 }
@@ -116,6 +109,7 @@ static inline void SET_U32(register u128 &rd) {
 	asm volatile (
 		"lui %0, %1\n"
 		"ori %0, %0, %2\n"
+		"pcpyld %0, %0, %0\n"
 		: "+r"(rd) : "K"((i >> 16) & 0xFFFF), "K"(i & 0xFFFF)
 	);
 }
@@ -156,6 +150,7 @@ static inline void PRINT_HILO(const HILOREGS &regs, bool newline) {
 	printf("  %s %s, %s: ", #OP, #s, #t); PRINT_HILO(hilo, true);
 
 #define TEST_RRHL_FUNC(OP) \
+RRHL_OP_FUNC(OP); \
 static void test_##OP() { \
 	register u128 rs, rt; \
 	HILOREGS hilo; \
@@ -187,6 +182,14 @@ static void test_##OP() { \
 	RRHL_OP_DO_MM(OP, C_S64_MIN, C_S64_MIN); \
 	RRHL_OP_DO_MM(OP, C_GARBAGE1, C_GARBAGE2); \
 	RRHL_OP_DO_MM(OP, C_TWOTWOTWOTWO, C_ONEONEONEONE); \
+	RRHL_OP_DO_MM(OP, C_P_S8_A, C_P_S8_B); \
+	RRHL_OP_DO_MM(OP, C_P_S16_A, C_P_S16_B); \
+	RRHL_OP_DO_MM(OP, C_P_S32_A, C_P_S32_B); \
+	RRHL_OP_DO_MM(OP, C_P_S32_B, C_P_S32_A); \
+	RRHL_OP_DO_MM(OP, C_P_S32_C, C_P_S32_D); \
+	RRHL_OP_DO_MM(OP, C_P_S32_D, C_P_S32_C); \
+	RRHL_OP_DO_MM(OP, C_P_S32_E, C_P_S32_F); \
+	RRHL_OP_DO_MM(OP, C_P_S32_F, C_P_S32_E); \
 	\
 	printf("\n"); \
 }
@@ -238,6 +241,14 @@ static void test_##OP() { \
 	RRRHL_OP_DO_MMM(OP, C_GARBAGE1, C_S64_MIN, C_S64_MIN); \
 	RRRHL_OP_DO_MMM(OP, C_GARBAGE1, C_GARBAGE1, C_GARBAGE2); \
 	RRRHL_OP_DO_MMM(OP, C_GARBAGE1, C_TWOTWOTWOTWO, C_ONEONEONEONE); \
+	RRRHL_OP_DO_MMM(OP, C_GARBAGE1, C_P_S8_A, C_P_S8_B); \
+	RRRHL_OP_DO_MMM(OP, C_GARBAGE1, C_P_S16_A, C_P_S16_B); \
+	RRRHL_OP_DO_MMM(OP, C_GARBAGE1, C_P_S32_A, C_P_S32_B); \
+	RRRHL_OP_DO_MMM(OP, C_GARBAGE1, C_P_S32_B, C_P_S32_A); \
+	RRRHL_OP_DO_MMM(OP, C_GARBAGE1, C_P_S32_C, C_P_S32_D); \
+	RRRHL_OP_DO_MMM(OP, C_GARBAGE1, C_P_S32_D, C_P_S32_C); \
+	RRRHL_OP_DO_MMM(OP, C_GARBAGE1, C_P_S32_E, C_P_S32_F); \
+	RRRHL_OP_DO_MMM(OP, C_GARBAGE1, C_P_S32_F, C_P_S32_E); \
 	\
 	SET_M(rd, C_GARBAGE1); SET_M(rs, C_GARBAGE1); SET_M(rt, C_GARBAGE1); \
 	ZRRHL_##OP(rd, rs, rt); \
@@ -245,105 +256,118 @@ static void test_##OP() { \
 	printf("\n"); \
 }
 
-#define RHL_OP_DO_I(OP, d) \
+#define RHL_OP_DO_I(OP, IDENT, hl, d) \
 	SET_U32<d>(rd); \
-	SET_HILO(C_HILO); \
-	RHL_##OP(rd); \
+	SET_HILO(hl); \
+	RHL_##IDENT(rd); \
 	GET_HILO(hilo); \
-	printf("  %s %d: ", #OP, (u32)d); PRINT_R(rd, false); printf(" "); PRINT_HILO(hilo, true);
+	printf("  %s %d (%s): ", OP, (u32)d, #hl); PRINT_R(rd, false); printf(" "); PRINT_HILO(hilo, true);
 
-#define RHL_OP_DO_M(OP, d) \
+#define RHL_OP_DO_M(OP, IDENT, hl, d) \
 	SET_M(rd, d); \
-	SET_HILO(C_HILO); \
-	RHL_##OP(rd); \
+	SET_HILO(hl); \
+	RHL_##IDENT(rd); \
 	GET_HILO(hilo); \
-	printf("  %s %s: ", #OP, #d); PRINT_R(rd, false); printf(" "); PRINT_HILO(hilo, true);
+	printf("  %s %s (%s): ", OP, #d, #hl); PRINT_R(rd, false); printf(" "); PRINT_HILO(hilo, true);
 
-#define TEST_RHL_FUNC(OP) \
-RHL_OP_FUNC(OP); \
-static void test_##OP() { \
+#define TEST_RHL_FUNC(OP, IDENT) \
+RHL_OP_FUNC(OP, IDENT); \
+static void test_##IDENT() { \
 	register u128 rd; \
 	HILOREGS hilo; \
 	 \
-	printf("%s:\n", #OP); \
+	printf("%s:\n", OP); \
 	 \
-	RHL_OP_DO_I(OP, 0); \
-	RHL_OP_DO_I(OP, 1); \
-	RHL_OP_DO_I(OP, 2); \
-	RHL_OP_DO_I(OP, 53); \
-	RHL_OP_DO_I(OP, 0xFFFFFFFF); \
-	RHL_OP_DO_I(OP, 0x80000000); \
-	RHL_OP_DO_I(OP, 0x12341234); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO, 0); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO, 1); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO, 2); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO, 53); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO, 0xFFFFFFFF); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO, 0x80000000); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO, 0x12341234); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO_ZERO, 0x00000000); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO_ZERO, 0x12341234); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO_ZERO, 0xFFFFFFFF); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO_PATTERN, 0x00000000); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO_PATTERN, 0x12341234); \
+	RHL_OP_DO_I(OP, IDENT, C_HILO_PATTERN, 0xFFFFFFFF); \
 	 \
-	RHL_OP_DO_M(OP, C_ZERO); \
-	RHL_OP_DO_M(OP, C_ONE); \
-	RHL_OP_DO_M(OP, C_NEGONE); \
-	RHL_OP_DO_M(OP, C_S16_MAX); \
-	RHL_OP_DO_M(OP, C_S16_MIN); \
-	RHL_OP_DO_M(OP, C_S32_MAX); \
-	RHL_OP_DO_M(OP, C_S32_MIN); \
-	RHL_OP_DO_M(OP, C_S64_MAX); \
-	RHL_OP_DO_M(OP, C_S64_MIN); \
-	RHL_OP_DO_M(OP, C_GARBAGE1); \
-	RHL_OP_DO_M(OP, C_TWOTWOTWOTWO); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_ZERO); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_ONE); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_NEGONE); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_S16_MAX); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_S16_MIN); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_S32_MAX); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_S32_MIN); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_S64_MAX); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_S64_MIN); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_GARBAGE1); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_TWOTWOTWOTWO); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_P_S8_A); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_P_S16_A); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_P_S32_A); \
+	RHL_OP_DO_M(OP, IDENT, C_HILO, C_P_S32_E); \
 	\
 	SET_M(rd, C_GARBAGE1); \
-	ZHL_##OP(rd); \
-	printf("  %s -> $0: ", #OP); PRINT_R(rd, true); \
+	ZHL_##IDENT(rd); \
+	printf("  %s -> $0: ", OP); PRINT_R(rd, true); \
 	printf("\n"); \
 }
 
-RRHL_OP_FUNC(div1);
-RRHL_OP_FUNC(divu1);
+TEST_RRHL_FUNC(pdivbw)
+TEST_RRHL_FUNC(pdivuw)
+TEST_RRHL_FUNC(pdivw)
 
-TEST_RRHL_FUNC(div)
-TEST_RRHL_FUNC(divu)
-TEST_RRHL_FUNC(div1)
-TEST_RRHL_FUNC(divu1)
+TEST_RRRHL_FUNC(phmadh)
+TEST_RRRHL_FUNC(phmsbh)
+TEST_RRRHL_FUNC(pmaddh)
+TEST_RRRHL_FUNC(pmadduw)
+TEST_RRRHL_FUNC(pmaddw)
+TEST_RRRHL_FUNC(pmsubh)
+TEST_RRRHL_FUNC(pmsubw)
+TEST_RRRHL_FUNC(pmulth)
+TEST_RRRHL_FUNC(pmultuw)
+TEST_RRRHL_FUNC(pmultw)
 
-TEST_RRRHL_FUNC(madd)
-TEST_RRRHL_FUNC(maddu)
-TEST_RRRHL_FUNC(madd1)
-TEST_RRRHL_FUNC(maddu1)
-TEST_RRRHL_FUNC(mult)
-TEST_RRRHL_FUNC(multu)
-TEST_RRRHL_FUNC(mult1)
-TEST_RRRHL_FUNC(multu1)
-
-TEST_RHL_FUNC(mfhi)
-TEST_RHL_FUNC(mflo)
-TEST_RHL_FUNC(mthi)
-TEST_RHL_FUNC(mtlo)
-TEST_RHL_FUNC(mfhi1)
-TEST_RHL_FUNC(mflo1)
-TEST_RHL_FUNC(mthi1)
-TEST_RHL_FUNC(mtlo1)
+TEST_RHL_FUNC("pmfhi", pmfhi)
+TEST_RHL_FUNC("pmfhl.lh", pmfhl_lh)
+TEST_RHL_FUNC("pmfhl.lw", pmfhl_lw)
+TEST_RHL_FUNC("pmfhl.sh", pmfhl_sh)
+TEST_RHL_FUNC("pmfhl.slw", pmfhl_slw)
+TEST_RHL_FUNC("pmfhl.uw", pmfhl_uw)
+TEST_RHL_FUNC("pmflo", pmflo)
+TEST_RHL_FUNC("pmthi", pmthi)
+TEST_RHL_FUNC("pmthl.lw", pmthl_lw)
+TEST_RHL_FUNC("pmtlo", pmtlo)
 
 int main(int argc, char *argv[]) {
 	printf("-- TEST BEGIN\n");
 
-	test_div();
-	test_divu();
-	test_div1();
-	test_divu1();
+	test_pdivbw();
+	test_pdivuw();
+	test_pdivw();
 
-	test_madd();
-	test_maddu();
-	test_madd1();
-	test_maddu1();
-	test_mult();
-	test_multu();
-	test_mult1();
-	test_multu1();
+	test_phmadh();
+	test_phmsbh();
+	test_pmaddh();
+	test_pmadduw();
+	test_pmaddw();
+	test_pmsubh();
+	test_pmsubw();
+	test_pmulth();
+	test_pmultuw();
+	test_pmultw();
 
-	test_mfhi();
-	test_mflo();
-	test_mthi();
-	test_mtlo();
-	test_mfhi1();
-	test_mflo1();
-	test_mthi1();
-	test_mtlo1();
+	test_pmfhi();
+	test_pmfhl_lh();
+	test_pmfhl_lw();
+	test_pmfhl_sh();
+	test_pmfhl_slw();
+	test_pmfhl_uw();
+	test_pmflo();
+	test_pmthi();
+	test_pmthl_lw();
+	test_pmtlo();
 
 	printf("-- TEST END\n");
 
