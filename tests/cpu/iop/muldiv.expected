@@ -1,0 +1,194 @@
+-- TEST BEGIN
+div:
+  div 0, 0: H: 00000000 L: ffffffff
+  div 0, 1: H: 00000000 L: 00000000
+  div 1, 0: H: 00000001 L: ffffffff
+  div 1, 1: H: 00000000 L: 00000001
+  div 2, 2: H: 00000000 L: 00000001
+  div 53, 2: H: 00000001 L: 0000001a
+  div 53, 0: H: 00000035 L: ffffffff
+  div -1, 1: H: 00000000 L: ffffffff
+  div 1, -1: H: 00000000 L: ffffffff
+  div -1, -1: H: 00000000 L: 00000001
+  div -2147483648, -1: H: 00000000 L: 80000000
+  div -2147483648, 0: H: 80000000 L: 00000001
+  div 305402420, 1450727032: H: 12341234 L: 00000000
+  div C_ZERO, C_ONE: H: 00000000 L: 00000000
+  div C_ONE, C_ONE: H: 00000000 L: 00000001
+  div C_ONE, C_NEGONE: H: 00000000 L: ffffffff
+  div C_S16_MAX, C_S16_MAX: H: 00000000 L: 00000001
+  div C_S16_MIN, C_S16_MIN: H: 00000000 L: 00000001
+  div C_S32_MAX, C_S32_MAX: H: 00000000 L: 00000001
+  div C_S32_MIN, C_S32_MIN: H: 00000000 L: 00000001
+  div C_S64_MAX, C_S64_MAX: H: 00000000 L: 00000001
+  div C_S64_MIN, C_S64_MIN: H: 00000000 L: ffffffff
+  div C_GARBAGE1, C_GARBAGE2: H: 00001337 L: 00000000
+  div C_TWOTWOTWOTWO, C_ONEONEONEONE: H: 00000000 L: 00000002
+  div C_NEGONE, C_TWOTWOTWOTWO: H: ffffffff L: 00000000
+
+divu:
+  divu 0, 0: H: 00000000 L: ffffffff
+  divu 0, 1: H: 00000000 L: 00000000
+  divu 1, 0: H: 00000001 L: ffffffff
+  divu 1, 1: H: 00000000 L: 00000001
+  divu 2, 2: H: 00000000 L: 00000001
+  divu 53, 2: H: 00000001 L: 0000001a
+  divu 53, 0: H: 00000035 L: ffffffff
+  divu -1, 1: H: 00000000 L: ffffffff
+  divu 1, -1: H: 00000001 L: 00000000
+  divu -1, -1: H: 00000000 L: 00000001
+  divu -2147483648, -1: H: 80000000 L: 00000000
+  divu -2147483648, 0: H: 80000000 L: ffffffff
+  divu 305402420, 1450727032: H: 12341234 L: 00000000
+  divu C_ZERO, C_ONE: H: 00000000 L: 00000000
+  divu C_ONE, C_ONE: H: 00000000 L: 00000001
+  divu C_ONE, C_NEGONE: H: 00000001 L: 00000000
+  divu C_S16_MAX, C_S16_MAX: H: 00000000 L: 00000001
+  divu C_S16_MIN, C_S16_MIN: H: 00000000 L: 00000001
+  divu C_S32_MAX, C_S32_MAX: H: 00000000 L: 00000001
+  divu C_S32_MIN, C_S32_MIN: H: 00000000 L: 00000001
+  divu C_S64_MAX, C_S64_MAX: H: 00000000 L: 00000001
+  divu C_S64_MIN, C_S64_MIN: H: 00000000 L: ffffffff
+  divu C_GARBAGE1, C_GARBAGE2: H: 00001337 L: 00000000
+  divu C_TWOTWOTWOTWO, C_ONEONEONEONE: H: 00000000 L: 00000002
+  divu C_NEGONE, C_TWOTWOTWOTWO: H: 00000001 L: 7fffffff
+
+mult:
+  mult 0, 0: H: 00000000 L: 00000000
+  mult 0, 1: H: 00000000 L: 00000000
+  mult 1, 0: H: 00000000 L: 00000000
+  mult 1, 1: H: 00000000 L: 00000001
+  mult 2, 2: H: 00000000 L: 00000004
+  mult 53, 2: H: 00000000 L: 0000006a
+  mult 53, 0: H: 00000000 L: 00000000
+  mult -1, 1: H: ffffffff L: ffffffff
+  mult 1, -1: H: ffffffff L: ffffffff
+  mult -1, -1: H: 00000000 L: 00000001
+  mult -2147483648, -1: H: 00000000 L: 80000000
+  mult -2147483648, 0: H: 00000000 L: 00000000
+  mult 305402420, 1450727032: H: 06260cac L: 06e60060
+  mult C_ZERO, C_ONE: H: 00000000 L: 00000000
+  mult C_ONE, C_ONE: H: 00000000 L: 00000001
+  mult C_ONE, C_NEGONE: H: ffffffff L: ffffffff
+  mult C_S16_MAX, C_S16_MAX: H: 00000000 L: 3fff0001
+  mult C_S16_MIN, C_S16_MIN: H: 00000000 L: 40000000
+  mult C_S32_MAX, C_S32_MAX: H: 3fffffff L: 00000001
+  mult C_S32_MIN, C_S32_MIN: H: 40000000 L: 00000000
+  mult C_S64_MAX, C_S64_MAX: H: 00000000 L: 00000001
+  mult C_S64_MIN, C_S64_MIN: H: 00000000 L: 00000000
+  mult C_GARBAGE1, C_GARBAGE2: H: fffffd7f L: bc7fc259
+  mult C_TWOTWOTWOTWO, C_ONEONEONEONE: H: 00000000 L: 00000002
+  mult C_NEGONE, C_TWOTWOTWOTWO: H: ffffffff L: fffffffe
+
+multu:
+  multu 0, 0: H: 00000000 L: 00000000
+  multu 0, 1: H: 00000000 L: 00000000
+  multu 1, 0: H: 00000000 L: 00000000
+  multu 1, 1: H: 00000000 L: 00000001
+  multu 2, 2: H: 00000000 L: 00000004
+  multu 53, 2: H: 00000000 L: 0000006a
+  multu 53, 0: H: 00000000 L: 00000000
+  multu -1, 1: H: 00000000 L: ffffffff
+  multu 1, -1: H: 00000000 L: ffffffff
+  multu -1, -1: H: fffffffe L: 00000001
+  multu -2147483648, -1: H: 7fffffff L: 80000000
+  multu -2147483648, 0: H: 00000000 L: 00000000
+  multu 305402420, 1450727032: H: 06260cac L: 06e60060
+  multu C_ZERO, C_ONE: H: 00000000 L: 00000000
+  multu C_ONE, C_ONE: H: 00000000 L: 00000001
+  multu C_ONE, C_NEGONE: H: 00000000 L: ffffffff
+  multu C_S16_MAX, C_S16_MAX: H: 00000000 L: 3fff0001
+  multu C_S16_MIN, C_S16_MIN: H: ffff0000 L: 40000000
+  multu C_S32_MAX, C_S32_MAX: H: 3fffffff L: 00000001
+  multu C_S32_MIN, C_S32_MIN: H: 40000000 L: 00000000
+  multu C_S64_MAX, C_S64_MAX: H: fffffffe L: 00000001
+  multu C_S64_MIN, C_S64_MIN: H: 00000000 L: 00000000
+  multu C_GARBAGE1, C_GARBAGE2: H: 000010b6 L: bc7fc259
+  multu C_TWOTWOTWOTWO, C_ONEONEONEONE: H: 00000000 L: 00000002
+  multu C_NEGONE, C_TWOTWOTWOTWO: H: 00000001 L: fffffffe
+
+mfhi:
+  mfhi 0: 01234567 H: 01234567 L: 89abcdef
+  mfhi 1: 01234567 H: 01234567 L: 89abcdef
+  mfhi 2: 01234567 H: 01234567 L: 89abcdef
+  mfhi 53: 01234567 H: 01234567 L: 89abcdef
+  mfhi -1: 01234567 H: 01234567 L: 89abcdef
+  mfhi -2147483648: 01234567 H: 01234567 L: 89abcdef
+  mfhi 305402420: 01234567 H: 01234567 L: 89abcdef
+  mfhi C_ZERO: 01234567 H: 01234567 L: 89abcdef
+  mfhi C_ONE: 01234567 H: 01234567 L: 89abcdef
+  mfhi C_NEGONE: 01234567 H: 01234567 L: 89abcdef
+  mfhi C_S16_MAX: 01234567 H: 01234567 L: 89abcdef
+  mfhi C_S16_MIN: 01234567 H: 01234567 L: 89abcdef
+  mfhi C_S32_MAX: 01234567 H: 01234567 L: 89abcdef
+  mfhi C_S32_MIN: 01234567 H: 01234567 L: 89abcdef
+  mfhi C_S64_MAX: 01234567 H: 01234567 L: 89abcdef
+  mfhi C_S64_MIN: 01234567 H: 01234567 L: 89abcdef
+  mfhi C_GARBAGE1: 01234567 H: 01234567 L: 89abcdef
+  mfhi C_TWOTWOTWOTWO: 01234567 H: 01234567 L: 89abcdef
+  mfhi -> $0: 00000000
+
+mflo:
+  mflo 0: 89abcdef H: 01234567 L: 89abcdef
+  mflo 1: 89abcdef H: 01234567 L: 89abcdef
+  mflo 2: 89abcdef H: 01234567 L: 89abcdef
+  mflo 53: 89abcdef H: 01234567 L: 89abcdef
+  mflo -1: 89abcdef H: 01234567 L: 89abcdef
+  mflo -2147483648: 89abcdef H: 01234567 L: 89abcdef
+  mflo 305402420: 89abcdef H: 01234567 L: 89abcdef
+  mflo C_ZERO: 89abcdef H: 01234567 L: 89abcdef
+  mflo C_ONE: 89abcdef H: 01234567 L: 89abcdef
+  mflo C_NEGONE: 89abcdef H: 01234567 L: 89abcdef
+  mflo C_S16_MAX: 89abcdef H: 01234567 L: 89abcdef
+  mflo C_S16_MIN: 89abcdef H: 01234567 L: 89abcdef
+  mflo C_S32_MAX: 89abcdef H: 01234567 L: 89abcdef
+  mflo C_S32_MIN: 89abcdef H: 01234567 L: 89abcdef
+  mflo C_S64_MAX: 89abcdef H: 01234567 L: 89abcdef
+  mflo C_S64_MIN: 89abcdef H: 01234567 L: 89abcdef
+  mflo C_GARBAGE1: 89abcdef H: 01234567 L: 89abcdef
+  mflo C_TWOTWOTWOTWO: 89abcdef H: 01234567 L: 89abcdef
+  mflo -> $0: 00000000
+
+mthi:
+  mthi 0: 00000000 H: 00000000 L: 89abcdef
+  mthi 1: 00000001 H: 00000001 L: 89abcdef
+  mthi 2: 00000002 H: 00000002 L: 89abcdef
+  mthi 53: 00000035 H: 00000035 L: 89abcdef
+  mthi -1: ffffffff H: ffffffff L: 89abcdef
+  mthi -2147483648: 80000000 H: 80000000 L: 89abcdef
+  mthi 305402420: 12341234 H: 12341234 L: 89abcdef
+  mthi C_ZERO: 00000000 H: 00000000 L: 89abcdef
+  mthi C_ONE: 00000001 H: 00000001 L: 89abcdef
+  mthi C_NEGONE: ffffffff H: ffffffff L: 89abcdef
+  mthi C_S16_MAX: 00007fff H: 00007fff L: 89abcdef
+  mthi C_S16_MIN: ffff8000 H: ffff8000 L: 89abcdef
+  mthi C_S32_MAX: 7fffffff H: 7fffffff L: 89abcdef
+  mthi C_S32_MIN: 80000000 H: 80000000 L: 89abcdef
+  mthi C_S64_MAX: ffffffff H: ffffffff L: 89abcdef
+  mthi C_S64_MIN: 00000000 H: 00000000 L: 89abcdef
+  mthi C_GARBAGE1: 00001337 H: 00001337 L: 89abcdef
+  mthi C_TWOTWOTWOTWO: 00000002 H: 00000002 L: 89abcdef
+  mthi -> $0: 00000000
+
+mtlo:
+  mtlo 0: 00000000 H: 01234567 L: 00000000
+  mtlo 1: 00000001 H: 01234567 L: 00000001
+  mtlo 2: 00000002 H: 01234567 L: 00000002
+  mtlo 53: 00000035 H: 01234567 L: 00000035
+  mtlo -1: ffffffff H: 01234567 L: ffffffff
+  mtlo -2147483648: 80000000 H: 01234567 L: 80000000
+  mtlo 305402420: 12341234 H: 01234567 L: 12341234
+  mtlo C_ZERO: 00000000 H: 01234567 L: 00000000
+  mtlo C_ONE: 00000001 H: 01234567 L: 00000001
+  mtlo C_NEGONE: ffffffff H: 01234567 L: ffffffff
+  mtlo C_S16_MAX: 00007fff H: 01234567 L: 00007fff
+  mtlo C_S16_MIN: ffff8000 H: 01234567 L: ffff8000
+  mtlo C_S32_MAX: 7fffffff H: 01234567 L: 7fffffff
+  mtlo C_S32_MIN: 80000000 H: 01234567 L: 80000000
+  mtlo C_S64_MAX: ffffffff H: 01234567 L: ffffffff
+  mtlo C_S64_MIN: 00000000 H: 01234567 L: 00000000
+  mtlo C_GARBAGE1: 00001337 H: 01234567 L: 00001337
+  mtlo C_TWOTWOTWOTWO: 00000002 H: 01234567 L: 00000002
+  mtlo -> $0: 00000000
+
+-- TEST END
