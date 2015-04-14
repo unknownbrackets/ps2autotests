@@ -1,4 +1,4 @@
-TARGETS = arithmetic
+TARGETS = arithmetic compare logic shuffle
 EE_LIBS =
 
 COMMON_DIR=../../../common
