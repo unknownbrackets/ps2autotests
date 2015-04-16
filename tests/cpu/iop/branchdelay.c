@@ -14,6 +14,12 @@ void __attribute__((noinline)) test_beq() {
 		"beq     $t0, $t0, target2_%=\n"
 		"beq     $t0, $t0, target3_%=\n"
 		"beq     $t0, $t0, target4_%=\n"
+		"beq     $t0, $t0, target5_%=\n"
+		"beq     $t0, $t0, target6_%=\n"
+		"nop\n"
+
+		"li      %0, -1\n"
+		"j       skip_%=\n"
 		"nop\n"
 
 		"target1_%=:\n"
@@ -36,13 +42,25 @@ void __attribute__((noinline)) test_beq() {
 		"j       skip_%=\n"
 		"nop\n"
 
+		"target5_%=:\n"
+		"li      %0, 5\n"
+		"j       skip_%=\n"
+		"nop\n"
+
+		"target6_%=:\n"
+		"li      %0, 6\n"
+		"j       skip_%=\n"
+		"nop\n"
+
 		"skip_%=:\n"
 
 		".set    reorder\n"
 		: "+r"(result) : : "t0"
 	);
 
-	printf("beq: delay branch: %08x\n", result);
+	/* This seems to be somewhat determistic, but only for specific code. */
+	/*printf("beq: delay branch: %08x\n", result);*/
+	printf("beq: delay branch did not crash\n");
 }
 
 void __attribute__((noinline)) test_jal() {
