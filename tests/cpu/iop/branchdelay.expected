@@ -5,6 +5,7 @@ jalr: ra order: 00000002
 jalr: non-ra: 0004eb88
 jalr: non-ra order: 00000001
 jalr: rs/rd match: 00000002
+jalr: clobber rs: 00000002
 bltzal: ra order: 00000002
 bgezal: ra order: 00000002
 -- TEST END

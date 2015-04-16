@@ -2,9 +2,10 @@
 beq: delay branch: 00000002
 jal: ra order: 00000002
 jalr: ra order: 00000002
-jalr: non-ra: 001003a8
+jalr: non-ra: 001003f8
 jalr: non-ra order: 00000001
 jalr: rs/rd match: 00000002
+jalr: clobber rs: 00000002
 bltzal: ra order: 00000002
 bltzall: ra order: 00000002
 bgezal: ra order: 00000002

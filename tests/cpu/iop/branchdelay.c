@@ -206,11 +206,42 @@ void __attribute__((noinline)) test_jalr_rs_rd_match() {
 	printf("jalr: rs/rd match: %08x\n", result);
 }
 
+void __attribute__((noinline)) test_jalr_clobber() {
+	register int result = -1;
+
+	asm volatile (
+		".set noreorder\n"
+
+		"move    $t2, $ra\n"
+		"la      $t0, target2_%=\n"
+		"jalr    $t0\n"
+		"ori     $t0, $0, 5\n"
+		"nop\n"
+
+		"target1_%=:\n"
+		"li      %0, 1\n"
+		"j       skip_%=\n"
+		"nop\n"
+
+		"target2_%=:\n"
+		"li      %0, 2\n"
+
+		"skip_%=:\n"
+		"move    $ra, $t2\n"
+
+		".set    reorder\n"
+		: "+r"(result) : : "t0", "t2"
+	);
+
+	printf("jalr: clobber rs: %08x\n", result);
+}
+
 static void test_jalr() {
 	test_jalr_ra_order();
 	test_jalr_non_ra_value();
 	test_jalr_non_ra_order();
 	test_jalr_rs_rd_match();
+	test_jalr_clobber();
 }
 
 void __attribute__((noinline)) test_bltzal() {
