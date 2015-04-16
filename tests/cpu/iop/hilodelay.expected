@@ -1,0 +1,6 @@
+-- TEST BEGIN
+mfhi delay: 10
+mflo delay: 20
+div delay: 1 1
+mult delay: 0 6
+-- TEST END
