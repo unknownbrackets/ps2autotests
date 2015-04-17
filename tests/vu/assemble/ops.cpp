@@ -414,8 +414,8 @@ LowerOp IADD(Reg d, Reg s, Reg t) {
 	return LowerType1(OP_IADD, DEST_NONE, VI(d), VI(s), VI(t));
 }
 
-LowerOp IADDI(Reg t, Reg s, u8 imm5) {
-	return LowerType5(OP_IADDI, VI(s), VI(t), imm5);
+LowerOp IADDI(Reg t, Reg s, s8 imm5) {
+	return LowerType5(OP_IADDI, VI(s), VI(t), SIMM5(imm5));
 }
 
 LowerOp IADDIU(Reg t, Reg s, u16 imm15) {

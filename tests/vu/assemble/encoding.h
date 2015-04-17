@@ -9,10 +9,24 @@ namespace VU {
 		asm ("break 100"); \
 	}
 
+// Helpers - these propagate later to encoding funcs.
+
 static inline Reg VI(Reg i) {
 	assert(i >= VI00 && i <= VI15);
 	return Reg(i - 32);
 }
+
+static inline u32 SIMM5(s8 imm) {
+	assert(imm <= 0x0F && imm >= -0x10);
+	return imm & 0x1F;
+}
+
+static inline u32 SIMM11(s16 imm) {
+	assert(imm <= 0x03FF && imm >= -0x0400);
+	return imm & 0x07FF;
+}
+
+// Actual encoding positions.
 
 static inline u32 VD(Reg v) {
 	assert(v >= VF00 && v <= VF31);

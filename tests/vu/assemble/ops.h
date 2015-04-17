@@ -74,7 +74,7 @@ LowerOp LowerImm(u32 imm);
 LowerOp LowerImm(s32 imm);
 
 LowerOp IADD(Reg d, Reg s, Reg t);
-LowerOp IADDI(Reg t, Reg s, u8 imm5);
+LowerOp IADDI(Reg t, Reg s, s8 imm5);
 LowerOp IADDIU(Reg t, Reg s, u16 imm15);
 LowerOp IAND(Reg d, Reg s, Reg t);
 LowerOp IOR(Reg d, Reg s, Reg t);
