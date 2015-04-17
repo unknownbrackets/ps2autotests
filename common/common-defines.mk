@@ -15,4 +15,7 @@ IOP_AR = $(IOP_PREFIX)ar
 IOP_OBJCOPY = $(IOP_PREFIX)objcopy
 IOP_STRIP = $(IOP_PREFIX)strip
 
+DVP_PREFIX = dvp-
+DVP_AS = $(DVP_PREFIX)as
+
 RM=rm
