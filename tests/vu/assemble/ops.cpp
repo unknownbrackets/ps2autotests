@@ -91,6 +91,8 @@ enum LowerType1Opcode {
 };
 
 enum LowerType3Opcode {
+	OP_ILWR =    0x3FE, // 0b01111_1111_10
+	OP_ISWR =    0x3FF, // 0b01111_1111_11
 	OP_ESADD =   0x73C, // 0b11100_1111_00
 	OP_ERSADD =  0x73D, // 0b11100_1111_01
 	OP_ELENG =   0x73E, // 0b11100_1111_10
@@ -115,9 +117,10 @@ enum LowerType5Opcode {
 };
 
 enum LowerType7Opcode {
+	OP_ILW =     0x04, // 0b0000100
+	OP_ISW =     0x05, // 0b0000101
 	OP_B =       0x20, // 0b0100000
 	OP_BAL =     0x21, // 0b0100001
-
 	OP_IBEQ =    0x28, // 0b0101000
 	OP_IBNE =    0x29, // 0b0101001
 	OP_IBLTZ =   0x2C, // 0b0101100
@@ -584,27 +587,43 @@ LowerOp IAND(Reg d, Reg s, Reg t) {
 }
 
 LowerOp IBEQ(Reg t, Reg s, s16 imm11) {
-	return LowerType7(OP_IBEQ, DEST_NONE, s, t, SIMM11(imm11));
+	return LowerType7(OP_IBEQ, DEST_NONE, VI(s), VI(t), SIMM11(imm11));
 }
 
 LowerOp IBGEZ(Reg s, s16 imm11) {
-	return LowerType7(OP_IBGEZ, DEST_NONE, s, VF00, SIMM11(imm11));
+	return LowerType7(OP_IBGEZ, DEST_NONE, VI(s), VF00, SIMM11(imm11));
 }
 
 LowerOp IBGTZ(Reg s, s16 imm11) {
-	return LowerType7(OP_IBGTZ, DEST_NONE, s, VF00, SIMM11(imm11));
+	return LowerType7(OP_IBGTZ, DEST_NONE, VI(s), VF00, SIMM11(imm11));
 }
 
 LowerOp IBLEZ(Reg s, s16 imm11) {
-	return LowerType7(OP_IBLEZ, DEST_NONE, s, VF00, SIMM11(imm11));
+	return LowerType7(OP_IBLEZ, DEST_NONE, VI(s), VF00, SIMM11(imm11));
 }
 
 LowerOp IBLTZ(Reg s, s16 imm11) {
-	return LowerType7(OP_IBLTZ, DEST_NONE, s, VF00, SIMM11(imm11));
+	return LowerType7(OP_IBLTZ, DEST_NONE, VI(s), VF00, SIMM11(imm11));
 }
 
 LowerOp IBNE(Reg t, Reg s, s16 imm11) {
-	return LowerType7(OP_IBNE, DEST_NONE, s, t, SIMM11(imm11));
+	return LowerType7(OP_IBNE, DEST_NONE, VI(s), VI(t), SIMM11(imm11));
+}
+
+LowerOp ILW(Dest dest, Reg t, Reg s, s16 imm11) {
+	return LowerType7(OP_ILW, dest, VI(s), VI(t), SIMM11(imm11));
+}
+
+LowerOp ILWR(Dest dest, Reg t, Reg s) {
+	return LowerType3(OP_ILWR, dest, VI(s), VI(t));
+}
+
+LowerOp ISW(Dest dest, Reg t, Reg s, s16 imm11) {
+	return LowerType7(OP_ISW, dest, VI(s), VI(t), SIMM11(imm11));
+}
+
+LowerOp ISWR(Dest dest, Reg t, Reg s) {
+	return LowerType3(OP_ISWR, dest, VI(s), VI(t));
 }
 
 LowerOp IOR(Reg d, Reg s, Reg t) {

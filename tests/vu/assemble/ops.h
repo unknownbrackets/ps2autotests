@@ -115,9 +115,13 @@ LowerOp IBGTZ(Reg s, s16 imm11);
 LowerOp IBLEZ(Reg s, s16 imm11);
 LowerOp IBLTZ(Reg s, s16 imm11);
 LowerOp IBNE(Reg t, Reg s, s16 imm11);
+LowerOp ILW(Dest dest, Reg t, Reg s, s16 imm11);
+LowerOp ILWR(Dest dest, Reg t, Reg s);
 LowerOp IOR(Reg d, Reg s, Reg t);
 LowerOp ISUB(Reg d, Reg s, Reg t);
 LowerOp ISUBIU(Reg t, Reg s, u16 imm15);
+LowerOp ISW(Dest dest, Reg t, Reg s, s16 imm11);
+LowerOp ISWR(Dest dest, Reg t, Reg s);
 
 }
 
