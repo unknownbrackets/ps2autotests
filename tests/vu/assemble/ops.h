@@ -73,10 +73,18 @@ LowerOp LowerImm(float imm);
 LowerOp LowerImm(u32 imm);
 LowerOp LowerImm(s32 imm);
 
+LowerOp B(s16 imm11);
+LowerOp BAL(Reg t, s16 imm11);
 LowerOp IADD(Reg d, Reg s, Reg t);
 LowerOp IADDI(Reg t, Reg s, s8 imm5);
 LowerOp IADDIU(Reg t, Reg s, u16 imm15);
 LowerOp IAND(Reg d, Reg s, Reg t);
+LowerOp IBEQ(Reg t, Reg s, s16 imm11);
+LowerOp IBGEZ(Reg s, s16 imm11);
+LowerOp IBGTZ(Reg s, s16 imm11);
+LowerOp IBLEZ(Reg s, s16 imm11);
+LowerOp IBLTZ(Reg s, s16 imm11);
+LowerOp IBNE(Reg t, Reg s, s16 imm11);
 LowerOp IOR(Reg d, Reg s, Reg t);
 LowerOp ISUB(Reg d, Reg s, Reg t);
 LowerOp ISUBIU(Reg t, Reg s, u16 imm15);

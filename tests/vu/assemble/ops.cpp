@@ -94,6 +94,15 @@ enum LowerType5Opcode {
 };
 
 enum LowerType7Opcode {
+	OP_B =       0x20, // 0b0100000
+	OP_BAL =     0x21, // 0b0100001
+
+	OP_IBEQ =    0x28, // 0b0101000
+	OP_IBNE =    0x29, // 0b0101001
+	OP_IBLTZ =   0x2C, // 0b0101100
+	OP_IBGTZ =   0x2D, // 0b0101101
+	OP_IBLEZ =   0x2E, // 0b0101110
+	OP_IBGEZ =   0x2F, // 0b0101111
 };
 
 enum LowerType8Opcode {
@@ -410,6 +419,14 @@ LowerOp LowerImm(s32 imm) {
 	return LowerImm((u32)imm);
 }
 
+LowerOp B(s16 imm11) {
+	return LowerType7(OP_B, DEST_NONE, VF00, VF00, SIMM11(imm11));
+}
+
+LowerOp BAL(Reg t, s16 imm11) {
+	return LowerType7(OP_BAL, DEST_NONE, VF00, t, SIMM11(imm11));
+}
+
 LowerOp IADD(Reg d, Reg s, Reg t) {
 	return LowerType1(OP_IADD, DEST_NONE, VI(d), VI(s), VI(t));
 }
@@ -424,6 +441,30 @@ LowerOp IADDIU(Reg t, Reg s, u16 imm15) {
 
 LowerOp IAND(Reg d, Reg s, Reg t) {
 	return LowerType1(OP_IAND, DEST_NONE, VI(d), VI(s), VI(t));
+}
+
+LowerOp IBEQ(Reg t, Reg s, s16 imm11) {
+	return LowerType7(OP_IBEQ, DEST_NONE, s, t, SIMM11(imm11));
+}
+
+LowerOp IBGEZ(Reg s, s16 imm11) {
+	return LowerType7(OP_IBGEZ, DEST_NONE, s, VF00, SIMM11(imm11));
+}
+
+LowerOp IBGTZ(Reg s, s16 imm11) {
+	return LowerType7(OP_IBGTZ, DEST_NONE, s, VF00, SIMM11(imm11));
+}
+
+LowerOp IBLEZ(Reg s, s16 imm11) {
+	return LowerType7(OP_IBLEZ, DEST_NONE, s, VF00, SIMM11(imm11));
+}
+
+LowerOp IBLTZ(Reg s, s16 imm11) {
+	return LowerType7(OP_IBLTZ, DEST_NONE, s, VF00, SIMM11(imm11));
+}
+
+LowerOp IBNE(Reg t, Reg s, s16 imm11) {
+	return LowerType7(OP_IBNE, DEST_NONE, s, t, SIMM11(imm11));
 }
 
 LowerOp IOR(Reg d, Reg s, Reg t) {

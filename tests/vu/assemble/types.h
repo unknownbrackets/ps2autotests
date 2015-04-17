@@ -6,6 +6,10 @@
 namespace VU {
 
 struct LowerOp {
+	explicit LowerOp() {
+		// This is an IADD vi00, vi00, vi00 (a NOP.)
+		v = 0x80000030;
+	}
 	explicit LowerOp(u32 imm) {
 		v = imm;
 	}
@@ -14,6 +18,10 @@ struct LowerOp {
 };
 
 struct UpperOp {
+	explicit UpperOp() {
+		// This is a NOP.
+		v = 0x000002FF;
+	}
 	explicit UpperOp(u32 imm) {
 		v = imm;
 	}
@@ -80,6 +88,44 @@ enum Reg {
 	VI_ZERO = VI00,
 	VI_SP = VI14,
 	VI_LR = VI15,
+};
+
+enum BranchType {
+	BRANCH_B,
+	BRANCH_BAL,
+	BRANCH_IBEQ,
+	BRANCH_IBGEZ,
+	BRANCH_IBGTZ,
+	BRANCH_IBLEZ,
+	BRANCH_IBLTZ,
+	BRANCH_IBNE,
+};
+
+class Block;
+
+struct Label {
+protected:
+	Label() : dest_(NULL), src_(NULL), upper_() {
+	}
+
+	void Setup(LIW *src, BranchType type, UpperOp u, Reg s = VF00, Reg t = VF00) {
+		src_ = src;
+		upper_ = u;
+		type_ = type;
+		s_ = s;
+		t_ = t;
+	}
+
+	LIW *dest_;
+
+	// For fixup.
+	LIW *src_;
+	UpperOp upper_;
+	BranchType type_;
+	Reg s_;
+	Reg t_;
+
+	friend class Block;
 };
 
 }
