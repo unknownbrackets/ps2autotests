@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
 	printf("-- TEST BEGIN\n");
 
 	using namespace VU;
-	Block block((LIW *)0x11000000);
+	Block block(vu0_micro + 0);
 	block.Wr(IADDI(VI01, VI00, 5));
 	block.SafeExit();
 

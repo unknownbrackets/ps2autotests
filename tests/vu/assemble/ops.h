@@ -7,6 +7,15 @@ namespace VU {
 
 // Upper instructions.
 
+UpperOp ABS(Dest dest, Reg t, Reg s, Flags f = UPPER_NONE);
+UpperOp ADD(Dest dest, Reg d, Reg s, Reg t, Flags f = UPPER_NONE);
+UpperOp ADDbc(Dest dest, Field bc, Reg d, Reg s, Reg t, Flags f = UPPER_NONE);
+UpperOp ADDi(Dest dest, Reg d, Reg s, Flags f = UPPER_NONE);
+UpperOp ADDq(Dest dest, Reg d, Reg s, Flags f = UPPER_NONE);
+UpperOp ADDA(Dest dest, Reg s, Reg t, Flags f = UPPER_NONE);
+UpperOp ADDAbc(Dest dest, Field bc, Reg s, Reg t, Flags f = UPPER_NONE);
+UpperOp ADDAi(Dest dest, Reg s, Flags f = UPPER_NONE);
+UpperOp ADDAq(Dest dest, Reg s, Flags f = UPPER_NONE);
 UpperOp NOP(Flags f = UPPER_NONE);
 
 // Lower instructions.

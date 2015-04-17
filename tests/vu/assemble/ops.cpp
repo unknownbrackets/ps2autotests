@@ -6,16 +6,25 @@
 namespace VU {
 
 enum UpperType0Opcode {
+	OP_ADDbc =   0x0, // 0b0000
 };
 
 enum UpperType1Opcode {
+	OP_ADDq =    0x20, // 0b100000
+	OP_ADDi =    0x22, // 0b100010
+	OP_ADD =     0x28, // 0b101000
 };
 
 enum UpperType2Opcode {
+	OP_ADDAbc =  0x0F, // 0b000001111
 };
 
 enum UpperType3Opcode {
-	OP_NOP =     0x17F, // 0b0101111111
+	OP_ABS =     0x1FD, // 0b00111111101
+	OP_ADDAq =   0x23C, // 0b01000111100
+	OP_ADDAi =   0x23E, // 0b01000111110
+	OP_ADDA =    0x2BC, // 0b01010111100
+	OP_NOP =     0x2FF, // 0b01011111111
 };
 
 enum LowerType1Opcode {
@@ -48,7 +57,7 @@ enum LowerType9Opcode {
 
 // Helpers for each of the encoding types.
 
-UpperOp UpperType0(UpperType0Opcode op, Field bc, Dest dest, Reg fd, Reg fs, Reg ft, Flags f) {
+UpperOp UpperType0(UpperType0Opcode op, Dest dest, Field bc, Reg fd, Reg fs, Reg ft, Flags f) {
 	return UpperOp(f | DEST(dest) | VT(ft) | VS(fs) | VD(fd) | (op << 2) | BC(bc));
 }
 
@@ -56,7 +65,7 @@ UpperOp UpperType1(UpperType1Opcode op, Dest dest, Reg fd, Reg fs, Reg ft, Flags
 	return UpperOp(f | DEST(dest) | VT(ft) | VS(fs) | VD(fd) | op);
 }
 
-UpperOp UpperType2(UpperType2Opcode op, Field bc, Dest dest, Reg fs, Reg ft, Flags f) {
+UpperOp UpperType2(UpperType2Opcode op, Dest dest, Field bc, Reg fs, Reg ft, Flags f) {
 	return UpperOp(f | DEST(dest) | VT(ft) | VS(fs) | (op << 2) | BC(bc));
 }
 
@@ -95,6 +104,42 @@ LowerOp LowerType9(LowerType9Opcode op, u32 imm24) {
 }
 
 // And now the upper instructions.
+
+UpperOp ABS(Dest dest, Reg t, Reg s, Flags f) {
+	return UpperType3(OP_ABS, dest, s, t, f);
+}
+
+UpperOp ADD(Dest dest, Reg d, Reg s, Reg t, Flags f) {
+	return UpperType1(OP_ADD, dest, d, s, t, f);
+}
+
+UpperOp ADDbc(Dest dest, Field bc, Reg d, Reg s, Reg t, Flags f) {
+	return UpperType0(OP_ADDbc, dest, bc, d, s, t, f);
+}
+
+UpperOp ADDi(Dest dest, Reg d, Reg s, Flags f) {
+	return UpperType1(OP_ADDi, dest, d, s, VF00, f);
+}
+
+UpperOp ADDq(Dest dest, Reg d, Reg s, Flags f) {
+	return UpperType1(OP_ADDq, dest, d, s, VF00, f);
+}
+
+UpperOp ADDA(Dest dest, Reg s, Reg t, Flags f) {
+	return UpperType3(OP_ADDA, dest, s, t, f);
+}
+
+UpperOp ADDAbc(Dest dest, Field bc, Reg s, Reg t, Flags f) {
+	return UpperType2(OP_ADDAbc, dest, bc, s, t, f);
+}
+
+UpperOp ADDAi(Dest dest, Reg s, Flags f) {
+	return UpperType3(OP_ADDAi, dest, s, VF00, f);
+}
+
+UpperOp ADDAq(Dest dest, Reg s, Flags f) {
+	return UpperType3(OP_ADDAq, dest, s, VF00, f);
+}
 
 UpperOp NOP(Flags f) {
 	return UpperType3(OP_NOP, DEST_NONE, VF00, VF00, f);
