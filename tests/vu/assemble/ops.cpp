@@ -5,6 +5,13 @@
 
 namespace VU {
 
+// TODO: <assert.h> doesn't link?
+#define assert(cond) \
+	if (!(cond)) { \
+		printf("Assert failed: %s", #cond); \
+		asm ("break 100"); \
+	}
+
 enum UpperType0Opcode {
 	OP_ADDbc =   0x0, // 0b0000
 	OP_SUBbc =   0x1, // 0b0001
@@ -122,9 +129,21 @@ enum LowerType7Opcode {
 enum LowerType8Opcode {
 	OP_IADDIU =  0x08, // 0b0001000
 	OP_ISUBIU =  0x09, // 0b0001001
+	OP_FSEQ =    0x14, // 0b0010100
+	OP_FSSET =   0x15, // 0b0010101
+	OP_FSAND =   0x16, // 0b0010110
+	OP_FSOR =    0x17, // 0b0010111
+	OP_FMEQ =    0x18, // 0b0011000
+	OP_FMAND =   0x1A, // 0b0011010
+	OP_FMOR =    0x1B, // 0b0011011
+	OP_FCGET =   0x1C, // 0b0011100
 };
 
 enum LowerType9Opcode {
+	OP_FCEQ =    0x10, // 0b0010000
+	OP_FCSET =   0x11, // 0b0010001
+	OP_FCAND =   0x12, // 0b0010010
+	OP_FCOR =    0x13, // 0b0010011
 };
 
 // Helpers for each of the encoding types.
@@ -495,6 +514,57 @@ LowerOp ESQRT(Field fsf, Reg s) {
 
 LowerOp ESUM(Reg s) {
 	return LowerType3(OP_ESUM, DEST_XYZW, s, VF00);
+}
+
+LowerOp FCAND(Reg d, u32 imm24) {
+	assert(d == VI01);
+	return LowerType9(OP_FCAND, imm24);
+}
+
+LowerOp FCEQ(Reg d, u32 imm24) {
+	assert(d == VI01);
+	return LowerType9(OP_FCEQ, imm24);
+}
+
+LowerOp FCGET(Reg t) {
+	return LowerType8(OP_FCGET, VF00, VI(t), 0);
+}
+
+LowerOp FCOR(Reg d, u32 imm24) {
+	assert(d == VI01);
+	return LowerType9(OP_FCOR, imm24);
+}
+
+LowerOp FCSET(u32 imm24) {
+	return LowerType9(OP_FCSET, imm24);
+}
+
+LowerOp FMAND(Reg t, Reg s) {
+	return LowerType8(OP_FMAND, VI(s), VI(t), 0);
+}
+
+LowerOp FMEQ(Reg t, Reg s) {
+	return LowerType8(OP_FMEQ, VI(s), VI(t), 0);
+}
+
+LowerOp FMOR(Reg t, Reg s) {
+	return LowerType8(OP_FMOR, VI(s), VI(t), 0);
+}
+
+LowerOp FSAND(Reg t, u16 imm12) {
+	return LowerType8(OP_FSAND, VF00, VI(t), imm12);
+}
+
+LowerOp FSEQ(Reg t, u16 imm12) {
+	return LowerType8(OP_FSEQ, VF00, VI(t), imm12);
+}
+
+LowerOp FSOR(Reg t, u16 imm12) {
+	return LowerType8(OP_FSOR, VF00, VI(t), imm12);
+}
+
+LowerOp FSSET(u16 imm12) {
+	return LowerType8(OP_FSSET, VF00, VF00, imm12);
 }
 
 LowerOp IADD(Reg d, Reg s, Reg t) {

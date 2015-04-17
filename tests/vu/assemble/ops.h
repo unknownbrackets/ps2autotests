@@ -90,7 +90,21 @@ LowerOp ESADD(Reg s);
 LowerOp ESIN(Field fsf, Reg s);
 LowerOp ESQRT(Field fsf, Reg s);
 LowerOp ESUM(Reg s);
-
+// Warning: fixed result to VI01 for FCAND, FCEQ, and FCOR.  Param is there only for clarity.
+LowerOp FCAND(Reg d_VI01, u32 imm24);
+LowerOp FCEQ(Reg d_VI01, u32 imm24);
+// This one does support arbitrary parameters.
+LowerOp FCGET(Reg t);
+// Warning: fixed result to VI01 for FCAND, FCEQ, and FCOR.  Param is there only for clarity.
+LowerOp FCOR(Reg d_VI01, u32 imm24);
+LowerOp FCSET(u32 imm24);
+LowerOp FMAND(Reg t, Reg s);
+LowerOp FMEQ(Reg t, Reg s);
+LowerOp FMOR(Reg t, Reg s);
+LowerOp FSAND(Reg t, u16 imm12);
+LowerOp FSEQ(Reg t, u16 imm12);
+LowerOp FSOR(Reg t, u16 imm12);
+LowerOp FSSET(u16 imm12);
 LowerOp IADD(Reg d, Reg s, Reg t);
 LowerOp IADDI(Reg t, Reg s, s8 imm5);
 LowerOp IADDIU(Reg t, Reg s, u16 imm15);
