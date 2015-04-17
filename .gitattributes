@@ -1,0 +1,11 @@
+*.c           text
+*.h           text
+*.cpp         text
+*.S           text
+*.mk          text
+Makefile      text
+*.expected    text
+*.py          text
+
+*.elf         binary
+*.irx         binary
