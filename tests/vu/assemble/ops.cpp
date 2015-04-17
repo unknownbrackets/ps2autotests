@@ -39,41 +39,41 @@ enum UpperType1Opcode {
 };
 
 enum UpperType2Opcode {
-	OP_ADDAbc =  0x0F, // 0b000001111
-	OP_SUBAbc =  0x1F, // 0b000011111
-	OP_MADDAbc = 0x2F, // 0b000101111
-	OP_MSUBAbc = 0x3F, // 0b000111111
-	OP_MULAbc =  0x6F, // 0b001101111
+	OP_ADDAbc =  0x0F, // 0b00000_1111
+	OP_SUBAbc =  0x1F, // 0b00001_1111
+	OP_MADDAbc = 0x2F, // 0b00010_1111
+	OP_MSUBAbc = 0x3F, // 0b00011_1111
+	OP_MULAbc =  0x6F, // 0b00110_1111
 };
 
 enum UpperType3Opcode {
-	OP_ITOF0 =   0x13C, // 0b00100111100
-	OP_ITOF4 =   0x13D, // 0b00100111101
-	OP_ITOF12 =  0x13E, // 0b00100111110
-	OP_ITOF15 =  0x13F, // 0b00100111111
-	OP_FTOI0 =   0x17C, // 0b00101111100
-	OP_FTOI4 =   0x17D, // 0b00101111101
-	OP_FTOI12 =  0x17E, // 0b00101111110
-	OP_FTOI15 =  0x17F, // 0b00101111111
-	OP_MULAq =   0x1FC, // 0b00111111100
-	OP_ABS =     0x1FD, // 0b00111111101
-	OP_MULAi =   0x1FE, // 0b00111111110
-	OP_CLIP =    0x1FF, // 0b00111111111
-	OP_ADDAq =   0x23C, // 0b01000111100
-	OP_MADDAq =  0x23D, // 0b01000111101
-	OP_SUBAq =   0x27C, // 0b01001111100
-	OP_MSUBAq =  0x27D, // 0b01001111101
-	OP_ADDAi =   0x23E, // 0b01000111110
-	OP_MADDAi =  0x23F, // 0b01000111111
-	OP_SUBAi =   0x27E, // 0b01001111110
-	OP_MSUBAi =  0x27F, // 0b01001111111
-	OP_ADDA =    0x2BC, // 0b01010111100
-	OP_MADDA =   0x2BD, // 0b01010111101
-	OP_MULA =    0x2BE, // 0b01010111110
-	OP_SUBA =    0x2FC, // 0b01011111100
-	OP_MSUBA =   0x2FD, // 0b01011111101
-	OP_OPMULA =  0x2FE, // 0b01011111110
-	OP_NOP =     0x2FF, // 0b01011111111
+	OP_ITOF0 =   0x13C, // 0b00100_1111_00
+	OP_ITOF4 =   0x13D, // 0b00100_1111_01
+	OP_ITOF12 =  0x13E, // 0b00100_1111_10
+	OP_ITOF15 =  0x13F, // 0b00100_1111_11
+	OP_FTOI0 =   0x17C, // 0b00101_1111_00
+	OP_FTOI4 =   0x17D, // 0b00101_1111_01
+	OP_FTOI12 =  0x17E, // 0b00101_1111_10
+	OP_FTOI15 =  0x17F, // 0b00101_1111_11
+	OP_MULAq =   0x1FC, // 0b00111_1111_00
+	OP_ABS =     0x1FD, // 0b00111_1111_01
+	OP_MULAi =   0x1FE, // 0b00111_1111_10
+	OP_CLIP =    0x1FF, // 0b00111_1111_11
+	OP_ADDAq =   0x23C, // 0b01000_1111_00
+	OP_MADDAq =  0x23D, // 0b01000_1111_01
+	OP_SUBAq =   0x27C, // 0b01001v1111_00
+	OP_MSUBAq =  0x27D, // 0b01001_1111_01
+	OP_ADDAi =   0x23E, // 0b01000_1111_10
+	OP_MADDAi =  0x23F, // 0b01000_1111_11
+	OP_SUBAi =   0x27E, // 0b01001_1111_10
+	OP_MSUBAi =  0x27F, // 0b01001_1111_11
+	OP_ADDA =    0x2BC, // 0b01010_1111_00
+	OP_MADDA =   0x2BD, // 0b01010_1111_01
+	OP_MULA =    0x2BE, // 0b01010_1111_10
+	OP_SUBA =    0x2FC, // 0b01011_1111_00
+	OP_MSUBA =   0x2FD, // 0b01011_1111_01
+	OP_OPMULA =  0x2FE, // 0b01011_1111_10
+	OP_NOP =     0x2FF, // 0b01011_1111_11
 };
 
 enum LowerType1Opcode {
@@ -84,9 +84,23 @@ enum LowerType1Opcode {
 };
 
 enum LowerType3Opcode {
+	OP_ESADD =   0x73C, // 0b11100_1111_00
+	OP_ERSADD =  0x73D, // 0b11100_1111_01
+	OP_ELENG =   0x73E, // 0b11100_1111_10
+	OP_ERLENG =  0x73F, // 0b11100_1111_11
+	OP_EATANxy = 0x77C, // 0b11101_1111_00
+	OP_EATANxz = 0x77D, // 0b11101_1111_01
+	OP_ESUM =    0x77E, // 0b11101_1111_10
 };
 
 enum LowerType4Opcode {
+	OP_DIV =     0x3BC, // 0b01110_1111_00
+	OP_ESQRT =   0x7BC, // 0b11110_1111_00
+	OP_ERSQRT =  0x7BD, // 0b11110_1111_01
+	OP_ERCPR =   0x7BE, // 0b11110_1111_10
+	OP_ESIN =    0x7FC, // 0b11111_1111_00
+	OP_EATAN =   0x7FD, // 0b11111_1111_01
+	OP_EEXP =    0x7FE, // 0b11111_1111_10
 };
 
 enum LowerType5Opcode {
@@ -425,6 +439,62 @@ LowerOp B(s16 imm11) {
 
 LowerOp BAL(Reg t, s16 imm11) {
 	return LowerType7(OP_BAL, DEST_NONE, VF00, t, SIMM11(imm11));
+}
+
+LowerOp DIV(Field fsf, Reg s, Field ftf, Reg t) {
+	return LowerType4(OP_DIV, fsf, s, ftf, t);
+}
+
+LowerOp EATAN(Field fsf, Reg s) {
+	return LowerType4(OP_EATAN, fsf, s, FIELD_X, VF00);
+}
+
+LowerOp EATANxy(Reg s) {
+	return LowerType3(OP_EATANxy, DEST_XY, s, VF00);
+}
+
+LowerOp EATANxz(Reg s) {
+	return LowerType3(OP_EATANxz, DEST_X | DEST_Z, s, VF00);
+}
+
+LowerOp EEXP(Field fsf, Reg s) {
+	return LowerType4(OP_EEXP, fsf, s, FIELD_X, VF00);
+}
+
+LowerOp ELENG(Reg s) {
+	return LowerType3(OP_ELENG, DEST_XYZ, s, VF00);
+}
+
+LowerOp ERCPR(Field fsf, Reg s) {
+	return LowerType4(OP_ERCPR, fsf, s, FIELD_X, VF00);
+}
+
+LowerOp ERLENG(Reg s) {
+	return LowerType3(OP_ERLENG, DEST_XYZ, s, VF00);
+}
+
+LowerOp ERSADD(Reg s) {
+	return LowerType3(OP_ERSADD, DEST_XYZ, s, VF00);
+}
+
+LowerOp ERSQRT(Field fsf, Reg s) {
+	return LowerType4(OP_ERSQRT, fsf, s, FIELD_X, VF00);
+}
+
+LowerOp ESADD(Reg s) {
+	return LowerType3(OP_ESADD, DEST_XYZ, s, VF00);
+}
+
+LowerOp ESIN(Field fsf, Reg s) {
+	return LowerType4(OP_ESIN, fsf, s, FIELD_X, VF00);
+}
+
+LowerOp ESQRT(Field fsf, Reg s) {
+	return LowerType4(OP_ESQRT, fsf, s, FIELD_X, VF00);
+}
+
+LowerOp ESUM(Reg s) {
+	return LowerType3(OP_ESUM, DEST_XYZW, s, VF00);
 }
 
 LowerOp IADD(Reg d, Reg s, Reg t) {

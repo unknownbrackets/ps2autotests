@@ -75,6 +75,22 @@ LowerOp LowerImm(s32 imm);
 
 LowerOp B(s16 imm11);
 LowerOp BAL(Reg t, s16 imm11);
+LowerOp DIV(Field fsf, Reg s, Field ftf, Reg t);
+// Note that E* and MFP/WAITP are EFU and not available on vu0.
+LowerOp EATAN(Field fsf, Reg s);
+LowerOp EATANxy(Reg s);
+LowerOp EATANxz(Reg s);
+LowerOp EEXP(Field fsf, Reg s);
+LowerOp ELENG(Reg s);
+LowerOp ERCPR(Field fsf, Reg s);
+LowerOp ERLENG(Reg s);
+LowerOp ERSADD(Reg s);
+LowerOp ERSQRT(Field fsf, Reg s);
+LowerOp ESADD(Reg s);
+LowerOp ESIN(Field fsf, Reg s);
+LowerOp ESQRT(Field fsf, Reg s);
+LowerOp ESUM(Reg s);
+
 LowerOp IADD(Reg d, Reg s, Reg t);
 LowerOp IADDI(Reg t, Reg s, s8 imm5);
 LowerOp IADDIU(Reg t, Reg s, u16 imm15);
