@@ -43,10 +43,10 @@ static inline Flags operator | (const Flags &lhs, const Flags &rhs) {
 }
 
 enum Dest {
-	DEST_X = 1 << 0,
-	DEST_Y = 1 << 1,
-	DEST_Z = 1 << 2,
-	DEST_W = 1 << 3,
+	DEST_X = 1 << 3,
+	DEST_Y = 1 << 2,
+	DEST_Z = 1 << 1,
+	DEST_W = 1 << 0,
 
 	DEST_NONE = 0,
 	DEST_XY = DEST_X | DEST_Y,
