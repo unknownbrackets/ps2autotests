@@ -122,6 +122,8 @@ LowerOp ISUB(Reg d, Reg s, Reg t);
 LowerOp ISUBIU(Reg t, Reg s, u16 imm15);
 LowerOp ISW(Dest dest, Reg t, Reg s, s16 imm11);
 LowerOp ISWR(Dest dest, Reg t, Reg s);
+LowerOp JALR(Reg t, Reg s);
+LowerOp JR(Reg s);
 
 }
 

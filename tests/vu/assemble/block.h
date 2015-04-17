@@ -73,6 +73,22 @@ public:
 		return IBNE(UpperOp(), l, t, s, delayu, delayl);
 	}
 
+	void JALR(UpperOp u, Reg t, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
+	void JALR(UpperOp u, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
+		return JALR(u, VI_LR, s, delayu, delayl);
+	}
+	void JALR(Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
+		return JALR(UpperOp(), VI_LR, s, delayu, delayl);
+	}
+	void JALR(Reg t, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
+		return JALR(UpperOp(), t, s, delayu, delayl);
+	}
+
+	void JR(UpperOp u, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
+	void JR(Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
+		return JALR(UpperOp(), s, delayu, delayl);
+	}
+
 	void SafeExit();
 
 protected:

@@ -121,6 +121,8 @@ enum LowerType7Opcode {
 	OP_ISW =     0x05, // 0b0000101
 	OP_B =       0x20, // 0b0100000
 	OP_BAL =     0x21, // 0b0100001
+	OP_JR =      0x24, // 0b0100100
+	OP_JALR =    0x25, // 0b0100101
 	OP_IBEQ =    0x28, // 0b0101000
 	OP_IBNE =    0x29, // 0b0101001
 	OP_IBLTZ =   0x2C, // 0b0101100
@@ -636,6 +638,14 @@ LowerOp ISUB(Reg d, Reg s, Reg t) {
 
 LowerOp ISUBIU(Reg t, Reg s, u16 imm15) {
 	return LowerType8(OP_ISUBIU, VI(s), VI(t), imm15);
+}
+
+LowerOp JALR(Reg t, Reg s) {
+	return LowerType7(OP_JALR, DEST_NONE, VI(s), VI(t), 0);
+}
+
+LowerOp JR(Reg s) {
+	return LowerType7(OP_JR, DEST_NONE, VI(s), VF00, 0);
 }
 
 }

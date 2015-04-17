@@ -130,6 +130,16 @@ void Block::IBNE(UpperOp u, Label l, Reg t, Reg s, UpperOp delayu, LowerOp delay
 	return DoBranch(BRANCH_IBNE, u, l, s, t, delayu, delayl);
 }
 
+void Block::JALR(UpperOp u, Reg t, Reg s, UpperOp delayu, LowerOp delayl) {
+	Wr(u, VU::JALR(t, s));
+	Wr(delayu, delayl);
+}
+
+void Block::JR(UpperOp u, Reg s, UpperOp delayu, LowerOp delayl) {
+	Wr(u, VU::JR(s));
+	Wr(delayu, delayl);
+}
+
 void Block::SafeExit() {
 	Wr(NOP(UPPER_E));
 	Wr(NOP());
