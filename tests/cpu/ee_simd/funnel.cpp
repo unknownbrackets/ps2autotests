@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <tamtypes.h>
-
-static u32 __attribute__((aligned(16))) C_ZERO[4] = {0, 0, 0, 0};
-static u32 __attribute__((aligned(16))) C_S16_MAX[4] = {0x7FFF, 0, 0, 0};
+#include "shared.h"
 
 static u32 __attribute__((aligned(16))) C_SHIFT_PATTERN1[4] = {0x12345678, 0x9ABCDEF0, 0x11223344, 0xDEADBEEF};
 static u32 __attribute__((aligned(16))) C_SHIFT_PATTERN2[4] = {0xAABBCCDD, 0x12121212, 0xFFFFFFFF, 0x1337C0DE};
@@ -26,30 +22,6 @@ static void SET_SA_M(void *p) {
 		"mtsa $t6\n"
 		: : "r"(p) : "t6"
 	);
-}
-
-template <u32 i>
-static inline void SET_U32(register u128 &rd) {
-	asm volatile (
-		"lui %0, %1\n"
-		"ori %0, %0, %2\n"
-		"pcpyld %0, %0, %0\n"
-		: "+r"(rd) : "K"((i >> 16) & 0xFFFF), "K"(i & 0xFFFF)
-	);
-}
-
-static inline void SET_M(register u128 &rd, u32 *p) {
-	rd = *(vu128 *)p;
-}
-
-static inline void PRINT_R(const register u128 &rt, bool newline) {
-	static u32 __attribute__((aligned(16))) result[4] = {0, 0, 0, 0};
-	*(vu128 *)result = rt;
-
-	printf("%08x %08x %08x %08x", result[3], result[2], result[1], result[0]);
-	if (newline) {
-		printf("\n");
-	}
 }
 
 static void PRINT_SA(bool newline) {

@@ -1,6 +1,5 @@
-#include <stdio.h>
+#include <common.h>
 #include <string.h>
-#include <tamtypes.h>
 
 void __attribute__((noinline)) printfcrs(const char *title, int all) {
 	unsigned int fcrs[32];

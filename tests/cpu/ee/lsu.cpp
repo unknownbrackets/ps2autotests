@@ -1,6 +1,5 @@
-#include <stdio.h>
+#include <common.h>
 #include <string.h>
-#include <tamtypes.h>
 
 static u32 __attribute__((aligned(16))) C_GARBAGE1[4] = {0x1337, 0x1338, 0x1339, 0x133A};
 static u32 __attribute__((aligned(16))) C_PATTERN[3][4] = {

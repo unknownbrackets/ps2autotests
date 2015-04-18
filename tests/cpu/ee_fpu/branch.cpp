@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <tamtypes.h>
+#include <common.h>
 
 enum BranchResultFlags {
 	BRANCH_SKIPPED = 0,

@@ -1,6 +1,5 @@
-#include <stdio.h>
+#include <common.h>
 #include <string.h>
-#include <tamtypes.h>
 
 void test_lw_delay() {
 	const static u32 data = 0x13371337;

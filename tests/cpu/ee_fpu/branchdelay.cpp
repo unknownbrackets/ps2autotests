@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <tamtypes.h>
+#include <common.h>
 
 void __attribute__((noinline)) test_bc1t() {
 	int result = -1;
