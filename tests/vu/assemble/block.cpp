@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <common.h>
 #include "block.h"
 #include "ops.h"
 #include "types.h"

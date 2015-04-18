@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <tamtypes.h>
+#include <common.h>
 #include "../assemble.h"
 
 int main(int argc, char *argv[]) {

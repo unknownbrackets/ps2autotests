@@ -12,7 +12,7 @@
 include $(COMMON_DIR)/common-defines.mk
 
 # Include directories
-EE_INCS := -I$(PS2DEV)/ee/ee/include -I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include -I. $(EE_INCS)
+EE_INCS := -I$(PS2DEV)/ee/ee/include -I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include -I. -I$(COMMON_DIR) $(EE_INCS)
 
 # C compiler flags
 EE_CFLAGS := -D_EE -O2 -G0 -Wall $(EE_CFLAGS)

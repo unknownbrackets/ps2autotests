@@ -18,7 +18,7 @@ ASFLAGS_TARGET = -march=r3000
 LDFLAGS_TARGET = -miop
 
 # include dir
-IOP_INCS := -I$(PS2SDK)/iop/include -I$(PS2SDK)/common/include \
+IOP_INCS := -I$(PS2SDK)/iop/include -I$(PS2SDK)/common/include -I$(COMMON_DIR) \
 	-I. $(IOP_INCS)
 # C compiler flags
 IOP_CFLAGS := $(CFLAGS_TARGET) -O2 -G0 $(IOP_INCS) $(IOP_CFLAGS)

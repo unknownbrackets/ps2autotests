@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <common.h>
 #include "encoding.h"
 #include "ops.h"
 #include "types.h"
