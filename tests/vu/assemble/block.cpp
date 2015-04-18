@@ -145,6 +145,13 @@ void Block::SafeExit() {
 	Wr(NOP());
 }
 
+void Block::Reset() {
+	for (LIW *p = start_; p < addr_; p++) {
+		*p = 0;
+	}
+	addr_ = start_;
+}
+
 void Block::FixupLabel(Label l) {
 	assert(l.src_ != NULL);
 	assert(l.dest_ != NULL);

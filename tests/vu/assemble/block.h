@@ -25,49 +25,67 @@ public:
 	// For branches, the delay slot is specified directly.
 	// This is just to prevent accidents.
 
-	Label B(UpperOp u, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
+	Label B(UpperOp u = UpperOp(), UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
 	void B(UpperOp u, Label l, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
 	void B(Label l, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
 		return B(UpperOp(), l, delayu, delayl);
 	}
 
-	Label BAL(UpperOp u, Reg t = VI_LR, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
+	Label BAL(UpperOp u = UpperOp(), Reg t = VI_LR, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
 	void BAL(UpperOp u, Label l, Reg t = VI_LR, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
 	void BAL(Label l, Reg t = VI_LR, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
 		return BAL(UpperOp(), l, t, delayu, delayl);
 	}
 
 	Label IBEQ(UpperOp u, Reg t, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
+	Label IBEQ(Reg t, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
+		return IBEQ(UpperOp(), t, s, delayu, delayl);
+	}
 	void IBEQ(UpperOp u, Label l, Reg t, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
 	void IBEQ(Label l, Reg t, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
 		return IBEQ(UpperOp(), l, t, s, delayu, delayl);
 	}
 
 	Label IBGEZ(UpperOp u, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
+	Label IBGEZ(Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
+		return IBGEZ(UpperOp(), s, delayu, delayl);
+	}
 	void IBGEZ(UpperOp u, Label l, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
 	void IBGEZ(Label l, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
 		return IBGEZ(UpperOp(), l, s, delayu, delayl);
 	}
 
 	Label IBGTZ(UpperOp u, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
+	Label IBGTZ(Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
+		return IBGTZ(UpperOp(), s, delayu, delayl);
+	}
 	void IBGTZ(UpperOp u, Label l, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
 	void IBGTZ(Label l, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
 		return IBGTZ(UpperOp(), l, s, delayu, delayl);
 	}
 
 	Label IBLEZ(UpperOp u, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
+	Label IBLEZ(Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
+		return IBLEZ(UpperOp(), s, delayu, delayl);
+	}
 	void IBLEZ(UpperOp u, Label l, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
 	void IBLEZ(Label l, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
 		return IBLEZ(UpperOp(), l, s, delayu, delayl);
 	}
 
 	Label IBLTZ(UpperOp u, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
+	Label IBLTZ(Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
+		return IBLTZ(UpperOp(), s, delayu, delayl);
+	}
 	void IBLTZ(UpperOp u, Label l, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
 	void IBLTZ(Label l, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
 		return IBLTZ(UpperOp(), l, s, delayu, delayl);
 	}
 
 	Label IBNE(UpperOp u, Reg t, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
+	Label IBNE(Reg t, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
+		return IBNE(UpperOp(), t, s, delayu, delayl);
+	}
 	void IBNE(UpperOp u, Label l, Reg t, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp());
 	void IBNE(Label l, Reg t, Reg s, UpperOp delayu = UpperOp(), LowerOp delayl = LowerOp()) {
 		return IBNE(UpperOp(), l, t, s, delayu, delayl);
@@ -90,6 +108,8 @@ public:
 	}
 
 	void SafeExit();
+
+	void Reset();
 
 protected:
 	void FixupLabel(Label l);
