@@ -94,7 +94,9 @@ enum LowerType3Opcode {
 	OP_MOVE =    0x33C, // 0b01100_1111_00
 	OP_MR32 =    0x33D, // 0b01100_1111_01
 	OP_LQI =     0x37C, // 0b01101_1111_00
+	OP_SQI =     0x37D, // 0b01101_1111_01
 	OP_LQD =     0x37E, // 0b01101_1111_10
+	OP_SQD =     0x37F, // 0b01101_1111_11
 	OP_MFIR =    0x3FD, // 0b01111_1111_01
 	OP_ILWR =    0x3FE, // 0b01111_1111_10
 	OP_ISWR =    0x3FF, // 0b01111_1111_11
@@ -130,6 +132,7 @@ enum LowerType5Opcode {
 
 enum LowerType7Opcode {
 	OP_LQ =      0x00, // 0b0000000
+	OP_SQ =      0x00, // 0b0000001
 	OP_ILW =     0x04, // 0b0000100
 	OP_ISW =     0x05, // 0b0000101
 	OP_B =       0x20, // 0b0100000
@@ -711,6 +714,18 @@ LowerOp RSQRT(Field fsf, Reg s, Field ftf, Reg t) {
 
 LowerOp RXOR(Field fsf, Reg s) {
 	return LowerType4(OP_RSQRT, fsf, s, FIELD_X, VF00);
+}
+
+LowerOp SQ(Dest dest, Reg t, Reg s, s16 imm11) {
+	return LowerType7(OP_SQ, dest, VI(s), t, imm11);
+}
+
+LowerOp SQD(Dest dest, Reg t, Reg s) {
+	return LowerType3(OP_SQD, dest, VI(s), t);
+}
+
+LowerOp SQI(Dest dest, Reg t, Reg s) {
+	return LowerType3(OP_SQI, dest, VI(s), t);
 }
 
 }

@@ -137,6 +137,9 @@ LowerOp RINIT(Field fsf, Reg s);
 LowerOp RNEXT(Dest dest, Reg t);
 LowerOp RSQRT(Field fsf, Reg s, Field ftf, Reg t);
 LowerOp RXOR(Field fsf, Reg s);
+LowerOp SQ(Dest dest, Reg t, Reg si, s16 imm11);
+LowerOp SQD(Dest dest, Reg t, Reg si);
+LowerOp SQI(Dest dest, Reg t, Reg si);
 
 }
 
