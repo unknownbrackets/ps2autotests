@@ -124,6 +124,19 @@ LowerOp ISW(Dest dest, Reg t, Reg s, s16 imm11);
 LowerOp ISWR(Dest dest, Reg t, Reg s);
 LowerOp JALR(Reg t, Reg s);
 LowerOp JR(Reg s);
+LowerOp LQ(Dest dest, Reg t, Reg si, s16 imm11);
+LowerOp LQD(Dest dest, Reg t, Reg si);
+LowerOp LQI(Dest dest, Reg t, Reg si);
+LowerOp MFIR(Dest dest, Reg t, Reg si);
+LowerOp MFP(Dest dest, Reg t);
+LowerOp MOVE(Dest dest, Reg t, Reg s);
+LowerOp MR32(Dest dest, Reg t, Reg s);
+LowerOp MTIR(Dest dest, Reg ti, Field fsf, Reg s);
+LowerOp RGET(Dest dest, Reg t);
+LowerOp RINIT(Field fsf, Reg s);
+LowerOp RNEXT(Dest dest, Reg t);
+LowerOp RSQRT(Field fsf, Reg s, Field ftf, Reg t);
+LowerOp RXOR(Field fsf, Reg s);
 
 }
 

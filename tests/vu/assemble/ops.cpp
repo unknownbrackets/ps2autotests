@@ -91,8 +91,16 @@ enum LowerType1Opcode {
 };
 
 enum LowerType3Opcode {
+	OP_MOVE =    0x33C, // 0b01100_1111_00
+	OP_MR32 =    0x33D, // 0b01100_1111_01
+	OP_LQI =     0x37C, // 0b01101_1111_00
+	OP_LQD =     0x37E, // 0b01101_1111_10
+	OP_MFIR =    0x3FD, // 0b01111_1111_01
 	OP_ILWR =    0x3FE, // 0b01111_1111_10
 	OP_ISWR =    0x3FF, // 0b01111_1111_11
+	OP_RNEXT =   0x43C, // 0b10000_1111_00
+	OP_RGET =    0x43D, // 0b10000_1111_01
+	OP_MFP =     0x67C, // 0b11001_1111_00
 	OP_ESADD =   0x73C, // 0b11100_1111_00
 	OP_ERSADD =  0x73D, // 0b11100_1111_01
 	OP_ELENG =   0x73E, // 0b11100_1111_10
@@ -104,6 +112,10 @@ enum LowerType3Opcode {
 
 enum LowerType4Opcode {
 	OP_DIV =     0x3BC, // 0b01110_1111_00
+	OP_RSQRT =   0x3BE, // 0b01110_1111_10
+	OP_MTIR =    0x3FC, // 0b01111_1111_00
+	OP_RINIT =   0x43E, // 0b10000_1111_10
+	OP_RXOR =    0x43F, // 0b10000_1111_11
 	OP_ESQRT =   0x7BC, // 0b11110_1111_00
 	OP_ERSQRT =  0x7BD, // 0b11110_1111_01
 	OP_ERCPR =   0x7BE, // 0b11110_1111_10
@@ -117,6 +129,7 @@ enum LowerType5Opcode {
 };
 
 enum LowerType7Opcode {
+	OP_LQ =      0x00, // 0b0000000
 	OP_ILW =     0x04, // 0b0000100
 	OP_ISW =     0x05, // 0b0000101
 	OP_B =       0x20, // 0b0100000
@@ -646,6 +659,58 @@ LowerOp JALR(Reg t, Reg s) {
 
 LowerOp JR(Reg s) {
 	return LowerType7(OP_JR, DEST_NONE, VI(s), VF00, 0);
+}
+
+LowerOp LQ(Dest dest, Reg t, Reg s, s16 imm11) {
+	return LowerType7(OP_LQ, dest, VI(s), t, imm11);
+}
+
+LowerOp LQD(Dest dest, Reg t, Reg s) {
+	return LowerType3(OP_LQD, dest, VI(s), t);
+}
+
+LowerOp LQI(Dest dest, Reg t, Reg s) {
+	return LowerType3(OP_LQI, dest, VI(s), t);
+}
+
+LowerOp MFIR(Dest dest, Reg t, Reg s) {
+	return LowerType3(OP_MFIR, dest, VI(s), t);
+}
+
+LowerOp MFP(Dest dest, Reg t) {
+	return LowerType3(OP_MFP, dest, VF00, t);
+}
+
+LowerOp MOVE(Dest dest, Reg t, Reg s) {
+	return LowerType3(OP_MOVE, dest, s, t);
+}
+
+LowerOp MR32(Dest dest, Reg t, Reg s) {
+	return LowerType3(OP_MR32, dest, s, t);
+}
+
+LowerOp MTIR(Dest dest, Reg t, Field fsf, Reg s) {
+	return LowerType4(OP_MTIR, fsf, s, FIELD_X, VI(t));
+}
+
+LowerOp RGET(Dest dest, Reg t) {
+	return LowerType3(OP_RGET, dest, VF00, t);
+}
+
+LowerOp RINIT(Field fsf, Reg s) {
+	return LowerType4(OP_RINIT, fsf, s, FIELD_X, VF00);
+}
+
+LowerOp RNEXT(Dest dest, Reg t) {
+	return LowerType3(OP_RNEXT, dest, VF00, t);
+}
+
+LowerOp RSQRT(Field fsf, Reg s, Field ftf, Reg t) {
+	return LowerType4(OP_RSQRT, fsf, s, ftf, t);
+}
+
+LowerOp RXOR(Field fsf, Reg s) {
+	return LowerType4(OP_RSQRT, fsf, s, FIELD_X, VF00);
 }
 
 }
