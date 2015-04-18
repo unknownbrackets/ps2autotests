@@ -140,6 +140,12 @@ LowerOp RXOR(Field fsf, Reg s);
 LowerOp SQ(Dest dest, Reg t, Reg si, s16 imm11);
 LowerOp SQD(Dest dest, Reg t, Reg si);
 LowerOp SQI(Dest dest, Reg t, Reg si);
+LowerOp SQRT(Field ftf, Reg t);
+LowerOp WAITP();
+LowerOp WAITQ();
+LowerOp XGKICK(Reg s);
+LowerOp XITOP(Reg t);
+LowerOp XTOP(Reg t);
 
 }
 

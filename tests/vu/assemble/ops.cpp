@@ -100,9 +100,13 @@ enum LowerType3Opcode {
 	OP_MFIR =    0x3FD, // 0b01111_1111_01
 	OP_ILWR =    0x3FE, // 0b01111_1111_10
 	OP_ISWR =    0x3FF, // 0b01111_1111_11
+	OP_WAITQ =   0x3BF, // 0b01110_1111_11
 	OP_RNEXT =   0x43C, // 0b10000_1111_00
 	OP_RGET =    0x43D, // 0b10000_1111_01
 	OP_MFP =     0x67C, // 0b11001_1111_00
+	OP_XTOP =    0x6BC, // 0b11010_1111_00
+	OP_XITOP =   0x6BD, // 0b11010_1111_01
+	OP_XGKICK =  0x6FC, // 0b11011_1111_00
 	OP_ESADD =   0x73C, // 0b11100_1111_00
 	OP_ERSADD =  0x73D, // 0b11100_1111_01
 	OP_ELENG =   0x73E, // 0b11100_1111_10
@@ -110,10 +114,12 @@ enum LowerType3Opcode {
 	OP_EATANxy = 0x77C, // 0b11101_1111_00
 	OP_EATANxz = 0x77D, // 0b11101_1111_01
 	OP_ESUM =    0x77E, // 0b11101_1111_10
+	OP_WAITP =   0x7BF, // 0b11110_1111_11
 };
 
 enum LowerType4Opcode {
 	OP_DIV =     0x3BC, // 0b01110_1111_00
+	OP_SQRT =    0x3BD, // 0b01110_1111_01
 	OP_RSQRT =   0x3BE, // 0b01110_1111_10
 	OP_MTIR =    0x3FC, // 0b01111_1111_00
 	OP_RINIT =   0x43E, // 0b10000_1111_10
@@ -726,6 +732,30 @@ LowerOp SQD(Dest dest, Reg t, Reg s) {
 
 LowerOp SQI(Dest dest, Reg t, Reg s) {
 	return LowerType3(OP_SQI, dest, VI(s), t);
+}
+
+LowerOp SQRT(Field ftf, Reg t) {
+	return LowerType4(OP_SQRT, FIELD_X, VF00, ftf, t);
+}
+
+LowerOp WAITP() {
+	return LowerType3(OP_WAITP, DEST_NONE, VF00, VF00);
+}
+
+LowerOp WAITQ() {
+	return LowerType3(OP_WAITQ, DEST_NONE, VF00, VF00);
+}
+
+LowerOp XGKICK(Reg s) {
+	return LowerType3(OP_XGKICK, DEST_NONE, VI(s), VF00);
+}
+
+LowerOp XITOP(Reg t) {
+	return LowerType3(OP_XITOP, DEST_NONE, VF00, VI(t));
+}
+
+LowerOp XTOP(Reg t) {
+	return LowerType3(OP_XTOP, DEST_NONE, VF00, VI(t));
 }
 
 }
