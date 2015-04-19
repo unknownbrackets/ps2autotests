@@ -88,6 +88,7 @@ def gen_test(test, args):
   # Seems like the PS2 can hang if it's not reset, let's just always reset for now.
   c = Command([PS2CLIENT, "reset"])
   c.run(RECONNECT_TIMEOUT)
+  c.stop()
 
   # Okay, time to run the command.
   if elf_exists:
