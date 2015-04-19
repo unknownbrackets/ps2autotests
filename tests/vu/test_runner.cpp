@@ -43,8 +43,13 @@ void TestRunner::Execute() {
 	InitFlags();
 
 	if (vu_ == 1) {
-		// TODO: Should just be a ctc2.
-		printf("Not implemented yet.\n");
+		if (DEBUG_TEST_RUNNER) {
+			printf("Calling vu0 code.\n");
+		}
+		asm volatile (
+			// This writes to cmsar1 ($31).  The program is simply at 0.
+			"ctc2 $0, $31\n"
+		);
 	} else {
 		if (DEBUG_TEST_RUNNER) {
 			printf("Calling vu0 code.\n");
