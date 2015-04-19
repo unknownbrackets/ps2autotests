@@ -1,13 +1,7 @@
 #include "types.h"
+#include <assert.h>
 
 namespace VU {
-
-// TODO: <assert.h> doesn't link?
-#define assert(cond) \
-	if (!(cond)) { \
-		printf("Assert failed: %s", #cond); \
-		asm ("break 100"); \
-	}
 
 // Helpers - these propagate later to encoding funcs.
 
@@ -79,7 +73,5 @@ static inline u32 IMM24(u32 imm) {
 	assert((imm & 0x00FFFFFF) == imm);
 	return imm;
 }
-
-#undef assert
 
 }

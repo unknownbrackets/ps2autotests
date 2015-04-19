@@ -1,16 +1,10 @@
+#include <assert.h>
 #include <common.h>
 #include "block.h"
 #include "ops.h"
 #include "types.h"
 
 namespace VU {
-
-// TODO: <assert.h> doesn't link?
-#define assert(cond) \
-	if (!(cond)) { \
-		printf("Assert failed: %s", #cond); \
-		asm ("break 100"); \
-	}
 
 Block::Block(LIW *addr)
 	: start_(addr), addr_(addr) {

@@ -1,16 +1,10 @@
+#include <assert.h>
 #include <common.h>
 #include "encoding.h"
 #include "ops.h"
 #include "types.h"
 
 namespace VU {
-
-// TODO: <assert.h> doesn't link?
-#define assert(cond) \
-	if (!(cond)) { \
-		printf("Assert failed: %s", #cond); \
-		asm ("break 100"); \
-	}
 
 enum UpperType0Opcode {
 	OP_ADDbc =   0x0, // 0b0000
