@@ -9,17 +9,25 @@ class Block {
 public:
 	Block(LIW *addr);
 
+	// Write an instruction to the block.
 	void Wr(LowerOp l);
 	void Wr(UpperOp u);
 	void Wr(UpperOp u, LowerOp l);
+
+	// Write an immediate load into the block (aka LOI.)
 	void WrImm(float imm);
 	void WrImm(u32 imm);
 	void WrImm(s32 imm);
+
+	// Load an immediate and execute an upper op in the same instruction.
 	void WrImm(UpperOp u, float imm);
 	void WrImm(UpperOp u, u32 imm);
 	void WrImm(UpperOp u, s32 imm);
 
+	// Create a label at the current position (pass to a branch func later.)
 	Label L();
+
+	// Set a label destination to the current position (one returned by a branch function.)
 	void L(Label &l);
 
 	// For branches, the delay slot is specified directly.
@@ -107,13 +115,20 @@ public:
 		return JALR(UpperOp(), s, delayu, delayl);
 	}
 
+	// Write out an exit sequence (with NOP padding.)
 	void SafeExit();
 
+	// Reset to the beginning of the block.
 	void Reset();
 
 protected:
+	// Determine the branch offset and write the branch and its upper instruction.
 	void FixupLabel(Label l);
+
+	// Create the branch encoding for a particular label.
 	LowerOp EncodeFixupLower(Label l, s16 dist);
+
+	// Helpers to setup branches quickly.
 	Label DeferBranch(BranchType type, UpperOp u, Reg s, Reg t, UpperOp delayu, LowerOp delayl);
 	void DoBranch(BranchType type, UpperOp u, Label l, Reg s, Reg t, UpperOp delayu, LowerOp delayl);
 

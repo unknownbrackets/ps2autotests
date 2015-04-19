@@ -45,6 +45,7 @@ struct UpperOp {
 
 typedef u64 LIW;
 
+// Or together flags to be used in instruction.  Upper only.
 enum Flags {
 	UPPER_NONE = 0,
 
@@ -64,6 +65,7 @@ static inline Flags operator | (const Flags &lhs, const Flags &rhs) {
 	return Flags((u32)lhs | (u32)rhs);
 }
 
+// Destination masks.  Can or together for multiple.
 enum Dest {
 	DEST_X = 1 << 3,
 	DEST_Y = 1 << 2,
@@ -80,6 +82,7 @@ static inline Dest operator | (const Dest &lhs, const Dest &rhs) {
 	return Dest((u32)lhs | (u32)rhs);
 }
 
+// Field specification.  Must pick one.
 enum Field {
 	FIELD_X = 0,
 	FIELD_Y = 1,
@@ -104,6 +107,7 @@ enum Reg {
 	VI_LR = VI15,
 };
 
+// Branch type for label fixup.
 enum BranchType {
 	BRANCH_B,
 	BRANCH_BAL,
@@ -132,13 +136,14 @@ protected:
 
 	LIW *dest_;
 
-	// For fixup.
+	// For fixup.  This allows writing the corrected instruction later.
 	LIW *src_;
 	UpperOp upper_;
 	BranchType type_;
 	Reg s_;
 	Reg t_;
 
+	// Only blocks can create these.
 	friend class Block;
 };
 

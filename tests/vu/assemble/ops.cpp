@@ -6,6 +6,9 @@
 
 namespace VU {
 
+// Opcode values - shifted into place based on type.
+// These are in different enums by type for typesafety reasons.
+
 enum UpperType0Opcode {
 	OP_ADDbc =   0x0, // 0b0000
 	OP_SUBbc =   0x1, // 0b0001
@@ -185,6 +188,7 @@ UpperOp UpperType3(UpperType3Opcode op, Dest dest, Reg fs, Reg ft, Flags f) {
 	return UpperOp(f | DEST(dest) | VT(ft) | VS(fs) | op);
 }
 
+// This bit is set for all lower instructions of types 1, 3, 4, and 5.
 static const u32 LOWER_TYPE1345 = 0x80000000;
 
 LowerOp LowerType1(LowerType1Opcode op, Dest dest, Reg fd, Reg fs, Reg ft) {
@@ -538,11 +542,13 @@ LowerOp ESUM(Reg s) {
 }
 
 LowerOp FCAND(Reg d, u32 imm24) {
+	// Not a real param - just for clarity in api.
 	assert(d == VI01);
 	return LowerType9(OP_FCAND, imm24);
 }
 
 LowerOp FCEQ(Reg d, u32 imm24) {
+	// Not a real param - just for clarity in api.
 	assert(d == VI01);
 	return LowerType9(OP_FCEQ, imm24);
 }

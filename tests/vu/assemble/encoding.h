@@ -4,6 +4,7 @@
 namespace VU {
 
 // Helpers - these propagate later to encoding funcs.
+// These are used to force things into certain ranges.
 
 static inline Reg VI(Reg i) {
 	assert(i >= VI00 && i <= VI15);
