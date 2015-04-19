@@ -14,6 +14,13 @@ struct LowerOp {
 		v = imm;
 	}
 
+	bool operator == (const LowerOp &rhs) {
+		return v == rhs.v;
+	}
+	bool operator != (const LowerOp &rhs) {
+		return v != rhs.v;
+	}
+
 	u32 v;
 };
 
@@ -24,6 +31,13 @@ struct UpperOp {
 	}
 	explicit UpperOp(u32 imm) {
 		v = imm;
+	}
+
+	bool operator == (const UpperOp &rhs) {
+		return v == rhs.v;
+	}
+	bool operator != (const UpperOp &rhs) {
+		return v != rhs.v;
 	}
 
 	u32 v;
