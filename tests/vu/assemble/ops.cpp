@@ -65,10 +65,10 @@ enum UpperType3Opcode {
 	OP_CLIP =    0x1FF, // 0b00111_1111_11
 	OP_ADDAq =   0x23C, // 0b01000_1111_00
 	OP_MADDAq =  0x23D, // 0b01000_1111_01
-	OP_SUBAq =   0x27C, // 0b01001v1111_00
-	OP_MSUBAq =  0x27D, // 0b01001_1111_01
 	OP_ADDAi =   0x23E, // 0b01000_1111_10
 	OP_MADDAi =  0x23F, // 0b01000_1111_11
+	OP_SUBAq =   0x27C, // 0b01001v1111_00
+	OP_MSUBAq =  0x27D, // 0b01001_1111_01
 	OP_SUBAi =   0x27E, // 0b01001_1111_10
 	OP_MSUBAi =  0x27F, // 0b01001_1111_11
 	OP_ADDA =    0x2BC, // 0b01010_1111_00
@@ -94,10 +94,10 @@ enum LowerType3Opcode {
 	OP_SQI =     0x37D, // 0b01101_1111_01
 	OP_LQD =     0x37E, // 0b01101_1111_10
 	OP_SQD =     0x37F, // 0b01101_1111_11
+	OP_WAITQ =   0x3BF, // 0b01110_1111_11
 	OP_MFIR =    0x3FD, // 0b01111_1111_01
 	OP_ILWR =    0x3FE, // 0b01111_1111_10
 	OP_ISWR =    0x3FF, // 0b01111_1111_11
-	OP_WAITQ =   0x3BF, // 0b01110_1111_11
 	OP_RNEXT =   0x43C, // 0b10000_1111_00
 	OP_RGET =    0x43D, // 0b10000_1111_01
 	OP_MFP =     0x67C, // 0b11001_1111_00
@@ -456,7 +456,6 @@ UpperOp SUBAi(Dest dest, Reg s, Flags f) {
 UpperOp SUBAq(Dest dest, Reg s, Flags f) {
 	return UpperType3(OP_SUBAq, dest, s, VF00, f);
 }
-
 
 // And now the lower instructions.
 
