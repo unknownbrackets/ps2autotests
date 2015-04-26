@@ -3,21 +3,21 @@
 #include <kernel.h>
 #include <malloc.h>
 #include <string.h>
-#include "emit_vifcode.h"
 #include "../dmaregs.h"
 #include "../dmasend.h"
 #include "../dmatags.h"
+#include "emit_vifcode.h"
+#include "vifregs.h"
 
 static u8 *const vu0_mem = (u8 *)0x11004000;
 
-void send_simple_fifo_vif0(void *vifcode, int size) {
+void send_simple_fifo_vif(volatile u128 *fifo, void *vifcode, int size) {
 	// Must be aligned to 16 bytes.
 	assert((size & 0xf) == 0 && (((u32)vifcode) & 0xf) == 0);
 
-	vu128 *VIF0_FIFO = (vu128 *)0x10004000;
 	u128 *vif128 = (u128 *)vifcode;
 	for (int i = 0; i < size / 16; ++i) {
-		*VIF0_FIFO = vif128[i];
+		*fifo = vif128[i];
 	}
 }
 
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 	memset(vu0_mem, 0, 16 * 4);
 	SyncDCache(vu0_mem, vu0_mem + 16 * 4);
 
-	send_simple_fifo_vif0(vifcode.Raw(), 32);
+	send_simple_fifo_vif(VIF::VIF0_FIFO, vifcode.Raw(), 32);
 	SyncDCache(vu0_mem, vu0_mem + 16 * 4);
 
 	printf("VIF0 FIFO: %08x (%08x) - %08x - %08x - %08x\n", vu0_32[0], vu0_32[1], vu0_32[4], vu0_32[8], vu0_32[12]);
