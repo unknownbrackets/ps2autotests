@@ -9,6 +9,8 @@ div:
   div 53, 0: H: 00000035 L: ffffffff
   div -1, 1: H: 00000000 L: ffffffff
   div 1, -1: H: 00000000 L: ffffffff
+  div -1, 0: H: ffffffff L: 00000001
+  div -53, 0: H: ffffffcb L: 00000001
   div -1, -1: H: 00000000 L: 00000001
   div -2147483648, -1: H: 00000000 L: 80000000
   div -2147483648, 0: H: 80000000 L: 00000001
@@ -36,6 +38,8 @@ divu:
   divu 53, 0: H: 00000035 L: ffffffff
   divu -1, 1: H: 00000000 L: ffffffff
   divu 1, -1: H: 00000001 L: 00000000
+  divu -1, 0: H: ffffffff L: ffffffff
+  divu -53, 0: H: ffffffcb L: ffffffff
   divu -1, -1: H: 00000000 L: 00000001
   divu -2147483648, -1: H: 80000000 L: 00000000
   divu -2147483648, 0: H: 80000000 L: ffffffff
@@ -63,6 +67,8 @@ mult:
   mult 53, 0: H: 00000000 L: 00000000
   mult -1, 1: H: ffffffff L: ffffffff
   mult 1, -1: H: ffffffff L: ffffffff
+  mult -1, 0: H: 00000000 L: 00000000
+  mult -53, 0: H: 00000000 L: 00000000
   mult -1, -1: H: 00000000 L: 00000001
   mult -2147483648, -1: H: 00000000 L: 80000000
   mult -2147483648, 0: H: 00000000 L: 00000000
@@ -90,6 +96,8 @@ multu:
   multu 53, 0: H: 00000000 L: 00000000
   multu -1, 1: H: 00000000 L: ffffffff
   multu 1, -1: H: 00000000 L: ffffffff
+  multu -1, 0: H: 00000000 L: 00000000
+  multu -53, 0: H: 00000000 L: 00000000
   multu -1, -1: H: fffffffe L: 00000001
   multu -2147483648, -1: H: 7fffffff L: 80000000
   multu -2147483648, 0: H: 00000000 L: 00000000
