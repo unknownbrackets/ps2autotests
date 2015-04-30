@@ -195,7 +195,7 @@ namespace DMA {
 		void *asr1;
 		u32 asr1_pad[3];
 		u32 pad1[8];
-		void *sadr;
+		u32 sadr;
 		u32 sadr_pad[3];
 		u32 pad2[28];
 	};

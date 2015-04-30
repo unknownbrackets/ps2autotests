@@ -90,16 +90,16 @@ namespace DMA {
 		addr_ = start_;
 	}
 
-	void DstChainPacket::CNT(u16 size) {
-		Emit(size, DST_CNT, 0);
+	void DstChainPacket::CNT(void *addr, u16 size) {
+		Emit(size, DST_CNT, addr);
 	}
 
-	void DstChainPacket::CNTS(u16 size) {
-		Emit(size, DST_CNTS, 0);
+	void DstChainPacket::CNTS(void *addr, u16 size) {
+		Emit(size, DST_CNTS, addr);
 	}
 
-	void DstChainPacket::END(u16 size) {
-		Emit(size, DST_END, 0);
+	void DstChainPacket::END(void *addr, u16 size) {
+		Emit(size, DST_END, addr);
 	}
 
 	void DstChainPacket::DataQ(u128 v) {

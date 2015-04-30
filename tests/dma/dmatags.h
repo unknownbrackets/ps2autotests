@@ -88,9 +88,9 @@ namespace DMA {
 
 		void Reset();
 
-		void CNT(u16 size);
-		void CNTS(u16 size);
-		void END(u16 size);
+		void CNT(void *addr, u16 size);
+		void CNTS(void *addr, u16 size);
+		void END(void *addr, u16 size);
 
 		void DataQ(u128 v);
 		void DataQPtr(const void *p, u16 size);
