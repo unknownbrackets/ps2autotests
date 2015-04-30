@@ -1,0 +1,15 @@
+-- TEST BEGIN
+SADR offsets:
+  SADR +0x10: 00000000 00000000 00000000 00000000
+  SADR +0x20: 01234567 89abcdef deadbeef 1337c0de
+  SADR +0x14: 00000000 00000000 00000000 00000000
+  SADR +0x24: 01234567 89abcdef deadbeef 1337c0de
+
+SADR high bits:
+  SADR send with ignored bits: 01234567 89abcdef deadbeef 1337c0de
+  SADR receive with ignored bits: 01234567 89abcdef deadbeef 1337c0de
+
+MADR with high bit:
+  MADR send with SPR bit: 00000000 00000000 00000000 00000000
+  MADR receive with SPR bit: 00000000 00000000 00000000 00000000
+-- TEST END
