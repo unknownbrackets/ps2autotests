@@ -1,4 +1,4 @@
-TARGETS = normal
+TARGETS = chain normal
 EXTRA_OBJS = ../dmatags.o ../dmasend.o
 EE_LIBS = -lg -ldma
 

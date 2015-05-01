@@ -41,8 +41,8 @@ namespace DMA {
 		SyncDCache(dmatag, (u8 *)dmatag + size);
 
 		// Here, we only need the tag address.
-		chan->qwc = 0;
 		chan->madr = 0;
+		chan->qwc = 0;
 		chan->tadr = dmatag;
 
 		// Start the transfer in chain mode.
