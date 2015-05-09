@@ -1,15 +1,46 @@
 -- TEST BEGIN
 SADR offsets:
+  Transfer to SPR:
+  SADR Before: 00000020
+  SADR After: 00000030
+
+  Transfer from SPR:
+  SADR Before: 00000010
+  SADR After: 00000030
+
   SADR +0x10: 00000000 00000000 00000000 00000000
   SADR +0x20: 01234567 89abcdef deadbeef 1337c0de
+
+  Transfer from SPR:
+  SADR Before: 00000010
+  SADR After: 00000030
+
   SADR +0x14: 00000000 00000000 00000000 00000000
   SADR +0x24: 01234567 89abcdef deadbeef 1337c0de
 
 SADR high bits:
+  Transfer to SPR:
+  SADR Before: 00000020
+  SADR After: 00000030
+
+  Transfer from SPR:
+  SADR Before: 00000020
+  SADR After: 00000030
+
   SADR send with ignored bits: 01234567 89abcdef deadbeef 1337c0de
+
+  Transfer from SPR:
+  SADR Before: 00000020
+  SADR After: 00000030
+
   SADR receive with ignored bits: 01234567 89abcdef deadbeef 1337c0de
 
 MADR with high bit:
+  Transfer to SPR:
+  MADR has high bit set? false
   MADR send with SPR bit: 00000000 00000000 00000000 00000000
+
+  Transfer from SPR:
+  MADR has high bit set? false
   MADR receive with SPR bit: 00000000 00000000 00000000 00000000
 -- TEST END
