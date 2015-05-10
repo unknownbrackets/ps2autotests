@@ -21,20 +21,17 @@ static void testSADROffsets(u32 *buf) {
 	// And then set some data later into it.
 	toSPR->sadr = 0x20;
 
-	printf("  Transfer to SPR:\n");
-	printf("  SADR Before: %08x\n", toSPR->sadr);
+	printf("  toSPR SADR: %08x -> ", toSPR->sadr);
 	DMA::SendSimple(toSPR, buf, 16);
-	printf("  SADR After: %08x\n", toSPR->sadr);
+	printf("%08x\n", toSPR->sadr);
 	printf("\n");
-
+	
 	// Now let's read it back (from channel 8.)
 	fromSPR->sadr = 0x10;
 
-	printf("  Transfer from SPR:\n");
-	printf("  SADR Before: %08x\n", fromSPR->sadr);
+	printf("  fromSPR SADR: %08x -> ", fromSPR->sadr);
 	DMA::SendSimple(fromSPR, buf, 32);
-	printf("  SADR After: %08x\n", fromSPR->sadr);
-	printf("\n");
+	printf("%08x\n", fromSPR->sadr);
 
 	printf("  SADR +0x10: %08x %08x %08x %08x\n", buf[0], buf[1], buf[2], buf[3]);
 	printf("  SADR +0x20: %08x %08x %08x %08x\n", buf[4], buf[5], buf[6], buf[7]);
@@ -44,11 +41,9 @@ static void testSADROffsets(u32 *buf) {
 	memset(buf, 0xCC, 16 * 1024);
 	fromSPR->sadr = 0x14;
 
-	printf("  Transfer from SPR:\n");
-	printf("  SADR Before: %08x\n", fromSPR->sadr);
+	printf("  fromSPR SADR: %08x -> ", fromSPR->sadr);
 	DMA::SendSimple(fromSPR, buf, 32);
-	printf("  SADR After: %08x\n", fromSPR->sadr);
-	printf("\n");
+	printf("%08x\n", fromSPR->sadr);
 	
 	printf("  SADR +0x14: %08x %08x %08x %08x\n", buf[0], buf[1], buf[2], buf[3]);
 	printf("  SADR +0x24: %08x %08x %08x %08x\n", buf[4], buf[5], buf[6], buf[7]);
@@ -67,21 +62,18 @@ static void testSADRHighBits(u32 *buf) {
 
 	toSPR->sadr = 0x81234028;
 
-	printf("  Transfer to SPR:\n");
-	printf("  SADR Before: %08x\n", toSPR->sadr);
+	printf("  toSPR SADR: %08x -> ", toSPR->sadr);
 	DMA::SendSimple(toSPR, buf, 16);
-	printf("  SADR After: %08x\n", toSPR->sadr);
+	printf("%08x\n", toSPR->sadr);
 	printf("\n");
 
 	memset(buf, 0, 16);
 
 	fromSPR->sadr = 0x00000020;
 
-	printf("  Transfer from SPR:\n");
-	printf("  SADR Before: %08x\n", fromSPR->sadr);
+	printf("  fromSPR SADR: %08x -> ", fromSPR->sadr);
 	DMA::SendSimple(fromSPR, buf, 16);
-	printf("  SADR After: %08x\n", fromSPR->sadr);
-	printf("\n");
+	printf("%08x\n", fromSPR->sadr);
 
 	printf("  SADR send with ignored bits: %08x %08x %08x %08x\n", buf[0], buf[1], buf[2], buf[3]);
 	printf("\n");
@@ -90,11 +82,9 @@ static void testSADRHighBits(u32 *buf) {
 
 	fromSPR->sadr = 0x6703802C;
 
-	printf("  Transfer from SPR:\n");
-	printf("  SADR Before: %08x\n", fromSPR->sadr);
+	printf("  fromSPR SADR: %08x -> ", fromSPR->sadr);
 	DMA::SendSimple(fromSPR, buf, 16);
-	printf("  SADR After: %08x\n", fromSPR->sadr);
-	printf("\n");
+	printf("%08x\n", fromSPR->sadr);
 
 	printf("  SADR receive with ignored bits: %08x %08x %08x %08x\n", buf[0], buf[1], buf[2], buf[3]);
 
@@ -112,9 +102,8 @@ static void testMADRBit(u32 *buf) {
 
 	toSPR->sadr = 0;
 
-	printf("  Transfer to SPR:\n");
 	DMA::SendSimple(toSPR, DMA::SPR_ADDR(buf), 16);
-	printf("  MADR has high bit set? %s\n", (((u32)toSPR->madr & 0x80000000) != 0) ? "true" : "false");
+	printf("  toSPR MADR: high bit set? %s\n", (((u32)toSPR->madr & 0x80000000) != 0) ? "yes" : "no");
 
 	memset(buf, 0, 16);
 
@@ -136,9 +125,8 @@ static void testMADRBit(u32 *buf) {
 
 	fromSPR->sadr = 0x100;
 
-	printf("  Transfer from SPR:\n");
 	DMA::SendSimple(fromSPR, DMA::SPR_ADDR(buf), 16);
-	printf("  MADR has high bit set? %s\n", (((u32)fromSPR->madr & 0x80000000) != 0) ? "true" : "false");
+	printf("  fromSPR MADR: high bit set? %s\n", (((u32)fromSPR->madr & 0x80000000) != 0) ? "yes" : "no");
 
 	printf("  MADR receive with SPR bit: %08x %08x %08x %08x\n", buf[0], buf[1], buf[2], buf[3]);
 
@@ -175,6 +163,7 @@ int main(int argc, char *argv[]) {
 	// What does the SPR bit of MADR do?
 	clearSPR(buf);
 	testMADRBit(buf);
+	printf("\n");
 
 	free(buf);
 
