@@ -144,6 +144,34 @@ void TestRunner::InitFlags() {
 	}
 }
 
+u16 TestRunner::GetValueAddress(const u32 *val) {
+	u16 ptr = 0;
+	if (vu_ == 0) {
+		assert(val >= (u32 *)vu0_mem && val < (u32 *)(vu0_mem + vu0_mem_size));
+		ptr = ((u8 *)val - vu0_mem) / 16;
+	} else {
+		assert(val >= (u32 *)vu1_mem && val < (u32 *)(vu1_mem + vu1_mem_size));
+		ptr = ((u8 *)val - vu1_mem) / 16;
+	}
+	return ptr;
+}
+
+void TestRunner::WrLoadFloatRegister(VU::Dest dest, VU::Reg r, const u32 *val) {
+	using namespace VU;
+
+	assert(r >= VF00 && r <= VF31);
+
+	u16 ptr = GetValueAddress(val);
+
+	if ((ptr & 0x3FF) == ptr) {
+		Wr(LQ(dest, r, VI00, ptr));
+	} else {
+		// This shouldn't happen?  Even with 16kb, all reads should be < 0x400.
+		printf("Unhandled pointer load.");
+		assert(false);
+	}
+}
+
 void TestRunner::WrSetIntegerRegister(VU::Reg r, u32 v) {
 	using namespace VU;
 
@@ -166,14 +194,7 @@ void TestRunner::WrLoadIntegerRegister(VU::Dest dest, VU::Reg r, const u32 *val)
 
 	assert(r >= VI00 && r <= VI15);
 
-	u16 ptr;
-	if (vu_ == 0) {
-		assert(val >= (u32 *)vu0_mem && val < (u32 *)(vu0_mem + vu0_mem_size));
-		ptr = ((u8 *)val - vu0_mem) / 16;
-	} else {
-		assert(val >= (u32 *)vu1_mem && val < (u32 *)(vu1_mem + vu1_mem_size));
-		ptr = ((u8 *)val - vu1_mem) / 16;
-	}
+	u16 ptr = GetValueAddress(val);
 
 	if ((ptr & 0x3FF) == ptr) {
 		Wr(ILW(dest, r, VI00, ptr));
