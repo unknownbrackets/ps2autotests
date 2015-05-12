@@ -25,6 +25,9 @@ public:
 	// Emit an exit.
 	void RunnerExit();
 
+	// Emit code to set a float vector value.
+	void WrLoadFloatRegister(VU::Dest dest, VU::Reg r, const u32 *val);
+	
 	// Emit code to set an integer value.
 	void WrSetIntegerRegister(VU::Reg r, u32 val);
 	void WrLoadIntegerRegister(VU::Dest dest, VU::Reg r, const u32 *val);
@@ -40,6 +43,8 @@ protected:
 	void PrintIntegerRegister(int r);
 	void PrintVectorRegister(int r);
 
+	u16 GetValueAddress(const u32 *val);
+	
 	int vu_;
 	u32 status_;
 	u32 mac_;
