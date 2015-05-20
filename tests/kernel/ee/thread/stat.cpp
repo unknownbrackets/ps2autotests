@@ -142,6 +142,8 @@ int main(int argc, char **argv) {
 
 	//Various corner cases
 	{
+		//Add thread stat from spr_ram
+
 		schedf("thread stat with invalid tid: ");
 		printThreadStatus(~0);
 
