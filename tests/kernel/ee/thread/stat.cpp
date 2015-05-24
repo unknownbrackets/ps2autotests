@@ -1,8 +1,8 @@
 #include <common-ee.h>
 #include <kernel.h>
 #include <string.h>
+#include "../kernel_test_base.h"
 
-#define INIT_PRIO 0x40
 #define STACK_SIZE 0x8000
 #define SPR_BEGIN 0x70000000
 
@@ -48,7 +48,8 @@ void printThreadStatus(int threadId) {
 	}
 }
 
-int main(int argc, char **argv) {
+void kernelTestMain() {
+
 	printf("-- TEST BEGIN\n");
 
 	{
@@ -66,7 +67,7 @@ int main(int argc, char **argv) {
 	{
 		schedf("low prio thread:\n");
 		
-		int threadId = createTestThread((void*)&nullThreadProc, INIT_PRIO + 0x10, nullThreadStack, STACK_SIZE);
+		int threadId = createTestThread((void*)&nullThreadProc, TEST_THREAD_PRIORITY + 0x10, nullThreadStack, STACK_SIZE);
 		schedf("  stat before start: ");
 		printThreadStatus(threadId);
 
@@ -94,7 +95,7 @@ int main(int argc, char **argv) {
 	{
 		schedf("sleeping thread:\n");
 		
-		int threadId = createTestThread((void*)&sleepingThreadProc, INIT_PRIO - 0x10, sleepingThreadStack, STACK_SIZE);
+		int threadId = createTestThread((void*)&sleepingThreadProc, TEST_THREAD_PRIORITY - 0x10, sleepingThreadStack, STACK_SIZE);
 
 		StartThread(threadId, 0);
 		schedf("  stat after start: ");
@@ -118,7 +119,7 @@ int main(int argc, char **argv) {
 	{
 		schedf("waiting thread:\n");
 
-		int threadId = createTestThread((void*)&waitingThreadProc, INIT_PRIO - 0x10, waitingThreadStack, STACK_SIZE);
+		int threadId = createTestThread((void*)&waitingThreadProc, TEST_THREAD_PRIORITY - 0x10, waitingThreadStack, STACK_SIZE);
 
 		StartThread(threadId, 0);
 		schedf("  stat after start: ");
@@ -140,26 +141,26 @@ int main(int argc, char **argv) {
 
 	//Various corner cases
 	{
-		schedf("thread stat with invalid tid: ");
+		schedf("corner cases:\n");
+		
+		schedf("  thread stat with invalid tid: ");
 		printThreadStatus(~0);
 
 		{
 			int result = ReferThreadStatus(0, NULL);
-			schedf("self thread stat with null struct: %02x\n", result);
+			schedf("  self thread stat with null struct: %02x\n", result);
 		}
 
 		{
 			ee_thread_status_t* threadStat = (ee_thread_status_t*)SPR_BEGIN;
 			memset(threadStat, 0, sizeof(ee_thread_status_t));
 			int result = ReferThreadStatus(0, threadStat);
-			schedf("self thread stat with struct in spr -> result: %02x, status: %02x\n", 
+			schedf("  self thread stat with struct in spr -> result: %02x, status: %02x\n", 
 				result, threadStat->status);
 		}
 		
 		flushschedf();
 	}
-
+	
 	printf("-- TEST END\n");
-
-	return 0;
 }
