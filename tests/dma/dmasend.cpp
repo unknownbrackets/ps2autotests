@@ -20,12 +20,21 @@ namespace DMA {
 		chan->qwc = size / 16;
 		chan->tadr = 0;
 
+		if (chan->madr != data) {
+			printf("WARNING: DMA transfer did not accept MADR: %08x\n", (u32)chan->madr ^ (u32)data);
+		}
+		const char *madrStart = (const char *)chan->madr;
+
 		// And start the transfer.  Let's keep it simple.
 		chan->chcr |= CHCR_STR;
 
 		int i = 100000;
 		while (--i > 0 && chan->chcr.Ongoing()) {
 			continue;
+		}
+
+		if (chan->madr != madrStart + size) {
+			printf("WARNING: DMA transfer MADR did not increase as expected: %08x\n", (u32)chan->madr ^ (u32)data);
 		}
 
 		if (i == 0) {

@@ -162,11 +162,11 @@ namespace DMA {
 			bits_ = bits;
 		}
 
-		void SQWC(u16 bits) {
+		void SQWC(u16 bits) volatile {
 			bits_  = (bits_ & 0xFFFF0000) | bits;
 		}
 
-		void TQWC(u16 bits) {
+		void TQWC(u16 bits) volatile {
 			bits_  = (bits_ & 0x0000FFFF) | (bits << 16);
 		}
 	};

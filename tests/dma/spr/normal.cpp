@@ -10,6 +10,13 @@
 static volatile DMA::Channel *const fromSPR = DMA::D8;
 static volatile DMA::Channel *const toSPR = DMA::D9;
 
+static void clearSPR(u32 *buf) {
+	memset(buf, 0, 16 * 1024);
+
+	toSPR->sadr = 0;
+	DMA::SendSimple(toSPR, buf, 16 * 1024);
+}
+
 static void testSADROffsets(u32 *buf) {
 	printf("SADR offsets:\n");
 
@@ -21,15 +28,14 @@ static void testSADROffsets(u32 *buf) {
 	// And then set some data later into it.
 	toSPR->sadr = 0x20;
 
-	printf("  toSPR SADR: %08x -> ", toSPR->sadr);
+	printf("  toSPR SADR (0x10): %08x -> ", toSPR->sadr);
 	DMA::SendSimple(toSPR, buf, 16);
 	printf("%08x\n", toSPR->sadr);
-	printf("\n");
 	
 	// Now let's read it back (from channel 8.)
 	fromSPR->sadr = 0x10;
 
-	printf("  fromSPR SADR: %08x -> ", fromSPR->sadr);
+	printf("  fromSPR SADR (0x20): %08x -> ", fromSPR->sadr);
 	DMA::SendSimple(fromSPR, buf, 32);
 	printf("%08x\n", fromSPR->sadr);
 
@@ -41,7 +47,7 @@ static void testSADROffsets(u32 *buf) {
 	memset(buf, 0xCC, 16 * 1024);
 	fromSPR->sadr = 0x14;
 
-	printf("  fromSPR SADR: %08x -> ", fromSPR->sadr);
+	printf("  fromSPR SADR (0x20): %08x -> ", fromSPR->sadr);
 	DMA::SendSimple(fromSPR, buf, 32);
 	printf("%08x\n", fromSPR->sadr);
 	
@@ -62,16 +68,15 @@ static void testSADRHighBits(u32 *buf) {
 
 	toSPR->sadr = 0x81234028;
 
-	printf("  toSPR SADR: %08x -> ", toSPR->sadr);
+	printf("  toSPR SADR (0x10): %08x -> ", toSPR->sadr);
 	DMA::SendSimple(toSPR, buf, 16);
 	printf("%08x\n", toSPR->sadr);
-	printf("\n");
 
 	memset(buf, 0, 16);
 
 	fromSPR->sadr = 0x00000020;
 
-	printf("  fromSPR SADR: %08x -> ", fromSPR->sadr);
+	printf("  fromSPR SADR (0x10): %08x -> ", fromSPR->sadr);
 	DMA::SendSimple(fromSPR, buf, 16);
 	printf("%08x\n", fromSPR->sadr);
 
@@ -82,7 +87,7 @@ static void testSADRHighBits(u32 *buf) {
 
 	fromSPR->sadr = 0x6703802C;
 
-	printf("  fromSPR SADR: %08x -> ", fromSPR->sadr);
+	printf("  fromSPR SADR (0x10): %08x -> ", fromSPR->sadr);
 	DMA::SendSimple(fromSPR, buf, 16);
 	printf("%08x\n", fromSPR->sadr);
 
@@ -137,11 +142,72 @@ static void testMADRBit(u32 *buf) {
 	toSPR->sadr = 0;
 }
 
-static void clearSPR(u32 *buf) {
-	memset(buf, 0, 16 * 1024);
+static void testSizeZero(u32 *buf) {
+	printf("Size zero:\n");
+
+	memset(buf, 0xDD, 16 * 1024);
+
+	buf[0] = 0x01234567;
+	buf[1] = 0x89ABCDEF;
+	buf[2] = 0xDEADBEEF;
+	buf[3] = 0x1337C0DE;
 
 	toSPR->sadr = 0;
-	DMA::SendSimple(toSPR, buf, 16 * 1024);
+	DMA::SendSimple(toSPR, buf, 0);
+
+	SyncDCache(buf, (u8 *)buf + 16 * 1024);
+	memset(buf, 0xCC, 16 * 1024);
+	SyncDCache(buf, (u8 *)buf + 16 * 1024);
+
+	fromSPR->sadr = 0;
+	DMA::SendSimple(fromSPR, buf, 16 * 1024);
+
+	SyncDCache(buf, (u8 *)buf + 16 * 1024);
+
+	// It seems like this sometimes does, sometimes doesn't write 16 bytes.
+	// But it never writes more.  So we skip the first 16.
+	printf("  SADR updated: to=%08x, from=%08x\n", toSPR->sadr, fromSPR->sadr);
+	//printf("  Send zero 0x0000: %08x %08x %08x %08x\n", buf[0], buf[1], buf[2], buf[3]);
+	printf("  Send zero 0x0010: %08x %08x %08x %08x\n", buf[4], buf[5], buf[6], buf[7]);
+
+	for (u32 i = 16 / sizeof(u32); i < 16 * 1024 / sizeof(u32); ++i) {
+		if (buf[i] != 0) {
+			printf("  Read zeros until: 0x%04x %08x\n", i * sizeof(u32), buf[i]);
+			break;
+		}
+	}
+
+	clearSPR(buf);
+
+	memset(buf, 0xDD, 16 * 1024);
+
+	buf[0] = 0x01234567;
+	buf[1] = 0x89ABCDEF;
+	buf[2] = 0xDEADBEEF;
+	buf[3] = 0x1337C0DE;
+
+	toSPR->sadr = 0;
+	DMA::SendSimple(toSPR, buf, 16);
+
+	memset(buf, 0xCC, 16 * 1024);
+
+	fromSPR->sadr = 0;
+	DMA::SendSimple(fromSPR, buf, 0);
+
+	printf("  SADR updated: to=%08x, from=%08x\n", toSPR->sadr, fromSPR->sadr);
+	printf("  Read zero 0x0000: %08x %08x %08x %08x\n", buf[0], buf[1], buf[2], buf[3]);
+	printf("  Read zero 0x0010: %08x %08x %08x %08x\n", buf[4], buf[5], buf[6], buf[7]);
+
+	// This is a bit of an odd value, but it seems deterministic.
+	for (u32 i = 16 / sizeof(u32); i < 16 * 1024 / sizeof(u32); ++i) {
+		if (buf[i] != 0) {
+			printf("  Read zeros until: 0x%04x %08x\n", i * sizeof(u32), buf[i]);
+			break;
+		}
+	}
+
+	fromSPR->sadr = 0;
+	toSPR->sadr = 0;
 }
 
 int main(int argc, char *argv[]) {
@@ -164,6 +230,10 @@ int main(int argc, char *argv[]) {
 	clearSPR(buf);
 	testMADRBit(buf);
 	printf("\n");
+
+	// How many bytes does a zero-sized transfer copy?
+	clearSPR(buf);
+	testSizeZero(buf);
 
 	free(buf);
 
