@@ -1,4 +1,4 @@
-#include <common.h>
+#include <common-ee.h>
 #include <string.h>
 
 static u32 __attribute__((aligned(16))) C_GARBAGE1[4] = {0x1337, 0x1338, 0x1339, 0x133A};

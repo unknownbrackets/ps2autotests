@@ -1,7 +1,7 @@
 #ifndef PS2AUTOTESTS_DMA_DMATAGS_H
 #define PS2AUTOTESTS_DMA_DMATAGS_H
 
-#include <common.h>
+#include <common-ee.h>
 
 namespace DMA {
 	enum SrcChainType {

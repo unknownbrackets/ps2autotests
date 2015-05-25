@@ -1,4 +1,4 @@
-#include <common.h>
+#include <common-ee.h>
 
 void __attribute__((noinline)) test_beq() {
 	int result = -1;

@@ -1,7 +1,7 @@
 #ifndef PS2AUTOTESTS_VU_TEST_RUNNER_H
 #define PS2AUTOTESTS_VU_TEST_RUNNER_H
 
-#include <common.h>
+#include <common-ee.h>
 #include "assemble.h"
 
 class TestRunner : public VU::Block {

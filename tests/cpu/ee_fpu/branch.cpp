@@ -1,4 +1,4 @@
-#include <common.h>
+#include <common-ee.h>
 
 enum BranchResultFlags {
 	BRANCH_SKIPPED = 0,

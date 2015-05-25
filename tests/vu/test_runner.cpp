@@ -1,5 +1,5 @@
 #include <assert.h>
-#include <common.h>
+#include <common-ee.h>
 #include <string.h>
 #include <timer.h>
 #include "test_runner.h"

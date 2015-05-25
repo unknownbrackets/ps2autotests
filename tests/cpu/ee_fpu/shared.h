@@ -1,4 +1,4 @@
-#include <common.h>
+#include <common-ee.h>
 
 union FloatBits {
 	float f;

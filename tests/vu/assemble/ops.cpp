@@ -1,5 +1,5 @@
 #include <assert.h>
-#include <common.h>
+#include <common-ee.h>
 #include "encoding.h"
 #include "ops.h"
 #include "types.h"

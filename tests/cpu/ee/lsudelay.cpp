@@ -1,4 +1,4 @@
-#include <common.h>
+#include <common-ee.h>
 #include <string.h>
 
 void test_lw_delay() {

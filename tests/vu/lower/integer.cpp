@@ -1,4 +1,4 @@
-#include <common.h>
+#include <common-ee.h>
 #include "../test_runner.h"
 
 static const u32 __attribute__((aligned(16))) C_ZERO[4] = {0, 0, 0, 0};

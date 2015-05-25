@@ -1,7 +1,7 @@
 #ifndef PS2AUTOTESTS_DMA_VIF_VIFREGS_H
 #define PS2AUTOTESTS_DMA_VIF_VIFREGS_H
 
-#include <common.h>
+#include <common-ee.h>
 #include "../dmaregs.h"
 
 namespace VIF {
