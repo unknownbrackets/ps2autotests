@@ -31,6 +31,8 @@ EE_ASFLAGS := -G0 $(EE_ASFLAGS)
 # libkernel is the last library to be linked.
 EE_LIBS += -lstdc++ -lc -lkernel
 
+EXTRA_OBJS += $(COMMON_DIR)/common-ee.o
+
 # These macros can be used to simplify certain build rules.
 EE_C_COMPILE = $(EE_CC) $(EE_CFLAGS) $(EE_INCS)
 EE_CXX_COMPILE = $(EE_CXX) $(EE_CXXFLAGS) $(EE_INCS)

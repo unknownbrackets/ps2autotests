@@ -1,4 +1,4 @@
-#include <common.h>
+#include <common-ee.h>
 #include "../test_runner.h"
 
 static const u32 __attribute__((aligned(16))) C_INIT[4] = {0xB063B75B, 0x8701CE82, 0x46FCC888, 0x793CC535};

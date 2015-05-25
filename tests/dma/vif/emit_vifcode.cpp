@@ -1,4 +1,4 @@
-#include <common.h>
+#include <common-ee.h>
 #include <assert.h>
 #include <malloc.h>
 #include <string.h>

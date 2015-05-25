@@ -1,4 +1,4 @@
-#include <common.h>
+#include <common-ee.h>
 #include <string.h>
 
 void __attribute__((noinline)) printfcrs(const char *title, int all) {

@@ -1,7 +1,7 @@
 #ifndef PS2AUTOTESTS_DMA_VIF_EMIT_VIFCODE_H
 #define PS2AUTOTESTS_DMA_VIF_EMIT_VIFCODE_H
 
-#include <common.h>
+#include <common-ee.h>
 
 namespace VIF {
 	enum UnpackType {

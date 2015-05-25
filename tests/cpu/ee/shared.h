@@ -1,4 +1,4 @@
-#include <common.h>
+#include <common-ee.h>
 
 static u32 __attribute__((aligned(16))) C_ZERO[4] = {0, 0, 0, 0};
 static u32 __attribute__((aligned(16))) C_S16_MAX[4] = {0x7FFF, 0, 0, 0};

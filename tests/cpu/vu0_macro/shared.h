@@ -1,6 +1,6 @@
 #pragma once
 
-#include <common.h>
+#include <common-ee.h>
 
 struct Vu0Flags {
 	Vu0Flags();

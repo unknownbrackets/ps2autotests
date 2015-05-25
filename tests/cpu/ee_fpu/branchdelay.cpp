@@ -1,4 +1,4 @@
-#include <common.h>
+#include <common-ee.h>
 
 void __attribute__((noinline)) test_bc1t() {
 	int result = -1;
