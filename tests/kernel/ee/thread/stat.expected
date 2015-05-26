@@ -16,6 +16,8 @@ waiting thread:
   stat after start: succeeded -> result: 04, init prio: 30 current prio: 30, status: 04
   stat after suspend: succeeded -> result: 0c, init prio: 30 current prio: 30, status: 0c
   stat after resume: succeeded -> result: 04, init prio: 30 current prio: 30, status: 04
-thread stat with invalid tid: failed -> result: -1
-self thread stat with null struct: 01
+corner cases:
+  thread stat with invalid tid: failed -> result: -1
+  self thread stat with null struct: 01
+  self thread stat with struct in spr -> result: 01, status: 01
 -- TEST END
