@@ -1,10 +1,10 @@
 #include <common-ee.h>
 #include <kernel.h>
 #include <string.h>
-#include "../kernel_test_base.h"
 
 #define STACK_SIZE 0x8000
 #define SPR_BEGIN 0x70000000
+#define TEST_THREAD_PRIORITY 0x40
 
 char nullThreadStack[STACK_SIZE] __attribute__ ((aligned(16)));
 void nullThreadProc(u32) {
@@ -48,7 +48,7 @@ void printThreadStatus(int threadId) {
 	}
 }
 
-void kernelTestMain() {
+int main(int argc, char *argv[]) {
 
 	printf("-- TEST BEGIN\n");
 
@@ -163,4 +163,6 @@ void kernelTestMain() {
 	}
 	
 	printf("-- TEST END\n");
+	
+	return 0;
 }
