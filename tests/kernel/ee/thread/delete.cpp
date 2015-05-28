@@ -78,4 +78,6 @@ int main(int argc, char *argv[]) {
 	}
 	
 	printf("-- TEST END\n");
+	
+	return 0;
 }
