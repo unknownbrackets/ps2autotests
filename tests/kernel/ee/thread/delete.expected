@@ -1,11 +1,21 @@
 -- TEST BEGIN
 self thread:
   delete (with current tid): failed -> result: -1
-low prio thread:
+worse prio thread:
   delete before start: succeeded -> result: thread id
+  delete after delete: failed -> result: -1
   delete after start: failed -> result: -1
-high prio thread:
-  delete after start: succeeded -> result: thread id
+  delete after suspend: failed -> result: -1
+  delete after resume: failed -> result: -1
+  delete after terminate: succeeded -> result: thread id
+sleeping thread:
+  delete after start: failed -> result: -1
+  delete after suspend: failed -> result: -1
+  delete after resume: failed -> result: -1
+waiting thread:
+  delete after start: failed -> result: -1
+  delete after suspend: failed -> result: -1
+  delete after resume: failed -> result: -1
 corner cases:
   delete with invalid tid: failed -> result: -1
 -- TEST END

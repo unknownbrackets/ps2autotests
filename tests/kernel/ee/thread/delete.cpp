@@ -10,13 +10,29 @@ void nullThreadProc(u32) {
 	//Do nothing
 }
 
+char sleepingThreadStack[STACK_SIZE] __attribute__ ((aligned(16)));
+void sleepingThreadProc(u32) {
+	SleepThread();
+}
+
+char waitingThreadStack[STACK_SIZE] __attribute__ ((aligned(16)));
+void waitingThreadProc(u32) {
+	ee_sema_t dummySemaInfo;
+	memset(&dummySemaInfo, 0, sizeof(ee_sema_t));
+	dummySemaInfo.init_count = 0;
+	dummySemaInfo.max_count  = 1;
+	dummySemaInfo.option     = 0;
+	u32 dummySema = CreateSema(&dummySemaInfo);
+	WaitSema(dummySema);
+}
+
 int createTestThread(void *entry, int prio, void *stack, u32 stackSize) {
 	ee_thread_t threadParam;
 	memset(&threadParam, 0, sizeof(ee_thread_t));
-	threadParam.func = entry;
+	threadParam.func             = entry;
 	threadParam.initial_priority = prio;
-	threadParam.stack = stack;
-	threadParam.stack_size = stackSize;
+	threadParam.stack            = stack;
+	threadParam.stack_size       = stackSize;
 	return CreateThread(&threadParam);
 }
 
@@ -42,32 +58,81 @@ int main(int argc, char *argv[]) {
 	}
 
 	{
-		schedf("low prio thread:\n");
+		schedf("worse prio thread:\n");
 		
 		int threadId = createTestThread((void*)&nullThreadProc, TEST_THREAD_PRIORITY + 0x10, nullThreadStack, STACK_SIZE);
 		schedf("  delete before start: ");
 		doDeleteThread(threadId);
 
+		schedf("  delete after delete: ");
+		doDeleteThread(threadId);
+		
 		threadId = createTestThread((void*)&nullThreadProc, TEST_THREAD_PRIORITY + 0x10, nullThreadStack, STACK_SIZE);
 		StartThread(threadId, NULL);
 		schedf("  delete after start: ");
 		doDeleteThread(threadId);
 
+		SuspendThread(threadId);
+		schedf("  delete after suspend: ");
+		doDeleteThread(threadId);
+
+		ResumeThread(threadId);
+		schedf("  delete after resume: ");
+		doDeleteThread(threadId);
+		
+		TerminateThread(threadId);
+		schedf("  delete after terminate: ");
+		doDeleteThread(threadId);
+		
 		flushschedf();
 	}
 
 	{
-		schedf("high prio thread:\n");
+		schedf("sleeping thread:\n");
 		
-		int threadId = createTestThread((void*)&nullThreadProc, TEST_THREAD_PRIORITY - 0x10, nullThreadStack, STACK_SIZE);
-		StartThread(threadId, NULL);
+		int threadId = createTestThread((void*)&sleepingThreadProc, TEST_THREAD_PRIORITY - 0x10, sleepingThreadStack, STACK_SIZE);
+
+		StartThread(threadId, 0);
 		schedf("  delete after start: ");
 		doDeleteThread(threadId);
+		
+		SuspendThread(threadId);
+		schedf("  delete after suspend: ");
+		doDeleteThread(threadId);
+		
+		ResumeThread(threadId);
+		schedf("  delete after resume: ");
+		doDeleteThread(threadId);
+		
+		TerminateThread(threadId);
+		DeleteThread(threadId);
 
 		flushschedf();
 	}
 
-	//Various corner cases
+	{
+		schedf("waiting thread:\n");
+
+		int threadId = createTestThread((void*)&waitingThreadProc, TEST_THREAD_PRIORITY - 0x10, waitingThreadStack, STACK_SIZE);
+
+		StartThread(threadId, 0);
+		schedf("  delete after start: ");
+		doDeleteThread(threadId);
+		
+		SuspendThread(threadId);
+		schedf("  delete after suspend: ");
+		doDeleteThread(threadId);
+
+		ResumeThread(threadId);
+		schedf("  delete after resume: ");
+		doDeleteThread(threadId);
+
+		TerminateThread(threadId);
+		DeleteThread(threadId);
+
+		flushschedf();
+	}
+	
 	{
 		schedf("corner cases:\n");
 		
