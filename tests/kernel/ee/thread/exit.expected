@@ -1,0 +1,8 @@
+-- TEST BEGIN
+exit thread:
+  start after thread exited -> returned thread id
+  delete after thread exited -> returned thread id
+exit delete thread:
+  start after thread exited -> returned -1
+  delete after thread exited -> returned -1
+-- TEST END
