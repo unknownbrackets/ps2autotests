@@ -94,9 +94,11 @@ lq:
   lq +0: c0dec0de beefdead abcdef01 23456789
   lq +16: 44556677 00112233 ccddeeff 8899aabb
   lq -16: c0de1337 deadbeef 9abcdef0 45678123
+  lq +11: c0dec0de beefdead abcdef01 23456789
   lq +0: c0dec0de beefdead abcdef01 23456789
   lq +16: 44556677 00112233 ccddeeff 8899aabb
   lq +-16: c0de1337 deadbeef 9abcdef0 45678123
+  lq +11: c0dec0de beefdead abcdef01 23456789
   lq -> $0: 0000133a 00001339 00000000 00000000
 
 sb:
@@ -159,9 +161,11 @@ sq:
   sq +0: 0000133a 00001339 ffffffff abcd4321
   sq +16: 0000133a 00001339 ffffffff abcd4321
   sq -16: 0000133a 00001339 ffffffff abcd4321
+  sq +11: 0000133a 00001339 ffffffff abcd4321
   sq +0: 0000133a 00001339 00001338 00001337
   sq +16: 0000133a 00001339 00001338 00001337
   sq +-16: 0000133a 00001339 00001338 00001337
+  sq +11: 0000133a 00001339 00001338 00001337
 
 pref: OK
 -- TEST END

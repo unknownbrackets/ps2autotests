@@ -101,6 +101,30 @@ static void test_##OP() { \
 	printf("\n"); \
 }
 
+#define TEST_LOADQ_FUNC(OP) \
+LOAD_OP_FUNC(OP); \
+static void test_##OP() { \
+	register u128 rt; \
+	SET_M(rt, C_GARBAGE1); \
+	 \
+	printf("%s:\n", #OP); \
+	 \
+	LOAD_OP_DO_I(OP, 0xABCD4321, 0); \
+	LOAD_OP_DO_I(OP, 0xABCD4321, 16); \
+	LOAD_OP_DO_I(OP, 0xABCD4321, -16); \
+	LOAD_OP_DO_I(OP, 0xABCD4321, 11); \
+	 \
+	LOAD_OP_DO_M(OP, C_GARBAGE1, 0); \
+	LOAD_OP_DO_M(OP, C_GARBAGE1, 16); \
+	LOAD_OP_DO_M(OP, C_GARBAGE1, -16); \
+	LOAD_OP_DO_M(OP, C_GARBAGE1, 11); \
+	\
+	SET_M(rt, C_GARBAGE1); \
+	LOADZ_##OP<0>(rt, C_PATTERN[1]); \
+	printf("  %s -> $0: ", #OP); PRINT_R(rt, true); \
+	printf("\n"); \
+}
+
 #define LOADLR_OP_DO_I(LOP, ROP, t, l, r) \
 	SET_U32<t>(rt); \
 	LOAD_##LOP<l>(rt, C_PATTERN[1]); \
@@ -175,6 +199,28 @@ static void test_##OP() { \
 	printf("\n"); \
 }
 
+#define TEST_STOREQ_FUNC(OP) \
+STORE_OP_FUNC(OP); \
+static void test_##OP() { \
+	u128 buffer[3]; \
+	register u128 rt; \
+	SET_M(rt, C_GARBAGE1); \
+	 \
+	printf("%s:\n", #OP); \
+	 \
+	STORE_OP_DO_I(OP, 0xABCD4321, 0); \
+	STORE_OP_DO_I(OP, 0xABCD4321, 16); \
+	STORE_OP_DO_I(OP, 0xABCD4321, -16); \
+	STORE_OP_DO_I(OP, 0xABCD4321, 11); \
+	 \
+	STORE_OP_DO_M(OP, C_GARBAGE1, 0); \
+	STORE_OP_DO_M(OP, C_GARBAGE1, 16); \
+	STORE_OP_DO_M(OP, C_GARBAGE1, -16); \
+	STORE_OP_DO_M(OP, C_GARBAGE1, 11); \
+	\
+	printf("\n"); \
+}
+
 #define STORELR_OP_DO_I(LOP, ROP, t, l, r) \
 	memcpy(buffer, C_PATTERN, sizeof(buffer)); \
 	SET_U32<t>(rt); \
@@ -223,7 +269,7 @@ TEST_LOAD_FUNC(lhu)
 TEST_LOAD_FUNC(lw)
 TEST_LOADLR_FUNC(lwl, lwr, 4)
 TEST_LOAD_FUNC(lwu)
-TEST_LOAD_FUNC(lq)
+TEST_LOADQ_FUNC(lq)
 
 TEST_STORE_FUNC(sb)
 TEST_STORE_FUNC(sd)
@@ -231,7 +277,7 @@ TEST_STORELR_FUNC(sdl, sdr, 8)
 TEST_STORE_FUNC(sh)
 TEST_STORE_FUNC(sw)
 TEST_STORELR_FUNC(swl, swr, 4)
-TEST_STORE_FUNC(sq)
+TEST_STOREQ_FUNC(sq)
 
 static void test_pref() {
 	// No guarantees that it will even prefetch, let's just make sure it doesn't wig out.
