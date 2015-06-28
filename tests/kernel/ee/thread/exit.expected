@@ -1,5 +1,6 @@
 -- TEST BEGIN
 exit thread:
+  stat after exit -> init prio: 30 current prio: 30, status: 10
   start after thread exited -> returned thread id
   delete after thread exited -> returned thread id
 exit delete thread:

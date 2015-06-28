@@ -7,6 +7,8 @@
 
 char exitThreadStack[STACK_SIZE] __attribute__ ((aligned(16)));
 void exitThreadProc(u32) {
+	//Changing priority here to verify that it's reset by exit thread
+	ChangeThreadPriority(GetThreadId(), TEST_THREAD_PRIORITY - 0x20);
 	ExitThread();
 	SleepThread();
 }
@@ -44,6 +46,12 @@ int main(int argc, char *argv[]) {
 		int threadId = createTestThread((void*)&exitThreadProc, TEST_THREAD_PRIORITY - 0x10, exitThreadStack, STACK_SIZE);
 		StartThread(threadId, NULL);
 		
+		ee_thread_status_t threadStat;
+		memset(&threadStat, 0, sizeof(ee_thread_status_t));
+		ReferThreadStatus(threadId, &threadStat);
+		schedf("  stat after exit -> init prio: %02x current prio: %02x, status: %02x\n", 
+			threadStat.initial_priority, threadStat.current_priority, threadStat.status);
+
 		s32 result = StartThread(threadId, NULL);
 		schedf("  start after thread exited -> ");
 		printResult(threadId, result);
