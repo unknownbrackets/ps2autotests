@@ -1,4 +1,4 @@
-TARGETS = stat delete
+TARGETS = delete exit stat
 EE_LIBS =
 
 COMMON_DIR=../../../../common
