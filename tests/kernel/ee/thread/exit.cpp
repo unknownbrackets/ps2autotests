@@ -5,10 +5,33 @@
 #define STACK_SIZE 0x8000
 #define TEST_THREAD_PRIORITY 0x40
 
+void printResult(u32 threadId, u32 result) {
+	if(threadId == result) {
+		schedf("returned thread id\n");
+	} else {
+		schedf("returned %d\n", result);
+	}
+}
+
+void printThreadStatus(int threadId) {
+	ee_thread_status_t threadStat;
+	memset(&threadStat, 0, sizeof(ee_thread_status_t));
+	int result = ReferThreadStatus(threadId, &threadStat);
+	schedf("result: %02x, init prio: %02x current prio: %02x, status: %02x\n", 
+		result, threadStat.initial_priority, threadStat.current_priority, threadStat.status);
+}
+
 char exitThreadStack[STACK_SIZE] __attribute__ ((aligned(16)));
 void exitThreadProc(u32) {
-	//Changing priority here to verify that it's reset by exit thread
-	ChangeThreadPriority(GetThreadId(), TEST_THREAD_PRIORITY - 0x20);
+	ExitThread();
+	SleepThread();
+}
+
+char exitThreadChangePriorityStack[STACK_SIZE] __attribute__ ((aligned(16)));
+void exitThreadChangePriorityProc(u32 newPriority) {
+	ChangeThreadPriority(GetThreadId(), newPriority);
+	schedf("  stat after changing priority -> ");
+	printThreadStatus(GetThreadId());
 	ExitThread();
 	SleepThread();
 }
@@ -29,14 +52,6 @@ int createTestThread(void *entry, int prio, void *stack, u32 stackSize) {
 	return CreateThread(&threadParam);
 }
 
-void printResult(u32 threadId, u32 result) {
-	if(threadId == result) {
-		schedf("returned thread id\n");
-	} else {
-		schedf("returned %d\n", result);
-	}
-}
-
 int main(int argc, char *argv[]) {
 	printf("-- TEST BEGIN\n");
 
@@ -46,12 +61,6 @@ int main(int argc, char *argv[]) {
 		int threadId = createTestThread((void*)&exitThreadProc, TEST_THREAD_PRIORITY - 0x10, exitThreadStack, STACK_SIZE);
 		StartThread(threadId, NULL);
 		
-		ee_thread_status_t threadStat;
-		memset(&threadStat, 0, sizeof(ee_thread_status_t));
-		ReferThreadStatus(threadId, &threadStat);
-		schedf("  stat after exit -> init prio: %02x current prio: %02x, status: %02x\n", 
-			threadStat.initial_priority, threadStat.current_priority, threadStat.status);
-
 		s32 result = StartThread(threadId, NULL);
 		schedf("  start after thread exited -> ");
 		printResult(threadId, result);
@@ -63,6 +72,18 @@ int main(int argc, char *argv[]) {
 		flushschedf();
 	}
 
+	{
+		schedf("exit thread (priority change):\n");
+
+		int threadId = createTestThread((void*)&exitThreadChangePriorityProc, TEST_THREAD_PRIORITY - 0x10, exitThreadChangePriorityStack, STACK_SIZE);
+		StartThread(threadId, (void*)(TEST_THREAD_PRIORITY - 0x20));
+		
+		schedf("  stat after thread exited -> ");
+		printThreadStatus(threadId);
+		
+		flushschedf();
+	}
+	
 	{
 		schedf("exit delete thread:\n");
 		
