@@ -3,7 +3,10 @@
 #include <string.h>
 #include <kernel.h>
 
+//Kernel tests will add and substract values as big as 0x20 to test thread priority, 
+//so, make sure this constant will keep the priority values between [0x01, 0x7F]
 #define TEST_THREAD_PRIORITY   0x40
+
 #define TEST_THREAD_STACK_SIZE 0x8000
 
 char schedfBuffer[65536];
@@ -20,6 +23,17 @@ void flushschedf() {
 	printf("%s", schedfBuffer);
 	schedfBuffer[0] = '\0';
 	schedfBufferPos = 0;
+}
+
+int getThreadPriority(int threadId) {
+	ee_thread_status_t threadStat;
+	memset(&threadStat, 0, sizeof(ee_thread_status_t));
+	int result = ReferThreadStatus(threadId, &threadStat);
+	if(result >= 0) {
+		return threadStat.current_priority;
+	} else {
+		return -1;
+	}
 }
 
 u32 g_testThreadDoneSema = 0;
