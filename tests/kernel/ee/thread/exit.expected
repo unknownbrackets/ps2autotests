@@ -3,8 +3,8 @@ exit thread:
   start after thread exited -> returned thread id
   delete after thread exited -> returned thread id
 exit thread (priority change):
-  stat after changing priority -> result: 01, init prio: 30 current prio: 20, status: 01
-  stat after thread exited -> result: 10, init prio: 30 current prio: 30, status: 10
+  stat after changing priority -> result: 01, init prio: 30, current prio: 20, status: 01
+  stat after thread exited -> result: 10, init prio: 30, current prio: 30, status: 10
 exit delete thread:
   start after thread exited -> returned -1
   delete after thread exited -> returned -1
