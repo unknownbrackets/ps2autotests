@@ -29,7 +29,7 @@ int getThreadPriority(int threadId) {
 	ee_thread_status_t threadStat;
 	memset(&threadStat, 0, sizeof(ee_thread_status_t));
 	int result = ReferThreadStatus(threadId, &threadStat);
-	if(result >= 0) {
+	if (result >= 0) {
 		return threadStat.current_priority;
 	} else {
 		return -1;
