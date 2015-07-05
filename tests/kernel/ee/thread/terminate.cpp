@@ -43,9 +43,18 @@ void printThreadStatus(int threadId) {
 		result, threadStat.initial_priority, threadStat.current_priority, threadStat.status);
 }
 
+void doStartThread(int threadId, void* param) {
+	int result = StartThread(threadId, param);
+	if (result >= 0) {
+		schedf("succeeded -> result: %s\n", (result == threadId) ? "thread id" : "something else");
+	} else {
+		schedf("failed -> result: %d\n", result);
+	}
+}
+
 void doTerminateThread(int threadId) {
 	int result = TerminateThread(threadId);
-	if(result >= 0) {
+	if (result >= 0) {
 		schedf("succeeded -> result: %s, status -> ", (result == threadId) ? "thread id" : "something else");
 		printThreadStatus(threadId);
 	} else {
@@ -78,7 +87,9 @@ int main(int argc, char *argv[]) {
 		schedf("  terminate after start: ");
 		doTerminateThread(threadId);
 
-		StartThread(threadId, NULL);
+		schedf("  start after terminate: ");
+		doStartThread(threadId, NULL);
+		
 		SuspendThread(threadId);
 		schedf("  terminate after suspend: ");
 		doTerminateThread(threadId);
