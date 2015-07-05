@@ -1,0 +1,20 @@
+-- TEST BEGIN
+self thread:
+  terminate (with current tid): failed -> result: -1
+worse prio thread:
+  terminate before start: failed -> result: -1
+  terminate after start: succeeded -> result: thread id, status -> result: 10, init prio: 50, current prio: 50, status: 10
+  start after terminate: succeeded -> result: thread id
+  terminate after suspend: succeeded -> result: thread id, status -> result: 10, init prio: 50, current prio: 50, status: 10
+  status after changing priority: result: 02, init prio: 50, current prio: 60, status: 02
+  terminate after changing priority: succeeded -> result: thread id, status -> result: 10, init prio: 50, current prio: 50, status: 10
+  terminate after terminate: failed -> result: -1
+sleeping thread:
+  terminate after start: succeeded -> result: thread id, status -> result: 10, init prio: 30, current prio: 30, status: 10
+  terminate after suspend: succeeded -> result: thread id, status -> result: 10, init prio: 30, current prio: 30, status: 10
+waiting thread:
+  terminate after start: succeeded -> result: thread id, status -> result: 10, init prio: 30, current prio: 30, status: 10
+  terminate after suspend: succeeded -> result: thread id, status -> result: 10, init prio: 30, current prio: 30, status: 10
+corner cases:
+  terminate with invalid tid: failed -> result: -1
+-- TEST END

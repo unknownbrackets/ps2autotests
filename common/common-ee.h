@@ -17,4 +17,6 @@
 void schedf(const char *format, ...);
 void flushschedf();
 
+int getThreadPriority(int threadId);
+
 #endif
