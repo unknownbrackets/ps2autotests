@@ -17,7 +17,7 @@ void printThreadStatus(int threadId) {
 	ee_thread_status_t threadStat;
 	memset(&threadStat, 0, sizeof(ee_thread_status_t));
 	int result = ReferThreadStatus(threadId, &threadStat);
-	schedf("result: %02x, init prio: %02x current prio: %02x, status: %02x\n", 
+	schedf("result: %02x, init prio: %02x, current prio: %02x, status: %02x\n", 
 		result, threadStat.initial_priority, threadStat.current_priority, threadStat.status);
 }
 
