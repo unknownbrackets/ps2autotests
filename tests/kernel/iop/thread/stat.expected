@@ -1,0 +1,5 @@
+-- TEST BEGIN
+self thread:
+  stat (with TH_SELF): succeeded -> result: 00, init prio: 08 current prio: 08, status: 01
+  stat (with current tid): succeeded -> result: 00, init prio: 08 current prio: 08, status: 01
+-- TEST END
