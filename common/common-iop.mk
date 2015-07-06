@@ -43,6 +43,12 @@ IOP_LIBS += -lkernel -lgcc
 %.o : %.s
 	$(IOP_AS) $(IOP_ASFLAGS) $< -o $@
 
+%.o : %.lst
+	echo "#include \"irx_imports.h\"" > build-imports.c
+	cat $< >> build-imports.c
+	$(IOP_CC) $(IOP_CFLAGS) -c build-imports.c -o $@
+	rm -f build-imports.c
+
 %.irx : %.o $(EXTRA_OBJS)
 	$(IOP_CC) $(IOP_LDFLAGS) -o $@ $< $(EXTRA_OBJS) $(IOP_LIBS)
 
