@@ -1,4 +1,4 @@
-TARGETS = integer
+TARGETS = fdivdelay integer
 EXTRA_OBJS = ../assemble/block.o ../assemble/ops.o ../test_runner.o
 EE_LIBS = -lg
 
