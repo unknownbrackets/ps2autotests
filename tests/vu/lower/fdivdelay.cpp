@@ -26,7 +26,7 @@ public:
 		Reset();
 
 		//Prepare registers
-		WrImm(0x40800000);
+		WrImm(4.0f);
 		Wr(MULi(DEST_W, VF01, VF00));
 		
 		//Op
@@ -47,8 +47,8 @@ public:
 		Reset();
 
 		//Prepare registers
-		WrImm(0x40800000);
-		WrImm(MULi(DEST_W, VF01, VF00), 0x41800000);
+		WrImm(4.0f);
+		WrImm(MULi(DEST_W, VF01, VF00), 16.0f);
 		Wr(MULi(DEST_W, VF02, VF00));
 		
 		//Op
@@ -77,7 +77,7 @@ public:
 		Wr(WAITQ());
 
 		//Prepare registers
-		WrImm(0x40800000);
+		WrImm(4.0f);
 		Wr(MULi(DEST_W, VF01, VF00));
 		
 		//Op
@@ -127,8 +127,8 @@ public:
 		Wr(WAITQ());
 
 		//Prepare registers
-		WrImm(0x40800000);
-		WrImm(MULi(DEST_W, VF01, VF00), 0x41800000);
+		WrImm(4.0f);
+		WrImm(MULi(DEST_W, VF01, VF00), 16.0f);
 		Wr(MULi(DEST_W, VF02, VF00));
 		
 		//Op
@@ -179,8 +179,8 @@ public:
 		Wr(WAITQ());
 
 		//Prepare registers
-		WrImm(0x40800000);
-		WrImm(MULi(DEST_W, VF01, VF00), 0x41800000);
+		WrImm(4.0f);
+		WrImm(MULi(DEST_W, VF01, VF00), 16.0f);
 		Wr(MULi(DEST_W, VF02, VF00));
 		
 		//Op
