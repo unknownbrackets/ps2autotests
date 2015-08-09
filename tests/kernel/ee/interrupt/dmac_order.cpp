@@ -70,7 +70,9 @@ void waitForTestResults() {
 		*(R_EE_D9_SADR) = 0;
 		*(R_EE_D9_QWC)  = 1;
 		*(R_EE_D9_CHCR) = 0x100;
-		while(*(R_EE_D9_CHCR) & 0x100) {}
+		while(*(R_EE_D9_CHCR) & 0x100) {
+			continue;
+		}
 		WaitSema(g_dmacSema);
 	}
 	DisableDmac(DMAC_TO_SPR);
@@ -159,8 +161,8 @@ int main(int argc, char *argv[]) {
 	pushBackTest();
 	pushFrontTest();
 	mixedFrontBackTest();
-	removeTest();
 	relativeTest();
+	removeTest();
 	cancelTest();
 	
 	printf("-- TEST END\n");

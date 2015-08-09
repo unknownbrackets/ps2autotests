@@ -150,8 +150,8 @@ int main(int argc, char *argv[]) {
 	pushBackTest();
 	pushFrontTest();
 	mixedFrontBackTest();
-	removeTest();
 	relativeTest();
+	removeTest();
 	cancelTest();
 	
 	printf("-- TEST END\n");
