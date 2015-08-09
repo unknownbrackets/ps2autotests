@@ -11,7 +11,8 @@ static u32 g_intcHandlerCount = 0;
 static u32 g_orderPos = 0;
 static u32 g_order[MAX_INTC_RESULTS];
 
-typedef s32 (*IntcHandlerFunction)(s32, void *, void *);
+typedef s32 (*IntcHandlerFunction)(s32);
+typedef s32 (*IntcHandlerWithParamFunction)(s32, void *, void *);
 
 void appendResult(u32 result) {
 	if(g_orderPos != MAX_INTC_RESULTS) {
@@ -21,14 +22,16 @@ void appendResult(u32 result) {
 	}
 }
 
-s32 continueIntcHandler(s32 cause, void *arg, void *addr) {
-	appendResult((u32)arg);
-	return 0;
+template <s32 number, s32 returnValue>
+s32 intcHandler(s32 cause) {
+	appendResult(number);
+	return returnValue;
 }
 
-s32 cancelIntcHandler(s32 cause, void *arg, void *addr) {
+template <s32 returnValue>
+s32 intcHandlerWithParam(s32 cause, void *arg, void *addr) {
 	appendResult((u32)arg);
-	return -1;
+	return returnValue;
 }
 
 void initializeTest() {
@@ -44,7 +47,13 @@ void initializeTest() {
 	}
 }
 
-void addTestIntcHandler(IntcHandlerFunction handler, s32 next, void *arg) {
+void addTestIntcHandler(IntcHandlerFunction handler, s32 next) {
+	int handlerId = AddIntcHandler(INTC_VBLANK_S, handler, next);
+	g_intcHandlers[g_intcHandlerCount] = handlerId;
+	g_intcHandlerCount++;
+}
+
+void addTestIntcHandlerWithParam(IntcHandlerWithParamFunction handler, s32 next, void *arg) {
 	int handlerId = AddIntcHandler2(INTC_VBLANK_S, handler, next, arg);
 	g_intcHandlers[g_intcHandlerCount] = handlerId;
 	g_intcHandlerCount++;
@@ -84,9 +93,9 @@ void finishTest() {
 void pushBackTest() {
 	printf("push back: ");
 	initializeTest();
-	addTestIntcHandler(&continueIntcHandler, -1, (void*)1);
-	addTestIntcHandler(&continueIntcHandler, -1, (void*)2);
-	addTestIntcHandler(&continueIntcHandler, -1, (void*)3);
+	addTestIntcHandler(&intcHandler<1, 0>, -1);
+	addTestIntcHandler(&intcHandler<2, 0>, -1);
+	addTestIntcHandler(&intcHandler<3, 0>, -1);
 	waitForTestResults();
 	finishTest();
 }
@@ -94,9 +103,9 @@ void pushBackTest() {
 void pushFrontTest() {
 	printf("push front: ");
 	initializeTest();
-	addTestIntcHandler(&continueIntcHandler, 0, (void*)1);
-	addTestIntcHandler(&continueIntcHandler, 0, (void*)2);
-	addTestIntcHandler(&continueIntcHandler, 0, (void*)3);
+	addTestIntcHandler(&intcHandler<1, 0>, 0);
+	addTestIntcHandler(&intcHandler<2, 0>, 0);
+	addTestIntcHandler(&intcHandler<3, 0>, 0);
 	waitForTestResults();
 	finishTest();
 }
@@ -104,10 +113,10 @@ void pushFrontTest() {
 void mixedFrontBackTest() {
 	printf("mixed front back: ");
 	initializeTest();
-	addTestIntcHandler(&continueIntcHandler, -1, (void*)1);
-	addTestIntcHandler(&continueIntcHandler,  0, (void*)2);
-	addTestIntcHandler(&continueIntcHandler, -1, (void*)3);
-	addTestIntcHandler(&continueIntcHandler,  0, (void*)4);
+	addTestIntcHandler(&intcHandler<1, 0>, -1);
+	addTestIntcHandler(&intcHandler<2, 0>,  0);
+	addTestIntcHandler(&intcHandler<3, 0>, -1);
+	addTestIntcHandler(&intcHandler<4, 0>,  0);
 	waitForTestResults();
 	finishTest();
 }
@@ -115,10 +124,10 @@ void mixedFrontBackTest() {
 void relativeTest() {
 	printf("relative: ");
 	initializeTest();
-	addTestIntcHandler(&continueIntcHandler, -1,                (void*)1);
-	addTestIntcHandler(&continueIntcHandler, -1,                (void*)2);
-	addTestIntcHandler(&continueIntcHandler, -1,                (void*)3);
-	addTestIntcHandler(&continueIntcHandler, g_intcHandlers[1], (void*)4);
+	addTestIntcHandler(&intcHandler<1, 0>, -1);
+	addTestIntcHandler(&intcHandler<2, 0>, -1);
+	addTestIntcHandler(&intcHandler<3, 0>, -1);
+	addTestIntcHandler(&intcHandler<4, 0>, g_intcHandlers[1]);
 	waitForTestResults();
 	finishTest();
 }
@@ -126,9 +135,9 @@ void relativeTest() {
 void removeTest() {
 	printf("remove: ");
 	initializeTest();
-	addTestIntcHandler(&continueIntcHandler, -1, (void*)1);
-	addTestIntcHandler(&continueIntcHandler, -1, (void*)2);
-	addTestIntcHandler(&continueIntcHandler, -1, (void*)3);
+	addTestIntcHandler(&intcHandler<1, 0>, -1);
+	addTestIntcHandler(&intcHandler<2, 0>, -1);
+	addTestIntcHandler(&intcHandler<3, 0>, -1);
 	removeTestIntcHandler(1);
 	waitForTestResults();
 	finishTest();
@@ -137,9 +146,31 @@ void removeTest() {
 void cancelTest() {
 	printf("cancel: ");
 	initializeTest();
-	addTestIntcHandler(&continueIntcHandler, -1, (void*)1);
-	addTestIntcHandler(&cancelIntcHandler,   -1, (void*)2);
-	addTestIntcHandler(&continueIntcHandler, -1, (void*)3);
+	addTestIntcHandler(&intcHandler<1, 0>,  -1);
+	addTestIntcHandler(&intcHandler<2, -1>, -1);
+	addTestIntcHandler(&intcHandler<3, 0>,  -1);
+	waitForTestResults();
+	finishTest();
+}
+
+void returnValueTest() {
+	printf("return value: ");
+	initializeTest();
+	addTestIntcHandler(&intcHandler<1, 0x01234567>, -1);
+	addTestIntcHandler(&intcHandler<2, 0x76543210>, -1);
+	addTestIntcHandler(&intcHandler<3, 0x89ABCDEF>, -1);
+	addTestIntcHandler(&intcHandler<4, 0xDEADBEEF>, -1);
+	waitForTestResults();
+	finishTest();
+}
+
+void returnValueTest2() {
+	printf("return value (using AddIntcHandler2): ");
+	initializeTest();
+	addTestIntcHandlerWithParam(&intcHandlerWithParam<0x01234567>, -1, (void*)1);
+	addTestIntcHandlerWithParam(&intcHandlerWithParam<0x76543210>, -1, (void*)2);
+	addTestIntcHandlerWithParam(&intcHandlerWithParam<0x89ABCDEF>, -1, (void*)3);
+	addTestIntcHandlerWithParam(&intcHandlerWithParam<0xDEADBEEF>, -1, (void*)4);
 	waitForTestResults();
 	finishTest();
 }
@@ -153,6 +184,8 @@ int main(int argc, char *argv[]) {
 	relativeTest();
 	removeTest();
 	cancelTest();
+	returnValueTest();
+	returnValueTest2();
 	
 	printf("-- TEST END\n");
 	

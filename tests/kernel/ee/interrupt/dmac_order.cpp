@@ -24,16 +24,10 @@ void appendResult(u32 result) {
 	}
 }
 
-template <s32 number>
-s32 continueDmacHandler(s32 channel) {
+template <s32 number, s32 returnValue>
+s32 dmacHandler(s32 channel) {
 	appendResult(number);
-	return 0;
-}
-
-template <s32 number>
-s32 cancelDmacHandler(s32 channel) {
-	appendResult(number);
-	return -1;
+	return returnValue;
 }
 
 void initializeTest() {
@@ -95,9 +89,9 @@ void finishTest() {
 void pushBackTest() {
 	printf("push back: ");
 	initializeTest();
-	addTestDmacHandler(&continueDmacHandler<1>, -1);
-	addTestDmacHandler(&continueDmacHandler<2>, -1);
-	addTestDmacHandler(&continueDmacHandler<3>, -1);
+	addTestDmacHandler(&dmacHandler<1, 0>, -1);
+	addTestDmacHandler(&dmacHandler<2, 0>, -1);
+	addTestDmacHandler(&dmacHandler<3, 0>, -1);
 	waitForTestResults();
 	finishTest();
 }
@@ -105,9 +99,9 @@ void pushBackTest() {
 void pushFrontTest() {
 	printf("push front: ");
 	initializeTest();
-	addTestDmacHandler(&continueDmacHandler<1>, 0);
-	addTestDmacHandler(&continueDmacHandler<2>, 0);
-	addTestDmacHandler(&continueDmacHandler<3>, 0);
+	addTestDmacHandler(&dmacHandler<1, 0>, 0);
+	addTestDmacHandler(&dmacHandler<2, 0>, 0);
+	addTestDmacHandler(&dmacHandler<3, 0>, 0);
 	waitForTestResults();
 	finishTest();
 }
@@ -115,10 +109,10 @@ void pushFrontTest() {
 void mixedFrontBackTest() {
 	printf("mixed front back: ");
 	initializeTest();
-	addTestDmacHandler(&continueDmacHandler<1>, -1);
-	addTestDmacHandler(&continueDmacHandler<2>,  0);
-	addTestDmacHandler(&continueDmacHandler<3>, -1);
-	addTestDmacHandler(&continueDmacHandler<4>,  0);
+	addTestDmacHandler(&dmacHandler<1, 0>, -1);
+	addTestDmacHandler(&dmacHandler<2, 0>,  0);
+	addTestDmacHandler(&dmacHandler<3, 0>, -1);
+	addTestDmacHandler(&dmacHandler<4, 0>,  0);
 	waitForTestResults();
 	finishTest();
 }
@@ -126,10 +120,10 @@ void mixedFrontBackTest() {
 void relativeTest() {
 	printf("relative: ");
 	initializeTest();
-	addTestDmacHandler(&continueDmacHandler<1>, -1);
-	addTestDmacHandler(&continueDmacHandler<2>, -1);
-	addTestDmacHandler(&continueDmacHandler<3>, -1);
-	addTestDmacHandler(&continueDmacHandler<4>, g_dmacHandlers[1]);
+	addTestDmacHandler(&dmacHandler<1, 0>, -1);
+	addTestDmacHandler(&dmacHandler<2, 0>, -1);
+	addTestDmacHandler(&dmacHandler<3, 0>, -1);
+	addTestDmacHandler(&dmacHandler<4, 0>, g_dmacHandlers[1]);
 	waitForTestResults();
 	finishTest();
 }
@@ -137,9 +131,9 @@ void relativeTest() {
 void removeTest() {
 	printf("remove: ");
 	initializeTest();
-	addTestDmacHandler(&continueDmacHandler<1>, -1);
-	addTestDmacHandler(&continueDmacHandler<2>, -1);
-	addTestDmacHandler(&continueDmacHandler<3>, -1);
+	addTestDmacHandler(&dmacHandler<1, 0>, -1);
+	addTestDmacHandler(&dmacHandler<2, 0>, -1);
+	addTestDmacHandler(&dmacHandler<3, 0>, -1);
 	removeTestDmacHandler(1);
 	waitForTestResults();
 	finishTest();
@@ -148,9 +142,20 @@ void removeTest() {
 void cancelTest() {
 	printf("cancel: ");
 	initializeTest();
-	addTestDmacHandler(&continueDmacHandler<1>, -1);
-	addTestDmacHandler(&cancelDmacHandler<2>,   -1);
-	addTestDmacHandler(&continueDmacHandler<3>, -1);
+	addTestDmacHandler(&dmacHandler<1, 0>,  -1);
+	addTestDmacHandler(&dmacHandler<2, -1>, -1);
+	addTestDmacHandler(&dmacHandler<3, 0>,  -1);
+	waitForTestResults();
+	finishTest();
+}
+
+void returnValueTest() {
+	printf("return value: ");
+	initializeTest();
+	addTestDmacHandler(&dmacHandler<1, 0x01234567>, -1);
+	addTestDmacHandler(&dmacHandler<2, 0x76543210>, -1);
+	addTestDmacHandler(&dmacHandler<3, 0x89ABCDEF>, -1);
+	addTestDmacHandler(&dmacHandler<4, 0xDEADBEEF>, -1);
 	waitForTestResults();
 	finishTest();
 }
@@ -164,6 +169,7 @@ int main(int argc, char *argv[]) {
 	relativeTest();
 	removeTest();
 	cancelTest();
+	returnValueTest();
 	
 	printf("-- TEST END\n");
 	
