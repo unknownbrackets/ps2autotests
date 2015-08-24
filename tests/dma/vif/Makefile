@@ -1,4 +1,4 @@
-TARGETS = basic
+TARGETS = basic mskpath3
 EXTRA_OBJS = emit_vifcode.o ../dmatags.o ../dmasend.o
 EE_LIBS = -lg -ldma
 
