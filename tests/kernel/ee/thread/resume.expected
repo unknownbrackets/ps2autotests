@@ -1,0 +1,17 @@
+-- TEST BEGIN
+self thread:
+  resume (with current tid): failed -> result: -1
+worse prio thread:
+  resume before start: failed -> result: -1
+  resume after start: failed -> result: -1
+  resume after suspend: succeeded -> result: thread id, status -> result: 02, init prio: 50, current prio: 50, status: 02
+  resume after terminate: failed -> result: -1
+sleeping thread:
+  resume after start: failed -> result: -1
+  resume after suspend: succeeded -> result: thread id, status -> result: 04, init prio: 30, current prio: 30, status: 04
+waiting thread:
+  resume after start: failed -> result: -1
+  resume after suspend: succeeded -> result: thread id, status -> result: 04, init prio: 30, current prio: 30, status: 04
+corner cases:
+  resume with invalid tid: failed -> result: -1
+-- TEST END

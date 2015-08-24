@@ -1,0 +1,18 @@
+-- TEST BEGIN
+self thread:
+  suspend (with current tid): succeeded -> result: thread id, status -> result: 08, init prio: 40, current prio: 40, status: 08
+  self thread status after rescheduling: result: 01, init prio: 40, current prio: 40, status: 01
+worse prio thread:
+  suspend before start: failed -> result: -1
+  suspend after start: succeeded -> result: thread id, status -> result: 08, init prio: 50, current prio: 50, status: 08
+  suspend after suspend: failed -> result: -1
+  suspend after terminate: failed -> result: -1
+sleeping thread:
+  suspend after start: succeeded -> result: thread id, status -> result: 0c, init prio: 30, current prio: 30, status: 0c
+  suspend after suspend: failed -> result: -1
+waiting thread:
+  suspend after start: succeeded -> result: thread id, status -> result: 0c, init prio: 30, current prio: 30, status: 0c
+  suspend after suspend: failed -> result: -1
+corner cases:
+  suspend with invalid tid: failed -> result: -1
+-- TEST END
