@@ -26,7 +26,7 @@ namespace DMA {
 		const char *madrStart = (const char *)chan->madr;
 
 		// And start the transfer.  Let's keep it simple.
-		chan->chcr |= CHCR_STR;
+		chan->chcr |= CHCR_STR | CHCR_DIR;
 
 		int i = 100000;
 		while (--i > 0 && chan->chcr.Ongoing()) {

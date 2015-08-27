@@ -1,0 +1,5 @@
+-- TEST BEGIN
+mask value (initial): 00000000
+mask value (after mskpath3(true))): 00000002
+mask value (after mskpath3(false))): 00000000
+-- TEST END
