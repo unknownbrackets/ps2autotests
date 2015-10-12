@@ -1,8 +1,8 @@
 -- TEST BEGIN
 normal operation:
-	release after handler registered: 0
+  release after handler registered: 0
 release after release:
-	release after handler released: -105
+  release after handler released: -105
 invalid params:
-	invalid interrupt line: -101
+  invalid interrupt line: -101
 -- TEST END

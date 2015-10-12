@@ -32,10 +32,10 @@ void testMultipleRegister() {
 		DisableIntr(IOP_IRQ_VBLANK, &oldIntr);
 
 		int firstRegisterResult = RegisterIntrHandler(IOP_IRQ_VBLANK, 0, (void *)&intrHandler, (void *)0xAAAA);
-		printf("\tregister when no handler is present: %d\n", firstRegisterResult);
+		printf("  register when no handler is present: %d\n", firstRegisterResult);
 		
 		int secondRegisterResult = RegisterIntrHandler(IOP_IRQ_VBLANK, 0, (void *)&intrHandler, (void *)0xBBBB);
-		printf("\tregister when handler is already present: %d\n", secondRegisterResult);
+		printf("  register when handler is already present: %d\n", secondRegisterResult);
 		
 		EnableIntr(IOP_IRQ_VBLANK);
 	}
@@ -46,7 +46,7 @@ void testMultipleRegister() {
 	
 	CpuSuspendIntr(&oldStat);
 	{
-		printf("\thandler result: %d\n", g_handlerResult);
+		printf("  handler result: %d\n", g_handlerResult);
 
 		ReleaseIntrHandler(IOP_IRQ_VBLANK);
 		DisableIntr(IOP_IRQ_VBLANK, &oldIntr);
@@ -64,15 +64,15 @@ void testInvalidParams() {
 	CpuSuspendIntr(&oldStat);
 	{
 		int invalidIntrLineResult = RegisterIntrHandler(~0, 0, (void *)&intrHandler, NULL);
-		printf("\tinvalid interrupt line: %d\n", invalidIntrLineResult);
+		printf("  invalid interrupt line: %d\n", invalidIntrLineResult);
 		
 		int invalidModeResult = RegisterIntrHandler(IOP_IRQ_VBLANK, ~0, (void *)&intrHandler, NULL);
 		ReleaseIntrHandler(IOP_IRQ_VBLANK);
-		printf("\tinvalid mode line: %d\n", invalidModeResult);
+		printf("  invalid mode line: %d\n", invalidModeResult);
 
 		int nullHandlerResult = RegisterIntrHandler(IOP_IRQ_VBLANK, 0, NULL, NULL);
 		ReleaseIntrHandler(IOP_IRQ_VBLANK);
-		printf("\tnull handler line: %d\n", nullHandlerResult);
+		printf("  null handler line: %d\n", nullHandlerResult);
 	}
 	CpuResumeIntr(oldStat);
 }

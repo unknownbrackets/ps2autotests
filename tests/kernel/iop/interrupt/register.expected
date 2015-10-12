@@ -1,10 +1,10 @@
 -- TEST BEGIN
 multiple register:
-	register when no handler is present: 0
-	register when handler is already present: -104
-	handler result: 43690
+  register when no handler is present: 0
+  register when handler is already present: -104
+  handler result: 43690
 invalid params:
-	invalid interrupt line: -101
-	invalid mode line: 0
-	null handler line: 0
+  invalid interrupt line: -101
+  invalid mode line: 0
+  null handler line: 0
 -- TEST END

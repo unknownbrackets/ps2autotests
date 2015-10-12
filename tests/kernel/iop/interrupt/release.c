@@ -16,7 +16,7 @@ void testNormalOperation() {
 		RegisterIntrHandler(IOP_IRQ_VBLANK, 0, (void *)&intrHandler, NULL);
 		int result = ReleaseIntrHandler(IOP_IRQ_VBLANK);
 		
-		printf("\trelease after handler registered: %d\n", result);
+		printf("  release after handler registered: %d\n", result);
 	}
 	CpuResumeIntr(oldStat);
 }
@@ -30,7 +30,7 @@ void testReleaseAfterRelease() {
 	{
 		ReleaseIntrHandler(IOP_IRQ_VBLANK);
 		int result = ReleaseIntrHandler(IOP_IRQ_VBLANK);
-		printf("\trelease after handler released: %d\n", result);
+		printf("  release after handler released: %d\n", result);
 	}
 	CpuResumeIntr(oldStat);
 }
@@ -43,7 +43,7 @@ void testInvalidParams() {
 	CpuSuspendIntr(&oldStat);
 	{
 		int invalidIntrLineResult = ReleaseIntrHandler(~0);
-		printf("\tinvalid interrupt line: %d\n", invalidIntrLineResult);
+		printf("  invalid interrupt line: %d\n", invalidIntrLineResult);
 	}
 	CpuResumeIntr(oldStat);
 }
