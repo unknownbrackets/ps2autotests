@@ -1,6 +1,7 @@
 -- TEST BEGIN
 normal operation:
   release after handler registered: 0
+  release after null handler was registered: -105
 release after release:
   release after handler released: -105
 invalid params:

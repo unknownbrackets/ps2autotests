@@ -56,6 +56,39 @@ void testMultipleRegister() {
 	DeleteSema(g_handlerSema);
 }
 
+void testNullHandler() {
+	int oldStat = 0;
+
+	printf("null handler:\n");
+
+	CpuSuspendIntr(&oldStat);
+	{
+		int nullHandlerResult1 = RegisterIntrHandler(IOP_IRQ_VBLANK, 0, NULL, NULL);
+		printf("  registering null handler: %d\n", nullHandlerResult1);
+
+		int nullHandlerResult2 = RegisterIntrHandler(IOP_IRQ_VBLANK, 0, NULL, NULL);
+		printf("  registering null handler after null handler was registered: %d\n", nullHandlerResult2);
+
+		//Remove previous handler, just in case
+		ReleaseIntrHandler(IOP_IRQ_VBLANK);
+
+		RegisterIntrHandler(IOP_IRQ_VBLANK, 0, (void *)&intrHandler, NULL);
+		int nullHandlerResult3 = RegisterIntrHandler(IOP_IRQ_VBLANK, 0, NULL, NULL);
+		printf("  registering null handler after non-null handler was registered: %d\n", nullHandlerResult3);
+
+		//Remove previous handler, just in case (again)
+		ReleaseIntrHandler(IOP_IRQ_VBLANK);
+		
+		RegisterIntrHandler(IOP_IRQ_VBLANK, 0, NULL, NULL);
+		int nullHandlerResult4 = RegisterIntrHandler(IOP_IRQ_VBLANK, 0, (void *)&intrHandler, NULL);
+		printf("  registering non-null handler after null handler was registered: %d\n", nullHandlerResult4);
+		
+		//Clean-up
+		ReleaseIntrHandler(IOP_IRQ_VBLANK);
+	}
+	CpuResumeIntr(oldStat);
+}
+
 void testInvalidParams() {
 	int oldStat = 0;
 
@@ -66,13 +99,13 @@ void testInvalidParams() {
 		int invalidIntrLineResult = RegisterIntrHandler(~0, 0, (void *)&intrHandler, NULL);
 		printf("  invalid interrupt line: %d\n", invalidIntrLineResult);
 		
-		int invalidModeResult = RegisterIntrHandler(IOP_IRQ_VBLANK, ~0, (void *)&intrHandler, NULL);
+		int invalidModeResult1 = RegisterIntrHandler(IOP_IRQ_VBLANK, 0x80000000, (void *)&intrHandler, NULL);
 		ReleaseIntrHandler(IOP_IRQ_VBLANK);
-		printf("  invalid mode line: %d\n", invalidModeResult);
-
-		int nullHandlerResult = RegisterIntrHandler(IOP_IRQ_VBLANK, 0, NULL, NULL);
+		printf("  invalid mode (INT_MIN): %d\n", invalidModeResult1);
+		
+		int invalidModeResult2 = RegisterIntrHandler(IOP_IRQ_VBLANK, 0x7FFFFFFF, (void *)&intrHandler, NULL);
 		ReleaseIntrHandler(IOP_IRQ_VBLANK);
-		printf("  null handler line: %d\n", nullHandlerResult);
+		printf("  invalid mode (INT_MAX): %d\n", invalidModeResult2);
 	}
 	CpuResumeIntr(oldStat);
 }
@@ -81,6 +114,7 @@ int _start(int argc, char **argv) {
 	printf("-- TEST BEGIN\n");
 	
 	testMultipleRegister();
+	testNullHandler();
 	testInvalidParams();
 
 	printf("-- TEST END\n");

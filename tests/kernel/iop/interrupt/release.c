@@ -11,12 +11,18 @@ void testNormalOperation() {
 
 	CpuSuspendIntr(&oldStat);
 	{
+		//Remove any previously registered handler
 		ReleaseIntrHandler(IOP_IRQ_VBLANK);
 		
 		RegisterIntrHandler(IOP_IRQ_VBLANK, 0, (void *)&intrHandler, NULL);
-		int result = ReleaseIntrHandler(IOP_IRQ_VBLANK);
+		int resultValidHandler = ReleaseIntrHandler(IOP_IRQ_VBLANK);
 		
-		printf("  release after handler registered: %d\n", result);
+		printf("  release after handler registered: %d\n", resultValidHandler);
+
+		RegisterIntrHandler(IOP_IRQ_VBLANK, 0, NULL, NULL);
+		int resultNullHandler = ReleaseIntrHandler(IOP_IRQ_VBLANK);
+
+		printf("  release after null handler was registered: %d\n", resultNullHandler);
 	}
 	CpuResumeIntr(oldStat);
 }
@@ -28,6 +34,10 @@ void testReleaseAfterRelease() {
 
 	CpuSuspendIntr(&oldStat);
 	{
+		//Remove any previously registered handler
+		ReleaseIntrHandler(IOP_IRQ_VBLANK);
+		
+		RegisterIntrHandler(IOP_IRQ_VBLANK, 0, (void *)&intrHandler, NULL);
 		ReleaseIntrHandler(IOP_IRQ_VBLANK);
 		int result = ReleaseIntrHandler(IOP_IRQ_VBLANK);
 		printf("  release after handler released: %d\n", result);
