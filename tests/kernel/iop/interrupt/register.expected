@@ -1,0 +1,15 @@
+-- TEST BEGIN
+multiple register:
+  register when no handler is present: 0
+  register when handler is already present: -104
+  handler result: 43690
+null handler:
+  registering null handler: 0
+  registering null handler after null handler was registered: 0
+  registering null handler after non-null handler was registered: -104
+  registering non-null handler after null handler was registered: 0
+invalid params:
+  invalid interrupt line: -101
+  invalid mode (INT_MIN): 0
+  invalid mode (INT_MAX): 0
+-- TEST END
