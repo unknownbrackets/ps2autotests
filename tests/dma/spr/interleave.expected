@@ -1,0 +1,629 @@
+-- TEST BEGIN
+Interleave upload (disabled, count = 3):
+  Upload (disabled, count = 3) SADR: from=00000000, to=00000030
+  Upload (disabled, count = 3) 00: 00000000 01010101 02020202 03030303
+  Upload (disabled, count = 3) 04: 04040404 05050505 06060606 07070707
+  Upload (disabled, count = 3) 08: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Upload (disabled, count = 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (disabled, count = 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (skip 0, count = 3):
+  Upload (skip 0, count = 3) SADR: from=00000000, to=00000030
+  Upload (skip 0, count = 3) 00: 00000000 01010101 02020202 03030303
+  Upload (skip 0, count = 3) 04: 04040404 05050505 06060606 07070707
+  Upload (skip 0, count = 3) 08: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Upload (skip 0, count = 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 0, count = 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (skip 1, count = 3):
+WARNING: DMA transfer MADR did not increase as expected: 00000060
+  Upload (skip 1, count = 3) SADR: from=00000000, to=00000030
+  Upload (skip 1, count = 3) 00: 00000000 01010101 02020202 03030303
+  Upload (skip 1, count = 3) 04: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Upload (skip 1, count = 3) 08: 10101010 11111111 12121212 13131313
+  Upload (skip 1, count = 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 1, count = 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (skip 2, count = 3):
+WARNING: DMA transfer MADR did not increase as expected: 00001f90
+  Upload (skip 2, count = 3) SADR: from=00000000, to=00000030
+  Upload (skip 2, count = 3) 00: 00000000 01010101 02020202 03030303
+  Upload (skip 2, count = 3) 04: 0c0c0c0c 0d0d0d0d 0e0e0e0e 0f0f0f0f
+  Upload (skip 2, count = 3) 08: 18181818 19191919 1a1a1a1a 1b1b1b1b
+  Upload (skip 2, count = 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 2, count = 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (skip 3, count = 3):
+WARNING: DMA transfer MADR did not increase as expected: 00001fc0
+  Upload (skip 3, count = 3) SADR: from=00000000, to=00000030
+  Upload (skip 3, count = 3) 00: 00000000 01010101 02020202 03030303
+  Upload (skip 3, count = 3) 04: 10101010 11111111 12121212 13131313
+  Upload (skip 3, count = 3) 08: 20202020 21212121 22222222 23232323
+  Upload (skip 3, count = 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (skip 3, count = 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (transfer 1, count 3):
+WARNING: DMA transfer MADR did not increase as expected: 00000060
+  Upload (transfer 1, count 3) SADR: from=00000000, to=00000030
+  Upload (transfer 1, count 3) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 1, count 3) 04: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Upload (transfer 1, count 3) 08: 10101010 11111111 12121212 13131313
+  Upload (transfer 1, count 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, count 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (transfer 2, count 4):
+WARNING: DMA transfer MADR did not increase as expected: 00000060
+  Upload (transfer 2, count 4) SADR: from=00000000, to=00000040
+  Upload (transfer 2, count 4) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 2, count 4) 04: 04040404 05050505 06060606 07070707
+  Upload (transfer 2, count 4) 08: 0c0c0c0c 0d0d0d0d 0e0e0e0e 0f0f0f0f
+  Upload (transfer 2, count 4) 0c: 10101010 11111111 12121212 13131313
+  Upload (transfer 2, count 4) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, count 4) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, count 4) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, count 4) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, count 4) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, count 4) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, count 4) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, count 4) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, count 4) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, count 4) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, count 4) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, count 4) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (transfer 3, count 6):
+WARNING: DMA transfer MADR did not increase as expected: 00001f80
+  Upload (transfer 3, count 6) SADR: from=00000000, to=00000060
+  Upload (transfer 3, count 6) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 3, count 6) 04: 04040404 05050505 06060606 07070707
+  Upload (transfer 3, count 6) 08: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Upload (transfer 3, count 6) 0c: 10101010 11111111 12121212 13131313
+  Upload (transfer 3, count 6) 10: 14141414 15151515 16161616 17171717
+  Upload (transfer 3, count 6) 14: 18181818 19191919 1a1a1a1a 1b1b1b1b
+  Upload (transfer 3, count 6) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, count 6) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, count 6) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, count 6) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, count 6) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, count 6) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, count 6) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, count 6) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, count 6) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, count 6) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (transfer 2, skip 2, count 6):
+WARNING: DMA transfer MADR did not increase as expected: 00001fc0
+  Upload (transfer 2, skip 2, count 6) SADR: from=00000000, to=00000060
+  Upload (transfer 2, skip 2, count 6) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 2, skip 2, count 6) 04: 04040404 05050505 06060606 07070707
+  Upload (transfer 2, skip 2, count 6) 08: 10101010 11111111 12121212 13131313
+  Upload (transfer 2, skip 2, count 6) 0c: 14141414 15151515 16161616 17171717
+  Upload (transfer 2, skip 2, count 6) 10: 20202020 21212121 22222222 23232323
+  Upload (transfer 2, skip 2, count 6) 14: 24242424 25252525 26262626 27272727
+  Upload (transfer 2, skip 2, count 6) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, skip 2, count 6) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, skip 2, count 6) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, skip 2, count 6) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, skip 2, count 6) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, skip 2, count 6) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, skip 2, count 6) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, skip 2, count 6) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, skip 2, count 6) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 2, skip 2, count 6) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (transfer 3, skip 3, count 9):
+WARNING: DMA transfer MADR did not increase as expected: 00001f20
+  Upload (transfer 3, skip 3, count 9) SADR: from=00000000, to=00000090
+  Upload (transfer 3, skip 3, count 9) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 3, skip 3, count 9) 04: 04040404 05050505 06060606 07070707
+  Upload (transfer 3, skip 3, count 9) 08: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Upload (transfer 3, skip 3, count 9) 0c: 18181818 19191919 1a1a1a1a 1b1b1b1b
+  Upload (transfer 3, skip 3, count 9) 10: 1c1c1c1c 1d1d1d1d 1e1e1e1e 1f1f1f1f
+  Upload (transfer 3, skip 3, count 9) 14: 20202020 21212121 22222222 23232323
+  Upload (transfer 3, skip 3, count 9) 18: 30303030 31313131 32323232 33333333
+  Upload (transfer 3, skip 3, count 9) 1c: 34343434 35353535 36363636 37373737
+  Upload (transfer 3, skip 3, count 9) 20: 38383838 39393939 3a3a3a3a 3b3b3b3b
+  Upload (transfer 3, skip 3, count 9) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, skip 3, count 9) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, skip 3, count 9) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, skip 3, count 9) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, skip 3, count 9) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, skip 3, count 9) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 3, skip 3, count 9) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (transfer 1, skip 14, count 2):
+WARNING: DMA transfer MADR did not increase as expected: 00001ee0
+  Upload (transfer 1, skip 14, count 2) SADR: from=00000000, to=00000020
+  Upload (transfer 1, skip 14, count 2) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 1, skip 14, count 2) 04: 3c3c3c3c 3d3d3d3d 3e3e3e3e 3f3f3f3f
+  Upload (transfer 1, skip 14, count 2) 08: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 0c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 14, count 2) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (transfer 1, skip 128, count 2):
+WARNING: DMA transfer MADR did not increase as expected: 00001020
+  Upload (transfer 1, skip 128, count 2) SADR: from=00000000, to=00000020
+  Upload (transfer 1, skip 128, count 2) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 1, skip 128, count 2) 04: ff040404 ff050505 ff060606 ff070707
+  Upload (transfer 1, skip 128, count 2) 08: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 0c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 128, count 2) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (transfer 1, skip 256, count 2):
+  Upload (transfer 1, skip 256, count 2) SADR: from=00000000, to=00000020
+  Upload (transfer 1, skip 256, count 2) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 1, skip 256, count 2) 04: 04040404 05050505 06060606 07070707
+  Upload (transfer 1, skip 256, count 2) 08: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 0c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 256, count 2) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (transfer 1, skip 257, count 2):
+WARNING: DMA transfer MADR did not increase as expected: 00000040
+  Upload (transfer 1, skip 257, count 2) SADR: from=00000000, to=00000020
+  Upload (transfer 1, skip 257, count 2) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 1, skip 257, count 2) 04: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Upload (transfer 1, skip 257, count 2) 08: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 0c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 257, count 2) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (transfer 128, skip 1, count 128):
+WARNING: DMA transfer MADR did not increase as expected: 00001810
+  Upload (transfer 128, skip 1, count 128) SADR: from=00000000, to=00000800
+  Upload (transfer 128, skip 1, count 128) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 128, skip 1, count 128) 04: 04040404 05050505 06060606 07070707
+  Upload (transfer 128, skip 1, count 128) 08: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Upload (transfer 128, skip 1, count 128) 0c: 0c0c0c0c 0d0d0d0d 0e0e0e0e 0f0f0f0f
+  Upload (transfer 128, skip 1, count 128) 10: 10101010 11111111 12121212 13131313
+  Upload (transfer 128, skip 1, count 128) 14: 14141414 15151515 16161616 17171717
+  Upload (transfer 128, skip 1, count 128) 18: 18181818 19191919 1a1a1a1a 1b1b1b1b
+  Upload (transfer 128, skip 1, count 128) 1c: 1c1c1c1c 1d1d1d1d 1e1e1e1e 1f1f1f1f
+  Upload (transfer 128, skip 1, count 128) 20: 20202020 21212121 22222222 23232323
+  Upload (transfer 128, skip 1, count 128) 24: 24242424 25252525 26262626 27272727
+  Upload (transfer 128, skip 1, count 128) 28: 28282828 29292929 2a2a2a2a 2b2b2b2b
+  Upload (transfer 128, skip 1, count 128) 2c: 2c2c2c2c 2d2d2d2d 2e2e2e2e 2f2f2f2f
+  Upload (transfer 128, skip 1, count 128) 30: 30303030 31313131 32323232 33333333
+  Upload (transfer 128, skip 1, count 128) 34: 34343434 35353535 36363636 37373737
+  Upload (transfer 128, skip 1, count 128) 38: 38383838 39393939 3a3a3a3a 3b3b3b3b
+  Upload (transfer 128, skip 1, count 128) 3c: 3c3c3c3c 3d3d3d3d 3e3e3e3e 3f3f3f3f
+
+Interleave upload (transfer 257, skip 1, count 3):
+WARNING: DMA transfer MADR did not increase as expected: 00000060
+  Upload (transfer 257, skip 1, count 3) SADR: from=00000000, to=00000030
+  Upload (transfer 257, skip 1, count 3) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 257, skip 1, count 3) 04: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Upload (transfer 257, skip 1, count 3) 08: 10101010 11111111 12121212 13131313
+  Upload (transfer 257, skip 1, count 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 257, skip 1, count 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave upload (transfer 1, skip 255, count 4):
+WARNING: DMA transfer MADR did not increase as expected: 00004000
+  Upload (transfer 1, skip 255, count 4) SADR: from=00000000, to=00000040
+  Upload (transfer 1, skip 255, count 4) 00: 00000000 01010101 02020202 03030303
+  Upload (transfer 1, skip 255, count 4) 04: ff000000 ff010101 ff020202 ff030303
+  Upload (transfer 1, skip 255, count 4) 08: ff000000 ff010101 ff020202 ff030303
+  Upload (transfer 1, skip 255, count 4) 0c: ff000000 ff010101 ff020202 ff030303
+  Upload (transfer 1, skip 255, count 4) 10: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 255, count 4) 14: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 255, count 4) 18: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 255, count 4) 1c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 255, count 4) 20: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 255, count 4) 24: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 255, count 4) 28: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 255, count 4) 2c: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 255, count 4) 30: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 255, count 4) 34: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 255, count 4) 38: cccccccc cccccccc cccccccc cccccccc
+  Upload (transfer 1, skip 255, count 4) 3c: cccccccc cccccccc cccccccc cccccccc
+
+
+Interleave download (disabled, count 3):
+  Download (disabled, count 3) SADR: from=00000030, to=00000000
+  Download (disabled, count 3) 00: 00000000 01010101 02020202 03030303
+  Download (disabled, count 3) 04: 04040404 05050505 06060606 07070707
+  Download (disabled, count 3) 08: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Download (disabled, count 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 10: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (disabled, count 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (skip 0, count 3):
+  Download (skip 0, count 3) SADR: from=00000030, to=00000000
+  Download (skip 0, count 3) 00: 00000000 01010101 02020202 03030303
+  Download (skip 0, count 3) 04: 04040404 05050505 06060606 07070707
+  Download (skip 0, count 3) 08: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Download (skip 0, count 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 10: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 0, count 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (skip 1, count 3):
+WARNING: DMA transfer MADR did not increase as expected: 00000060
+  Download (skip 1, count 3) SADR: from=00000030, to=00000000
+  Download (skip 1, count 3) 00: 00000000 01010101 02020202 03030303
+  Download (skip 1, count 3) 04: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 08: 04040404 05050505 06060606 07070707
+  Download (skip 1, count 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 10: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Download (skip 1, count 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 1, count 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (skip 2, count 3):
+WARNING: DMA transfer MADR did not increase as expected: 00001f90
+  Download (skip 2, count 3) SADR: from=00000030, to=00000000
+  Download (skip 2, count 3) 00: 00000000 01010101 02020202 03030303
+  Download (skip 2, count 3) 04: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 08: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 0c: 04040404 05050505 06060606 07070707
+  Download (skip 2, count 3) 10: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 18: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Download (skip 2, count 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 2, count 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (skip 3, count 3):
+WARNING: DMA transfer MADR did not increase as expected: 00001fc0
+  Download (skip 3, count 3) SADR: from=00000030, to=00000000
+  Download (skip 3, count 3) 00: 00000000 01010101 02020202 03030303
+  Download (skip 3, count 3) 04: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 08: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 10: 04040404 05050505 06060606 07070707
+  Download (skip 3, count 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 20: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Download (skip 3, count 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (skip 3, count 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (transfer 1, count 3):
+WARNING: DMA transfer MADR did not increase as expected: 00000060
+  Download (transfer 1, count 3) SADR: from=00000030, to=00000000
+  Download (transfer 1, count 3) 00: 00000000 01010101 02020202 03030303
+  Download (transfer 1, count 3) 04: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 08: 04040404 05050505 06060606 07070707
+  Download (transfer 1, count 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 10: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Download (transfer 1, count 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, count 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (transfer 2, count 4):
+WARNING: DMA transfer MADR did not increase as expected: 00000060
+  Download (transfer 2, count 4) SADR: from=00000040, to=00000000
+  Download (transfer 2, count 4) 00: 00000000 01010101 02020202 03030303
+  Download (transfer 2, count 4) 04: 04040404 05050505 06060606 07070707
+  Download (transfer 2, count 4) 08: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, count 4) 0c: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Download (transfer 2, count 4) 10: 0c0c0c0c 0d0d0d0d 0e0e0e0e 0f0f0f0f
+  Download (transfer 2, count 4) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, count 4) 18: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, count 4) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, count 4) 20: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, count 4) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, count 4) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, count 4) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, count 4) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, count 4) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, count 4) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, count 4) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (transfer 3, count 6):
+WARNING: DMA transfer MADR did not increase as expected: 00001f80
+  Download (transfer 3, count 6) SADR: from=00000060, to=00000000
+  Download (transfer 3, count 6) 00: 00000000 01010101 02020202 03030303
+  Download (transfer 3, count 6) 04: 04040404 05050505 06060606 07070707
+  Download (transfer 3, count 6) 08: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Download (transfer 3, count 6) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, count 6) 10: 0c0c0c0c 0d0d0d0d 0e0e0e0e 0f0f0f0f
+  Download (transfer 3, count 6) 14: 10101010 11111111 12121212 13131313
+  Download (transfer 3, count 6) 18: 14141414 15151515 16161616 17171717
+  Download (transfer 3, count 6) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, count 6) 20: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, count 6) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, count 6) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, count 6) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, count 6) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, count 6) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, count 6) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, count 6) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (transfer 2, skip 2, count 6):
+WARNING: DMA transfer MADR did not increase as expected: 00001fc0
+  Download (transfer 2, skip 2, count 6) SADR: from=00000060, to=00000000
+  Download (transfer 2, skip 2, count 6) 00: 00000000 01010101 02020202 03030303
+  Download (transfer 2, skip 2, count 6) 04: 04040404 05050505 06060606 07070707
+  Download (transfer 2, skip 2, count 6) 08: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, skip 2, count 6) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, skip 2, count 6) 10: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Download (transfer 2, skip 2, count 6) 14: 0c0c0c0c 0d0d0d0d 0e0e0e0e 0f0f0f0f
+  Download (transfer 2, skip 2, count 6) 18: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, skip 2, count 6) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, skip 2, count 6) 20: 10101010 11111111 12121212 13131313
+  Download (transfer 2, skip 2, count 6) 24: 14141414 15151515 16161616 17171717
+  Download (transfer 2, skip 2, count 6) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, skip 2, count 6) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, skip 2, count 6) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, skip 2, count 6) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, skip 2, count 6) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 2, skip 2, count 6) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (transfer 3, skip 3, count 9):
+WARNING: DMA transfer MADR did not increase as expected: 00001f20
+  Download (transfer 3, skip 3, count 9) SADR: from=00000090, to=00000000
+  Download (transfer 3, skip 3, count 9) 00: 00000000 01010101 02020202 03030303
+  Download (transfer 3, skip 3, count 9) 04: 04040404 05050505 06060606 07070707
+  Download (transfer 3, skip 3, count 9) 08: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Download (transfer 3, skip 3, count 9) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, skip 3, count 9) 10: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, skip 3, count 9) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, skip 3, count 9) 18: 0c0c0c0c 0d0d0d0d 0e0e0e0e 0f0f0f0f
+  Download (transfer 3, skip 3, count 9) 1c: 10101010 11111111 12121212 13131313
+  Download (transfer 3, skip 3, count 9) 20: 14141414 15151515 16161616 17171717
+  Download (transfer 3, skip 3, count 9) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, skip 3, count 9) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, skip 3, count 9) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 3, skip 3, count 9) 30: 18181818 19191919 1a1a1a1a 1b1b1b1b
+  Download (transfer 3, skip 3, count 9) 34: 1c1c1c1c 1d1d1d1d 1e1e1e1e 1f1f1f1f
+  Download (transfer 3, skip 3, count 9) 38: 20202020 21212121 22222222 23232323
+  Download (transfer 3, skip 3, count 9) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (transfer 1, skip 14, count 2):
+WARNING: DMA transfer MADR did not increase as expected: 00001ee0
+  Download (transfer 1, skip 14, count 2) SADR: from=00000020, to=00000000
+  Download (transfer 1, skip 14, count 2) 00: 00000000 01010101 02020202 03030303
+  Download (transfer 1, skip 14, count 2) 04: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 08: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 10: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 18: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 20: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 14, count 2) 3c: 04040404 05050505 06060606 07070707
+
+Interleave download (transfer 1, skip 128, count 2):
+WARNING: DMA transfer MADR did not increase as expected: 00001020
+  Download (transfer 1, skip 128, count 2) SADR: from=00000020, to=00000000
+
+Interleave download (transfer 1, skip 256, count 2):
+  Download (transfer 1, skip 256, count 2) SADR: from=00000020, to=00000000
+  Download (transfer 1, skip 256, count 2) 00: 00000000 01010101 02020202 03030303
+  Download (transfer 1, skip 256, count 2) 04: 04040404 05050505 06060606 07070707
+  Download (transfer 1, skip 256, count 2) 08: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 10: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 18: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 20: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 256, count 2) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (transfer 1, skip 257, count 2):
+WARNING: DMA transfer MADR did not increase as expected: 00000040
+  Download (transfer 1, skip 257, count 2) SADR: from=00000020, to=00000000
+  Download (transfer 1, skip 257, count 2) 00: 00000000 01010101 02020202 03030303
+  Download (transfer 1, skip 257, count 2) 04: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 08: 04040404 05050505 06060606 07070707
+  Download (transfer 1, skip 257, count 2) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 10: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 18: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 20: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 1, skip 257, count 2) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (transfer 128, skip 1, count 128):
+WARNING: DMA transfer MADR did not increase as expected: 00001810
+  Download (transfer 128, skip 1, count 128) SADR: from=00000800, to=00000000
+
+Interleave download (transfer 257, skip 1, count 3):
+WARNING: DMA transfer MADR did not increase as expected: 00000060
+  Download (transfer 257, skip 1, count 3) SADR: from=00000030, to=00000000
+  Download (transfer 257, skip 1, count 3) 00: 00000000 01010101 02020202 03030303
+  Download (transfer 257, skip 1, count 3) 04: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 08: 04040404 05050505 06060606 07070707
+  Download (transfer 257, skip 1, count 3) 0c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 10: 08080808 09090909 0a0a0a0a 0b0b0b0b
+  Download (transfer 257, skip 1, count 3) 14: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 18: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 1c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 20: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 24: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 28: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 2c: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 30: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 34: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 38: cccccccc cccccccc cccccccc cccccccc
+  Download (transfer 257, skip 1, count 3) 3c: cccccccc cccccccc cccccccc cccccccc
+
+Interleave download (transfer 1, skip 255, count 4):
+WARNING: DMA transfer MADR did not increase as expected: 00004000
+  Download (transfer 1, skip 255, count 4) SADR: from=00000040, to=00000000
+
+-- TEST END
