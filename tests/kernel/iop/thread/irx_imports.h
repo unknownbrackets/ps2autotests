@@ -4,5 +4,6 @@
 #include "irx.h"
 
 #include "thbase.h"
+#include "thmsgbx.h"
 
 #endif 
