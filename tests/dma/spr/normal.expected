@@ -20,19 +20,17 @@ SADR high bits:
 MADR with high bit:
 WARNING: DMA transfer did not accept MADR: 80000000
   toSPR MADR: high bit set? no
-  MADR send with SPR bit: 00000000 00000000 00000000 00000000
+  MADR send with SPR bit: 01234567 89abcdef deadbeef 1337c0de
 
 WARNING: DMA transfer did not accept MADR: 80000000
   fromSPR MADR: high bit set? no
-  MADR receive with SPR bit: 00000000 00000000 00000000 00000000
+  MADR receive with SPR bit: 01234567 89abcdef deadbeef 1337c0de
 
-Size zero:
-WARNING: DMA transfer MADR did not increase as expected: 00300000
-  SADR updated: to=00000000, from=00000000
-  Send zero 0x0010: 00000000 00000000 00000000 00000000
-WARNING: DMA transfer MADR did not increase as expected: 00300000
-  SADR updated: to=00000010, from=00000000
-  Read zero 0x0000: 01234567 89abcdef deadbeef 1337c0de
-  Read zero 0x0010: 00000000 00000000 00000000 00000000
-  Read zeros until: 0x2020 cccccccc
+Near end (wrapping):
+  SADR updated: to=00000000, from=00003ff0
+  Send near end 0x0000: fffcfcfc fffdfdfd fffefefe ffffffff
+  Send near end 0x0010: 00000000 01010101 02020202 03030303
+  SADR updated: to=00003ff0, from=00000000
+  Read near end 0x0000: 04040404 05050505 06060606 07070707
+  Read near end 0x0010: 08080808 09090909 0a0a0a0a 0b0b0b0b
 -- TEST END

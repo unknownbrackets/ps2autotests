@@ -104,6 +104,7 @@ static void testMADRBit(u32 *buf) {
 	buf[1] = 0x89ABCDEF;
 	buf[2] = 0xDEADBEEF;
 	buf[3] = 0x1337C0DE;
+	SyncDCache(buf, (u8 *)buf + 16);
 
 	toSPR->sadr = 0;
 
@@ -111,6 +112,7 @@ static void testMADRBit(u32 *buf) {
 	printf("  toSPR MADR: high bit set? %s\n", (((u32)toSPR->madr & 0x80000000) != 0) ? "yes" : "no");
 
 	memset(buf, 0, 16);
+	SyncDCache(buf, (u8 *)buf + 16);
 
 	fromSPR->sadr = 0;
 	DMA::SendSimple(fromSPR, buf, 16);
@@ -122,11 +124,13 @@ static void testMADRBit(u32 *buf) {
 	buf[1] = 0x89ABCDEF;
 	buf[2] = 0xDEADBEEF;
 	buf[3] = 0x1337C0DE;
+	SyncDCache(buf, (u8 *)buf + 16);
 
 	toSPR->sadr = 0x100;
 	DMA::SendSimple(toSPR, buf, 16);
 
 	memset(buf, 0, 16);
+	SyncDCache(buf, (u8 *)buf + 16);
 
 	fromSPR->sadr = 0x100;
 
@@ -151,6 +155,7 @@ static void testSizeZero(u32 *buf) {
 	buf[1] = 0x89ABCDEF;
 	buf[2] = 0xDEADBEEF;
 	buf[3] = 0x1337C0DE;
+	SyncDCache(buf, (u8 *)buf + 16 * 1024);
 
 	toSPR->sadr = 0;
 	DMA::SendSimple(toSPR, buf, 0);
@@ -185,14 +190,17 @@ static void testSizeZero(u32 *buf) {
 	buf[1] = 0x89ABCDEF;
 	buf[2] = 0xDEADBEEF;
 	buf[3] = 0x1337C0DE;
+	SyncDCache(buf, (u8 *)buf + 16 * 1024);
 
 	toSPR->sadr = 0;
 	DMA::SendSimple(toSPR, buf, 16);
 
 	memset(buf, 0xCC, 16 * 1024);
+	SyncDCache(buf, (u8 *)buf + 16 * 1024);
 
 	fromSPR->sadr = 0;
 	DMA::SendSimple(fromSPR, buf, 0);
+	SyncDCache(buf, (u8 *)buf + 16 * 1024);
 
 	printf("  SADR updated: to=%08x, from=%08x\n", toSPR->sadr, fromSPR->sadr);
 	printf("  Read zero 0x0000: %08x %08x %08x %08x\n", buf[0], buf[1], buf[2], buf[3]);
@@ -205,6 +213,57 @@ static void testSizeZero(u32 *buf) {
 			break;
 		}
 	}
+
+	fromSPR->sadr = 0;
+	toSPR->sadr = 0;
+}
+
+static void testNearEnd(u32 *buf) {
+	printf("Near end (wrapping):\n");
+
+	for (u32 i = 0; i < 16 * 1024 / sizeof(u32); ++i) {
+		u32 c = i & 0xFF;
+		buf[i] = c | (c << 8) | (c << 16) | (c << 24);
+		if (i > 256) {
+			buf[i] |= 0xFF000000;
+		}
+	}
+
+	toSPR->sadr = 0;
+	DMA::SendSimple(toSPR, buf, 16 * 1024);
+
+	memset(buf, 0xCC, 16 * 1024);
+
+	fromSPR->sadr = 0x3ff0;
+	DMA::SendSimple(fromSPR, buf, 16 * 1024);
+
+	SyncDCache(buf, (u8 *)buf + 16 * 1024);
+
+	printf("  SADR updated: to=%08x, from=%08x\n", toSPR->sadr, fromSPR->sadr);
+	printf("  Send near end 0x0000: %08x %08x %08x %08x\n", buf[0], buf[1], buf[2], buf[3]);
+	printf("  Send near end 0x0010: %08x %08x %08x %08x\n", buf[4], buf[5], buf[6], buf[7]);
+
+	clearSPR(buf);
+
+	for (u32 i = 0; i < 16 * 1024 / sizeof(u32); ++i) {
+		u32 c = i & 0xFF;
+		buf[i] = c | (c << 8) | (c << 16) | (c << 24);
+		if (i > 256) {
+			buf[i] |= 0xFF000000;
+		}
+	}
+
+	toSPR->sadr = 0x3ff0;
+	DMA::SendSimple(toSPR, buf, 16 * 1024);
+
+	memset(buf, 0xCC, 16 * 1024);
+
+	fromSPR->sadr = 0;
+	DMA::SendSimple(fromSPR, buf, 16 * 1024);
+
+	printf("  SADR updated: to=%08x, from=%08x\n", toSPR->sadr, fromSPR->sadr);
+	printf("  Read near end 0x0000: %08x %08x %08x %08x\n", buf[0], buf[1], buf[2], buf[3]);
+	printf("  Read near end 0x0010: %08x %08x %08x %08x\n", buf[4], buf[5], buf[6], buf[7]);
 
 	fromSPR->sadr = 0;
 	toSPR->sadr = 0;
@@ -232,8 +291,14 @@ int main(int argc, char *argv[]) {
 	printf("\n");
 
 	// How many bytes does a zero-sized transfer copy?
+	// Results seem inconsistent.
+	//clearSPR(buf);
+	//testSizeZero(buf);
+	//printf("\n");
+
+	// What about near the end / wraparound?
 	clearSPR(buf);
-	testSizeZero(buf);
+	testNearEnd(buf);
 
 	free(buf);
 
