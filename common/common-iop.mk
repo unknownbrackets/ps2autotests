@@ -32,6 +32,8 @@ IOP_ASFLAGS := $(ASFLAGS_TARGET) -EL -G0 $(IOP_ASFLAGS)
 # link with following libraries (libs need to be defined multiple times in order for linking to work!!)
 IOP_LIBS += -lkernel -lgcc
 
+EXTRA_OBJS += $(COMMON_DIR)/common-iop.o $(COMMON_DIR)/xprintf.o
+
 # Externally defined variables: IOP_BIN, IOP_OBJS, IOP_LIB
 
 %.o : %.c
