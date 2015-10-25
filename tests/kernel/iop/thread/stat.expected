@@ -1,5 +1,17 @@
 -- TEST BEGIN
 self thread:
-  stat (with TH_SELF): succeeded -> result: 00, init prio: 08 current prio: 08, status: 01
-  stat (with current tid): succeeded -> result: 00, init prio: 08 current prio: 08, status: 01
+  stat (with TH_SELF): succeeded -> result: 0, init prio: 08 current prio: 08, status: 01
+  stat (with current tid): succeeded -> result: 0, init prio: 08 current prio: 08, status: 01
+low prio thread:
+  stat before start: succeeded -> result: 0, init prio: 09 current prio: 00, status: 10
+  stat after start: succeeded -> result: 0, init prio: 09 current prio: 09, status: 02
+  stat after terminate: succeeded -> result: 0, init prio: 09 current prio: 09, status: 10
+waiting thread:
+  stat after start (sleep): succeeded -> result: 0, init prio: 07 current prio: 07, status: 04, wait type: 1
+  stat after start (delay): succeeded -> result: 0, init prio: 07 current prio: 07, status: 04, wait type: 2
+  stat after start (semaphore): succeeded -> result: 0, init prio: 07 current prio: 07, status: 04, wait type: 3
+  stat after start (event flag): succeeded -> result: 0, init prio: 07 current prio: 07, status: 04, wait type: 4
+  stat after start (message box): succeeded -> result: 0, init prio: 07 current prio: 07, status: 04, wait type: 5
+corner cases:
+  stat with invalid thread id: failed -> result: -407
 -- TEST END
