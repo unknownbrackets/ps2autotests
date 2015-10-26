@@ -34,7 +34,7 @@ namespace DMA {
 		}
 
 		if (chan->madr != madrStart + size) {
-			printf("WARNING: DMA transfer MADR did not increase as expected: %08x\n", (u32)chan->madr ^ (u32)data);
+			printf("WARNING: DMA transfer MADR did not increase as expected: %08x\n", (u32)chan->madr - (u32)madrStart);
 		}
 
 		if (i == 0) {
