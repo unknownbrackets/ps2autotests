@@ -1,0 +1,12 @@
+
+thbase_IMPORTS_start
+I_ReferThreadStatus
+thbase_IMPORTS_end
+
+thmsgbx_IMPORTS_start
+I_CreateMbx
+I_SendMbx
+I_ReceiveMbx
+I_DeleteMbx
+I_ReferMbxStatus
+thmsgbx_IMPORTS_end
