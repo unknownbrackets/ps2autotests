@@ -1,14 +1,9 @@
 #include <common-iop.h>
 #include <thbase.h>
 #include <thmsgbx.h>
+#include "mbx-common.h"
 
 #define STACK_SIZE 0x800
-
-typedef struct
-{
-	iop_message_t header;
-	u32           payload;
-} MSG;
 
 u32 g_receivedPayload = 0;
 
@@ -16,35 +11,6 @@ void messageWaitThreadProc(u32 mbxId) {
 	MSG* msg = NULL;
 	ReceiveMbx((void**)&msg, mbxId);
 	g_receivedPayload = msg->payload;
-}
-
-void printMbx(s32 mbxId) {
-	iop_mbx_status_t mbxInfo;
-	s32 result = ReferMbxStatus(mbxId, &mbxInfo);
-	if(result >= 0) {
-		MSG* message = (MSG*)mbxInfo.topPacket;
-		u32 i = 0;
-		printf("wait threads: %d, messages: %d", mbxInfo.numWaitThreads, mbxInfo.numMessage);
-		if(mbxInfo.numMessage != 0) {
-			printf(" -> ");
-		}
-		for(i = 0; i < mbxInfo.numMessage; i++) {
-			printf("{ payload: %d, priority: %d }", message->payload, message->header.priority);
-			if((i + 1) != mbxInfo.numMessage) {
-				printf(", ");
-			}
-			message = (MSG*)message->header.next;
-		}
-		printf("\n");
-	} else {
-		printf("  failed (%d)\n", result);
-	}
-}
-
-int getThreadPriority(int threadId) {
-	iop_thread_info_t threadInfo = {};
-	ReferThreadStatus(threadId, &threadInfo);
-	return threadInfo.currentPriority;
 }
 
 void testMultipleSend(u32 mbxAttr) {
