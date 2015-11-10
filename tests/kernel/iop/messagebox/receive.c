@@ -79,6 +79,11 @@ int _start(int argc, char **argv) {
 	{
 		int result = ReceiveMbx(NULL, ~0);
 		printf("  receiving message from invalid box: %d\n", result);
+		
+		//Receiving into a null pointer seems to work (returns 0 and message is dequeued)
+		//but it will probably have dangerous side effects because memory at address 0
+		//will be modified.
+		//result = ReceiveMbx(NULL, mbxId);
 	}
 	
 	printf("-- TEST END\n");
