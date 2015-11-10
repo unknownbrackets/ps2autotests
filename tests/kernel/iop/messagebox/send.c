@@ -36,6 +36,32 @@ void testMultipleSend(u32 mbxAttr) {
 	DeleteMbx(mbxId);
 }
 
+void testLinkUpdate() {
+	iop_mbx_t mbxInfo = {};
+	mbxInfo.option = 0;
+	mbxInfo.attr   = MBA_THFIFO | MBA_MSFIFO;
+	s32 mbxId = CreateMbx(&mbxInfo);
+
+	MSG msg1, msg2;
+	
+	memset(&msg1, 0, sizeof(MSG));
+	memset(&msg2, 0, sizeof(MSG));
+	msg1.header.next = (struct iop_message*)&msg2;
+	
+	SendMbx(mbxId, &msg1);
+	
+	printf("  after sending, msg1's next pointer refers to: ");
+	if (msg1.header.next == (struct iop_message*)&msg1) {
+		printf("msg1\n");
+	} else if (msg1.header.next == (struct iop_message*)&msg2) {
+		printf("msg2\n");
+	} else {
+		printf("unknown (%p)\n", msg1.header.next);
+	}
+
+	DeleteMbx(mbxId);
+}
+
 void testSendWakeup() {
 	iop_mbx_t mbxInfo = {};
 	mbxInfo.option = 0;
@@ -73,6 +99,9 @@ int _start(int argc, char **argv) {
 	
 	printf("sending (prio message queuing):\n");
 	testMultipleSend(MBA_THFIFO | MBA_MSPRI);
+	
+	printf("send message linking behavior:\n");
+	testLinkUpdate();
 	
 	printf("sending wakeup behavior:\n");
 	testSendWakeup();
