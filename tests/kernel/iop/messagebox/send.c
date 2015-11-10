@@ -61,6 +61,8 @@ void testSendWakeup() {
 	printMbx(mbxId);
 	
 	printf("  received payload: 0x%X\n", g_receivedPayload);
+	
+	DeleteMbx(mbxId);
 }
 
 int _start(int argc, char **argv) {
