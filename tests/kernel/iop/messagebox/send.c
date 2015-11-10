@@ -23,7 +23,7 @@ void testMultipleSend(u32 mbxAttr) {
 	mbxInfo.attr   = mbxAttr;
 	s32 mbxId = CreateMbx(&mbxInfo);
 
-	for(i = 0; i < msgCount; i++) {
+	for (i = 0; i < msgCount; i++) {
 		memset(&msg[i], 0, sizeof(MSG));
 		msg[i].header.priority = msgCount - i;
 		msg[i].payload         = i + 1;

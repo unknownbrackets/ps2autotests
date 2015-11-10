@@ -5,8 +5,7 @@
 
 #define STACK_SIZE 0x800
 
-typedef struct
-{
+typedef struct {
 	s32 id;
 	s32 mbxId;
 } THREAD_PARAM;
@@ -38,7 +37,7 @@ void testMultipleReceive(u32 mbxAttr) {
 	mbxInfo.attr   = mbxAttr;
 	s32 mbxId = CreateMbx(&mbxInfo);
 
-	for(i = 0; i < msgCount; i++) {
+	for (i = 0; i < msgCount; i++) {
 		memset(&threadParams[i], 0, sizeof(MSG));
 		threadParams[i].id = i + 1;
 		threadParams[i].mbxId = mbxId;
@@ -50,7 +49,7 @@ void testMultipleReceive(u32 mbxAttr) {
 	printMbx(mbxId);
 	
 	schedf("  order: ");
-	for(i = 0; i < msgCount; i++) {
+	for (i = 0; i < msgCount; i++) {
 		memset(&msg[i], 0, sizeof(MSG));
 		msg[i].header.priority = msgCount - i;
 		msg[i].payload         = i + 1;
@@ -59,7 +58,7 @@ void testMultipleReceive(u32 mbxAttr) {
 	schedf("\n");
 	flushschedf();
 	
-	for(i = 0; i < msgCount; i++) {
+	for (i = 0; i < msgCount; i++) {
 		TerminateThread(threadIds[i]);
 		DeleteThread(threadIds[i]);
 	}

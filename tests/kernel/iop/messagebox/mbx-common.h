@@ -1,8 +1,7 @@
 #ifndef MBX_COMMON_H
 #define MBX_COMMON_H
 
-typedef struct
-{
+typedef struct {
 	iop_message_t header;
 	u32           payload;
 } MSG;
