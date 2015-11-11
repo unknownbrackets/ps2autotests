@@ -1,0 +1,14 @@
+-- TEST BEGIN
+sending (fifo message queuing):
+  box contents: wait threads: 0, messages: 3 -> { payload: 1, priority: 3 }, { payload: 2, priority: 2 }, { payload: 3, priority: 1 }
+sending (prio message queuing):
+  box contents: wait threads: 0, messages: 3 -> { payload: 3, priority: 1 }, { payload: 2, priority: 2 }, { payload: 1, priority: 3 }
+send message linking behavior:
+  after sending, msg1's next pointer refers to: msg1
+sending wakeup behavior:
+  box contents after thread creation: wait threads: 1, messages: 0
+  box contents after send: wait threads: 0, messages: 0
+  received payload: 0xBEEF
+invalid params:
+  sending message to invalid box: -410
+-- TEST END
