@@ -1,9 +1,9 @@
 -- TEST BEGIN
 receiving (fifo thread queuing):
-  box contents: wait threads: 3, messages: 0
+  box contents: attr: 0, option: 0, wait threads: 3, messages: 0
   order: (thread: 1 -> message: 1) (thread: 2 -> message: 2) (thread: 3 -> message: 3) 
 receiving (priority thread queuing):
-  box contents: wait threads: 3, messages: 0
+  box contents: attr: 1, option: 0, wait threads: 3, messages: 0
   order: (thread: 3 -> message: 1) (thread: 2 -> message: 2) (thread: 1 -> message: 3) 
 invalid params:
   receiving message from invalid box: -410
