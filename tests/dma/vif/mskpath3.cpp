@@ -1,14 +1,8 @@
 #include <common-ee.h>
-#include <assert.h>
-#include <kernel.h>
-#include <malloc.h>
-#include <string.h>
 #include <ee_regs.h>
 #include "../dmaregs.h"
 #include "../dmasend.h"
-#include "../dmatags.h"
 #include "emit_vifcode.h"
-#include "vifregs.h"
 
 #define EE_GIF_STAT_M3P (0x02)
 
