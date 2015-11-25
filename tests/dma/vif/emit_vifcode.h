@@ -37,6 +37,11 @@ namespace VIF {
 		return UnpackFlags((u32)lhs | (u32)rhs);
 	}
 
+	enum Mode {
+		MODE_NORMAL,
+		MODE_OFFSET,
+		MODE_DIFFERENCE,
+	};
 
 	class Packet {
 	public:
