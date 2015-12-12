@@ -48,6 +48,9 @@ void testCycleNormal(u32 cl, u32 wl) {
 	
 	SyncDCache(vu0_mem, vu0_mem + 16 * displaySize);
 	
+	u32 cycleReg = *R_EE_VIF0_CYCLE;
+	printf("CYCLE: %08x, ", cycleReg);
+	
 	for (u32 i = 0; i < displaySize / 4; i++) {
 		printf("%x%x%x%x",  
 			vu0_32[(i * 0x10) + 0x0], vu0_32[(i * 0x10) + 0x4], vu0_32[(i * 0x10) + 0x8], vu0_32[(i * 0x10) + 0xC]);
@@ -108,6 +111,9 @@ void testCycleTruncated(u32 cl, u32 wl) {
 	
 	SyncDCache(vu0_mem, vu0_mem + 16 * displaySize);
 	
+	u32 cycleReg = *R_EE_VIF0_CYCLE;
+	printf("CYCLE: %08x, ", cycleReg);
+	
 	for (u32 i = 0; i < displaySize / 4; i++) {
 		printf("%x%x%x%x",  
 			vu0_32[(i * 0x10) + 0x0], vu0_32[(i * 0x10) + 0x4], vu0_32[(i * 0x10) + 0x8], vu0_32[(i * 0x10) + 0xC]);
@@ -121,6 +127,20 @@ int main(int argc, char *argv[]) {
 	
 	for(u32 cl = 0; cl <= 8; cl++) {
 		for(u32 wl = 0; wl <= 8; wl++) {
+			printf("normal (cl %d, wl %d): ", cl, wl);
+			testCycleNormal(cl, wl);
+		}
+	}
+	
+	for(u32 cl = 251; cl <= 255; cl++) {
+		for(u32 wl = 0; wl <= 8; wl++) {
+			printf("normal (cl %d, wl %d): ", cl, wl);
+			testCycleNormal(cl, wl);
+		}
+	}
+	
+	for(u32 cl = 0; cl <= 8; cl++) {
+		for(u32 wl = 251; wl <= 255; wl++) {
 			printf("normal (cl %d, wl %d): ", cl, wl);
 			testCycleNormal(cl, wl);
 		}
