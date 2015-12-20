@@ -1,24 +1,22 @@
 #include <common-ee.h>
 #include <string.h>
 #include <kernel.h>
-#include <ee_regs.h>
 #include "../dmaregs.h"
 #include "../dmasend.h"
 #include "../dmatags.h"
 #include "emit_vifcode.h"
-#include "vifregs.h"
+#include "viftestctx.h"
 
-static u8 *const vu0_mem = (u8 *)0x11004000;
-
-void testCycleNormal(u32 cl, u32 wl) {
-	volatile u32 *vu0_32 = (volatile u32 *)vu0_mem;
+void testCycleNormal(TEST_CONTEXT* context, u32 cl, u32 wl) {
+	u8 *vuMem = context->vuMem;
+	volatile u32 *vuMem_32 = (volatile u32 *)vuMem;
 	
 	static const u32 outputSize = 8;
 	static const u32 displaySize = 64;
 	static const u32 vifPacketSize = (outputSize + 4);
 	
-	memset(vu0_mem, 0, 16 * displaySize);
-	SyncDCache(vu0_mem, vu0_mem + 16 * displaySize);
+	memset(vuMem, 0, 16 * displaySize);
+	SyncDCache(vuMem, vuMem + 16 * displaySize);
 
 	VIF::Packet vifcode(16 * vifPacketSize);
 
@@ -44,29 +42,30 @@ void testCycleNormal(u32 cl, u32 wl) {
 		vifcode.Data32(i);
 	}
 	
-	DMA::SendSimple(DMA::D0, vifcode.Raw(), 16 * vifPacketSize);
+	DMA::SendSimple(context->dmaChannel, vifcode.Raw(), 16 * vifPacketSize);
 	
-	SyncDCache(vu0_mem, vu0_mem + 16 * displaySize);
+	SyncDCache(vuMem, vuMem + 16 * displaySize);
 	
-	u32 cycleReg = *R_EE_VIF0_CYCLE;
+	u32 cycleReg = context->vifRegs->cycle;
 	printf("CYCLE: %08x, ", cycleReg);
 	
 	for (u32 i = 0; i < displaySize / 4; i++) {
 		printf("%x%x%x%x",  
-			vu0_32[(i * 0x10) + 0x0], vu0_32[(i * 0x10) + 0x4], vu0_32[(i * 0x10) + 0x8], vu0_32[(i * 0x10) + 0xC]);
+			vuMem_32[(i * 0x10) + 0x0], vuMem_32[(i * 0x10) + 0x4], vuMem_32[(i * 0x10) + 0x8], vuMem_32[(i * 0x10) + 0xC]);
 	}
 	
 	printf("\n");
 }
 
-void testCycleTruncated(u32 cl, u32 wl) {
-	volatile u32 *vu0_32 = (volatile u32 *)vu0_mem;
+void testCycleTruncated(TEST_CONTEXT* context, u32 cl, u32 wl) {
+	u8 *vuMem = context->vuMem;
+	volatile u32 *vuMem_32 = (volatile u32 *)context->vuMem;
 	
 	static const u32 outputSize = 8;
 	static const u32 displaySize = 64;
 	
-	memset(vu0_mem, 0, 16 * displaySize);
-	SyncDCache(vu0_mem, vu0_mem + 16 * displaySize);
+	memset(vuMem, 0, 16 * displaySize);
+	SyncDCache(vuMem, vuMem + 16 * displaySize);
 
 	{
 		static const u32 vifPacketSize = ((outputSize / 2) + 4);
@@ -94,7 +93,7 @@ void testCycleTruncated(u32 cl, u32 wl) {
 			vifcode.Data32(i);
 		}
 		
-		DMA::SendSimple(DMA::D0, vifcode.Raw(), 16 * vifPacketSize);
+		DMA::SendSimple(context->dmaChannel, vifcode.Raw(), 16 * vifPacketSize);
 	}
 
 	{
@@ -106,53 +105,63 @@ void testCycleTruncated(u32 cl, u32 wl) {
 			vifcode.Data32(i);
 		}
 
-		DMA::SendSimple(DMA::D0, vifcode.Raw(), 16 * vifPacketSize);
+		DMA::SendSimple(context->dmaChannel, vifcode.Raw(), 16 * vifPacketSize);
 	}
 	
-	SyncDCache(vu0_mem, vu0_mem + 16 * displaySize);
+	SyncDCache(vuMem, vuMem + 16 * displaySize);
 	
-	u32 cycleReg = *R_EE_VIF0_CYCLE;
+	u32 cycleReg = context->vifRegs->cycle;
 	printf("CYCLE: %08x, ", cycleReg);
 	
 	for (u32 i = 0; i < displaySize / 4; i++) {
 		printf("%x%x%x%x",  
-			vu0_32[(i * 0x10) + 0x0], vu0_32[(i * 0x10) + 0x4], vu0_32[(i * 0x10) + 0x8], vu0_32[(i * 0x10) + 0xC]);
+			vuMem_32[(i * 0x10) + 0x0], vuMem_32[(i * 0x10) + 0x4], vuMem_32[(i * 0x10) + 0x8], vuMem_32[(i * 0x10) + 0xC]);
 	}
 	
 	printf("\n");
 }
 
-int main(int argc, char *argv[]) {
-	printf("-- TEST BEGIN\n");
-	
+void doTest(TEST_CONTEXT* context) {
 	for(u32 cl = 0; cl <= 8; cl++) {
 		for(u32 wl = 0; wl <= 8; wl++) {
 			printf("normal (cl %d, wl %d): ", cl, wl);
-			testCycleNormal(cl, wl);
+			testCycleNormal(context, cl, wl);
 		}
 	}
 	
 	for(u32 cl = 251; cl <= 255; cl++) {
 		for(u32 wl = 0; wl <= 8; wl++) {
 			printf("normal (cl %d, wl %d): ", cl, wl);
-			testCycleNormal(cl, wl);
+			testCycleNormal(context, cl, wl);
 		}
 	}
 	
 	for(u32 cl = 0; cl <= 8; cl++) {
 		for(u32 wl = 251; wl <= 255; wl++) {
 			printf("normal (cl %d, wl %d): ", cl, wl);
-			testCycleNormal(cl, wl);
+			testCycleNormal(context, cl, wl);
 		}
 	}
 	
 	for(u32 cl = 0; cl <= 8; cl++) {
 		for(u32 wl = 0; wl <= 8; wl++) {
 			printf("truncated (cl %d, wl %d): ", cl, wl);
-			testCycleTruncated(cl, wl);
+			testCycleTruncated(context, cl, wl);
 		}
 	}
+}
+
+int main(int argc, char *argv[]) {
+	printf("-- TEST BEGIN\n");
 	
+	printf("VIF0 -------------------------------------------------------------\n");
+	doTest(&testContext0);
+	printf("\n");
+	
+	printf("VIF1 -------------------------------------------------------------\n");
+	doTest(&testContext1);
+	printf("\n");
+
 	printf("-- TEST END\n");
 	return 0;
 }
