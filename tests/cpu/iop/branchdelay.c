@@ -122,13 +122,14 @@ void __attribute__((noinline)) test_jalr_ra_order() {
 }
 
 void __attribute__((noinline)) test_jalr_non_ra_value() {
-	register int result = -1;
+	register u32 result = -1;
 
 	asm volatile (
 		".set noreorder\n"
 
 		"move    $t2, $ra\n"
 		"la      $t1, target2_%=\n"
+		"ori     %0, $0, 0\n"
 		"jalr    %0, $t1\n"
 		"nop\n"
 
@@ -146,7 +147,11 @@ void __attribute__((noinline)) test_jalr_non_ra_value() {
 		: "+r"(result) : : "t1", "t2"
 	);
 
-	printf("jalr: non-ra: %08x\n", result);
+	if (result > 0x100 && result <= 0x7ffffffc) {
+		printf("jalr: non-ra: OK\n");
+	} else {
+		printf("jalr: non-ra: %08x\n", result);
+	}
 }
 
 void __attribute__((noinline)) test_jalr_non_ra_order() {

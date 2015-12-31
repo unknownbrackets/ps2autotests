@@ -2,7 +2,7 @@
 beq: delay branch did not crash
 jal: ra order: 00000002
 jalr: ra order: 00000002
-jalr: non-ra: 0004eb88
+jalr: non-ra: OK
 jalr: non-ra order: 00000001
 jalr: rs/rd match: 00000002
 jalr: clobber rs: 00000002
