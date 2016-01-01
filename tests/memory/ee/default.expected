@@ -1,0 +1,13 @@
+-- TEST BEGIN
+Memory allocation limits:
+  32 MB: fail
+  30 MB: success
+  24 MB: success
+  16 MB: success
+Mirrors:
+  Allocated in EE Cached
+  Pointer is aligned
+  Mirrors: cached=42, uncached=42, ucab=42
+Scratchpad:
+  Scratchpad start: 42, end: 1
+-- TEST END
