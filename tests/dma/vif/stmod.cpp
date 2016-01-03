@@ -72,11 +72,11 @@ void doTest(VIF::Unit *unit) {
 int main(int argc, char *argv[]) {
 	printf("-- TEST BEGIN\n");
 	
-	printf("VIF0 -------------------------------------------------------------\n");
+	printf("== VIF0 ==\n");
 	doTest(&VIF::Unit0);
 	printf("\n");
 	
-	printf("VIF1 -------------------------------------------------------------\n");
+	printf("== VIF1 ==\n");
 	doTest(&VIF::Unit1);
 	printf("\n");
 
