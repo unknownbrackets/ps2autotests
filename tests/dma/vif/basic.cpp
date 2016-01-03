@@ -7,8 +7,7 @@
 #include "../dmasend.h"
 #include "../dmatags.h"
 #include "emit_vifcode.h"
-#include "vifregs.h"
-#include "viftestctx.h"
+#include "vifunits.h"
 
 void send_simple_fifo_vif(volatile u128 *fifo, void *vifcode, int size) {
 	// Must be aligned to 16 bytes.
@@ -20,8 +19,8 @@ void send_simple_fifo_vif(volatile u128 *fifo, void *vifcode, int size) {
 	}
 }
 
-void doTest(TEST_CONTEXT* context) {
-	u8 *vuMem = context->vuMem;
+void doTest(VIF::Unit* unit) {
+	u8 *vuMem = unit->vuMem;
 	volatile u32 *vu_32 = (volatile u32 *)vuMem;
 
 	VIF::Packet vifcode(64);
@@ -37,7 +36,7 @@ void doTest(TEST_CONTEXT* context) {
 	memset(vuMem, 0, 16 * 4);
 	SyncDCache(vuMem, vuMem + 16 * 4);
 
-	send_simple_fifo_vif(context->vifFifo, vifcode.Raw(), 32);
+	send_simple_fifo_vif(unit->fifo, vifcode.Raw(), 32);
 	SyncDCache(vuMem, vuMem + 16 * 4);
 
 	printf("FIFO: %08x (%08x) - %08x - %08x - %08x\n", vu_32[0], vu_32[1], vu_32[4], vu_32[8], vu_32[12]);
@@ -45,7 +44,7 @@ void doTest(TEST_CONTEXT* context) {
 	memset(vuMem, 0, 16 * 4);
 	SyncDCache(vuMem, vuMem + 16 * 4);
 
-	DMA::SendSimple(context->dmaChannel, vifcode.Raw(), 32);
+	DMA::SendSimple(unit->dmaChannel, vifcode.Raw(), 32);
 	SyncDCache(vuMem, vuMem + 16 * 4);
 
 	printf("DMA simple: %08x (%08x) - %08x - %08x - %08x\n", vu_32[0], vu_32[1], vu_32[4], vu_32[8], vu_32[12]);
@@ -53,7 +52,7 @@ void doTest(TEST_CONTEXT* context) {
 	memset(vuMem, 0, 16 * 4);
 	SyncDCache(vuMem, vuMem + 16 * 4);
 
-	DMA::SendChain(context->dmaChannel, srcpacket.Raw(), 512);
+	DMA::SendChain(unit->dmaChannel, srcpacket.Raw(), 512);
 	SyncDCache(vuMem, vuMem + 16 * 4);
 
 	printf("DMA chain (basic): %08x (%08x) - %08x - %08x - %08x\n", vu_32[0], vu_32[1], vu_32[4], vu_32[8], vu_32[12]);
@@ -63,11 +62,11 @@ int main(int argc, char *argv[]) {
 	printf("-- TEST BEGIN\n");
 	
 	printf("VIF0 -------------------------------------------------------------\n");
-	doTest(&testContext0);
+	doTest(&VIF::Unit0);
 	printf("\n");
 	
 	printf("VIF1 -------------------------------------------------------------\n");
-	doTest(&testContext1);
+	doTest(&VIF::Unit1);
 	printf("\n");
 	
 	printf("-- TEST END\n");

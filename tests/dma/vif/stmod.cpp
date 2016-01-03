@@ -5,10 +5,10 @@
 #include "../dmasend.h"
 #include "../dmatags.h"
 #include "emit_vifcode.h"
-#include "viftestctx.h"
+#include "vifunits.h"
 
-void testMode(TEST_CONTEXT* context, u32 mode, bool maskEnabled, u32 mask = 0) {
-	u8 *vuMem = context->vuMem;
+void testMode(VIF::Unit *unit, u32 mode, bool maskEnabled, u32 mask = 0) {
+	u8 *vuMem = unit->vuMem;
 	volatile u32 *vuMem_32 = (volatile u32 *)vuMem;
 	
 	memset(vuMem, 0, 16 * 4);
@@ -27,7 +27,7 @@ void testMode(TEST_CONTEXT* context, u32 mode, bool maskEnabled, u32 mask = 0) {
 	for (int i = 0; i < 16; i++) {
 		vifcode.Data32(i);
 	}
-	DMA::SendSimple(context->dmaChannel, vifcode.Raw(), 16 * 7);
+	DMA::SendSimple(unit->dmaChannel, vifcode.Raw(), 16 * 7);
 	
 	SyncDCache(vuMem, vuMem + 16 * 4);
 	
@@ -37,47 +37,47 @@ void testMode(TEST_CONTEXT* context, u32 mode, bool maskEnabled, u32 mask = 0) {
 	}
 	
 	printf("  row: %08x - %08x - %08x - %08x\n", 
-		context->vifRegs->r0, context->vifRegs->r1, context->vifRegs->r2, context->vifRegs->r3);
-	printf("  mode: %08x\n", context->vifRegs->mode);
+		unit->regs->r0, unit->regs->r1, unit->regs->r2, unit->regs->r3);
+	printf("  mode: %08x\n", unit->regs->mode);
 	
 	printf("\n");
 }
 
-void doTest(TEST_CONTEXT* context) {
+void doTest(VIF::Unit *unit) {
 	printf("normal (no mask):\n");
-	testMode(context, VIF::MODE_NORMAL, false);
+	testMode(unit, VIF::MODE_NORMAL, false);
 	
 	printf("normal (mask diagonal):\n");
-	testMode(context, VIF::MODE_NORMAL, true, 0x40100401);
+	testMode(unit, VIF::MODE_NORMAL, true, 0x40100401);
 	
 	printf("offset (no mask):\n");
-	testMode(context, VIF::MODE_OFFSET, false);
+	testMode(unit, VIF::MODE_OFFSET, false);
 	
 	printf("offset (mask diagonal):\n");
-	testMode(context, VIF::MODE_OFFSET, true, 0x40100401);
+	testMode(unit, VIF::MODE_OFFSET, true, 0x40100401);
 	
 	printf("difference (no mask):\n");
-	testMode(context, VIF::MODE_DIFFERENCE, false);
+	testMode(unit, VIF::MODE_DIFFERENCE, false);
 	
 	printf("difference (mask diagonal):\n");
-	testMode(context, VIF::MODE_DIFFERENCE, true, 0x40100401);
+	testMode(unit, VIF::MODE_DIFFERENCE, true, 0x40100401);
 	
 	printf("mode 3 (no mask):\n");
-	testMode(context, 3, false);
+	testMode(unit, 3, false);
 	
 	printf("mode 3 (mask diagonal):\n");
-	testMode(context, 3, true, 0x40100401);
+	testMode(unit, 3, true, 0x40100401);
 }
 
 int main(int argc, char *argv[]) {
 	printf("-- TEST BEGIN\n");
 	
 	printf("VIF0 -------------------------------------------------------------\n");
-	doTest(&testContext0);
+	doTest(&VIF::Unit0);
 	printf("\n");
 	
 	printf("VIF1 -------------------------------------------------------------\n");
-	doTest(&testContext1);
+	doTest(&VIF::Unit1);
 	printf("\n");
 
 	printf("-- TEST END\n");

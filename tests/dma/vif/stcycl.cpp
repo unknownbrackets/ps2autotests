@@ -5,10 +5,10 @@
 #include "../dmasend.h"
 #include "../dmatags.h"
 #include "emit_vifcode.h"
-#include "viftestctx.h"
+#include "vifunits.h"
 
-void testCycleNormal(TEST_CONTEXT* context, u32 cl, u32 wl) {
-	u8 *vuMem = context->vuMem;
+void testCycleNormal(VIF::Unit *unit, u32 cl, u32 wl) {
+	u8 *vuMem = unit->vuMem;
 	volatile u32 *vuMem_32 = (volatile u32 *)vuMem;
 	
 	static const u32 outputSize = 8;
@@ -42,11 +42,11 @@ void testCycleNormal(TEST_CONTEXT* context, u32 cl, u32 wl) {
 		vifcode.Data32(i);
 	}
 	
-	DMA::SendSimple(context->dmaChannel, vifcode.Raw(), 16 * vifPacketSize);
+	DMA::SendSimple(unit->dmaChannel, vifcode.Raw(), 16 * vifPacketSize);
 	
 	SyncDCache(vuMem, vuMem + 16 * displaySize);
 	
-	u32 cycleReg = context->vifRegs->cycle;
+	u32 cycleReg = unit->regs->cycle;
 	printf("CYCLE: %08x, ", cycleReg);
 	
 	for (u32 i = 0; i < displaySize / 4; i++) {
@@ -57,9 +57,9 @@ void testCycleNormal(TEST_CONTEXT* context, u32 cl, u32 wl) {
 	printf("\n");
 }
 
-void testCycleTruncated(TEST_CONTEXT* context, u32 cl, u32 wl) {
-	u8 *vuMem = context->vuMem;
-	volatile u32 *vuMem_32 = (volatile u32 *)context->vuMem;
+void testCycleTruncated(VIF::Unit *unit, u32 cl, u32 wl) {
+	u8 *vuMem = unit->vuMem;
+	volatile u32 *vuMem_32 = (volatile u32 *)unit->vuMem;
 	
 	static const u32 outputSize = 8;
 	static const u32 displaySize = 64;
@@ -93,7 +93,7 @@ void testCycleTruncated(TEST_CONTEXT* context, u32 cl, u32 wl) {
 			vifcode.Data32(i);
 		}
 		
-		DMA::SendSimple(context->dmaChannel, vifcode.Raw(), 16 * vifPacketSize);
+		DMA::SendSimple(unit->dmaChannel, vifcode.Raw(), 16 * vifPacketSize);
 	}
 
 	{
@@ -105,12 +105,12 @@ void testCycleTruncated(TEST_CONTEXT* context, u32 cl, u32 wl) {
 			vifcode.Data32(i);
 		}
 
-		DMA::SendSimple(context->dmaChannel, vifcode.Raw(), 16 * vifPacketSize);
+		DMA::SendSimple(unit->dmaChannel, vifcode.Raw(), 16 * vifPacketSize);
 	}
 	
 	SyncDCache(vuMem, vuMem + 16 * displaySize);
 	
-	u32 cycleReg = context->vifRegs->cycle;
+	u32 cycleReg = unit->regs->cycle;
 	printf("CYCLE: %08x, ", cycleReg);
 	
 	for (u32 i = 0; i < displaySize / 4; i++) {
@@ -121,32 +121,32 @@ void testCycleTruncated(TEST_CONTEXT* context, u32 cl, u32 wl) {
 	printf("\n");
 }
 
-void doTest(TEST_CONTEXT* context) {
+void doTest(VIF::Unit *unit) {
 	for(u32 cl = 0; cl <= 8; cl++) {
 		for(u32 wl = 0; wl <= 8; wl++) {
 			printf("normal (cl %d, wl %d): ", cl, wl);
-			testCycleNormal(context, cl, wl);
+			testCycleNormal(unit, cl, wl);
 		}
 	}
 	
 	for(u32 cl = 251; cl <= 255; cl++) {
 		for(u32 wl = 0; wl <= 8; wl++) {
 			printf("normal (cl %d, wl %d): ", cl, wl);
-			testCycleNormal(context, cl, wl);
+			testCycleNormal(unit, cl, wl);
 		}
 	}
 	
 	for(u32 cl = 0; cl <= 8; cl++) {
 		for(u32 wl = 251; wl <= 255; wl++) {
 			printf("normal (cl %d, wl %d): ", cl, wl);
-			testCycleNormal(context, cl, wl);
+			testCycleNormal(unit, cl, wl);
 		}
 	}
 	
 	for(u32 cl = 0; cl <= 8; cl++) {
 		for(u32 wl = 0; wl <= 8; wl++) {
 			printf("truncated (cl %d, wl %d): ", cl, wl);
-			testCycleTruncated(context, cl, wl);
+			testCycleTruncated(unit, cl, wl);
 		}
 	}
 }
@@ -155,11 +155,11 @@ int main(int argc, char *argv[]) {
 	printf("-- TEST BEGIN\n");
 	
 	printf("VIF0 -------------------------------------------------------------\n");
-	doTest(&testContext0);
+	doTest(&VIF::Unit0);
 	printf("\n");
 	
 	printf("VIF1 -------------------------------------------------------------\n");
-	doTest(&testContext1);
+	doTest(&VIF::Unit1);
 	printf("\n");
 
 	printf("-- TEST END\n");

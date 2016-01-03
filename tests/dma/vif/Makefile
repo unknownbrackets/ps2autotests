@@ -1,5 +1,5 @@
 TARGETS = basic mskpath3 stcycl stmod
-EXTRA_OBJS = emit_vifcode.o ../dmatags.o ../dmasend.o viftestctx.o
+EXTRA_OBJS = emit_vifcode.o ../dmatags.o ../dmasend.o
 EE_LIBS = -lg -ldma
 
 COMMON_DIR=../../../common
