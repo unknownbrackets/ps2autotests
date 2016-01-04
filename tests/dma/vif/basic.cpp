@@ -7,9 +7,7 @@
 #include "../dmasend.h"
 #include "../dmatags.h"
 #include "emit_vifcode.h"
-#include "vifregs.h"
-
-static u8 *const vu0_mem = (u8 *)0x11004000;
+#include "vifunits.h"
 
 void send_simple_fifo_vif(volatile u128 *fifo, void *vifcode, int size) {
 	// Must be aligned to 16 bytes.
@@ -21,10 +19,9 @@ void send_simple_fifo_vif(volatile u128 *fifo, void *vifcode, int size) {
 	}
 }
 
-int main(int argc, char *argv[]) {
-	printf("-- TEST BEGIN\n");
-
-	volatile u32 *vu0_32 = (volatile u32 *)vu0_mem;
+void doTest(VIF::Unit* unit) {
+	u8 *vuMem = unit->vuMem;
+	volatile u32 *vu_32 = (volatile u32 *)vuMem;
 
 	VIF::Packet vifcode(64);
 	vifcode.UNPACK(VIF::UNPACK_TYPE_S32, 4, 0);
@@ -36,30 +33,42 @@ int main(int argc, char *argv[]) {
 	DMA::SrcChainPacket srcpacket(512);
 	srcpacket.REFE(vifcode.Raw(), 2);
 
-	memset(vu0_mem, 0, 16 * 4);
-	SyncDCache(vu0_mem, vu0_mem + 16 * 4);
+	memset(vuMem, 0, 16 * 4);
+	SyncDCache(vuMem, vuMem + 16 * 4);
 
-	send_simple_fifo_vif(VIF::VIF0_FIFO, vifcode.Raw(), 32);
-	SyncDCache(vu0_mem, vu0_mem + 16 * 4);
+	send_simple_fifo_vif(unit->fifo, vifcode.Raw(), 32);
+	SyncDCache(vuMem, vuMem + 16 * 4);
 
-	printf("VIF0 FIFO: %08x (%08x) - %08x - %08x - %08x\n", vu0_32[0], vu0_32[1], vu0_32[4], vu0_32[8], vu0_32[12]);
+	printf("FIFO: %08x (%08x) - %08x - %08x - %08x\n", vu_32[0], vu_32[1], vu_32[4], vu_32[8], vu_32[12]);
 
-	memset(vu0_mem, 0, 16 * 4);
-	SyncDCache(vu0_mem, vu0_mem + 16 * 4);
+	memset(vuMem, 0, 16 * 4);
+	SyncDCache(vuMem, vuMem + 16 * 4);
 
-	DMA::SendSimple(DMA::D0, vifcode.Raw(), 32);
-	SyncDCache(vu0_mem, vu0_mem + 16 * 4);
+	DMA::SendSimple(unit->dmaChannel, vifcode.Raw(), 32);
+	SyncDCache(vuMem, vuMem + 16 * 4);
 
-	printf("VIF0 DMA simple: %08x (%08x) - %08x - %08x - %08x\n", vu0_32[0], vu0_32[1], vu0_32[4], vu0_32[8], vu0_32[12]);
+	printf("DMA simple: %08x (%08x) - %08x - %08x - %08x\n", vu_32[0], vu_32[1], vu_32[4], vu_32[8], vu_32[12]);
 
-	memset(vu0_mem, 0, 16 * 4);
-	SyncDCache(vu0_mem, vu0_mem + 16 * 4);
+	memset(vuMem, 0, 16 * 4);
+	SyncDCache(vuMem, vuMem + 16 * 4);
 
-	DMA::SendChain(DMA::D0, srcpacket.Raw(), 512);
-	SyncDCache(vu0_mem, vu0_mem + 16 * 4);
+	DMA::SendChain(unit->dmaChannel, srcpacket.Raw(), 512);
+	SyncDCache(vuMem, vuMem + 16 * 4);
 
-	printf("VIF0 DMA chain (basic): %08x (%08x) - %08x - %08x - %08x\n", vu0_32[0], vu0_32[1], vu0_32[4], vu0_32[8], vu0_32[12]);
+	printf("DMA chain (basic): %08x (%08x) - %08x - %08x - %08x\n", vu_32[0], vu_32[1], vu_32[4], vu_32[8], vu_32[12]);
+}
 
+int main(int argc, char *argv[]) {
+	printf("-- TEST BEGIN\n");
+	
+	printf("== VIF0 ==\n");
+	doTest(&VIF::Unit0);
+	printf("\n");
+	
+	printf("== VIF1 ==\n");
+	doTest(&VIF::Unit1);
+	printf("\n");
+	
 	printf("-- TEST END\n");
 	return 0;
 }

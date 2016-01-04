@@ -1,5 +1,12 @@
 -- TEST BEGIN
-VIF0 FIFO: 1337c0de (1337c0de) - 1337c1de - 1337c2de - 1337c3de
-VIF0 DMA simple: 1337c0de (1337c0de) - 1337c1de - 1337c2de - 1337c3de
-VIF0 DMA chain (basic): 1337c0de (1337c0de) - 1337c1de - 1337c2de - 1337c3de
+== VIF0 ==
+FIFO: 1337c0de (1337c0de) - 1337c1de - 1337c2de - 1337c3de
+DMA simple: 1337c0de (1337c0de) - 1337c1de - 1337c2de - 1337c3de
+DMA chain (basic): 1337c0de (1337c0de) - 1337c1de - 1337c2de - 1337c3de
+
+== VIF1 ==
+FIFO: 1337c0de (1337c0de) - 1337c1de - 1337c2de - 1337c3de
+DMA simple: 1337c0de (1337c0de) - 1337c1de - 1337c2de - 1337c3de
+DMA chain (basic): 1337c0de (1337c0de) - 1337c1de - 1337c2de - 1337c3de
+
 -- TEST END
