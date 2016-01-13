@@ -1,0 +1,18 @@
+-- TEST BEGIN
+self thread:
+  wakeup (with tid 0): failed -> result: -1
+  wakeup (with current tid): failed -> result: -1
+worse prio thread:
+  wakeup before start: failed -> result: -1
+  wakeup after start: succeeded -> result: thread id, status -> result: 02, init prio: 50, current prio: 50, status: 02, wait type: 0, wakeup count: 1
+  wakeup after suspend: succeeded -> result: thread id, status -> result: 08, init prio: 50, current prio: 50, status: 08, wait type: 0, wakeup count: 2
+  wakeup after terminate: failed -> result: -1
+sleeping thread:
+  wakeup after start: succeeded -> result: thread id, status -> result: 10, init prio: 30, current prio: 30, status: 10, wait type: 0, wakeup count: 0
+  wakeup after suspend: succeeded -> result: thread id, status -> result: 08, init prio: 30, current prio: 30, status: 08, wait type: 0, wakeup count: 0
+waiting thread:
+  wakeup after start: succeeded -> result: thread id, status -> result: 04, init prio: 30, current prio: 30, status: 04, wait type: 2, wakeup count: 1
+  wakeup after suspend: succeeded -> result: thread id, status -> result: 0c, init prio: 30, current prio: 30, status: 0c, wait type: 2, wakeup count: 2
+corner cases:
+  wakeup with invalid tid: failed -> result: -1
+-- TEST END

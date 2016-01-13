@@ -1,21 +1,21 @@
 -- TEST BEGIN
 self thread:
-  stat (with tid 0): succeeded -> result: 01, init prio: 40, current prio: 40, status: 01
-  stat (with current tid): succeeded -> result: 01, init prio: 40, current prio: 40, status: 01
+  stat (with tid 0): succeeded -> result: 01, init prio: 40, current prio: 40, status: 01, wait type: 0
+  stat (with current tid): succeeded -> result: 01, init prio: 40, current prio: 40, status: 01, wait type: 0
 low prio thread:
-  stat before start: succeeded -> result: 10, init prio: 50, current prio: 50, status: 10
-  stat after start: succeeded -> result: 02, init prio: 50, current prio: 50, status: 02
-  stat after suspend: succeeded -> result: 08, init prio: 50, current prio: 50, status: 08
-  stat after resume: succeeded -> result: 02, init prio: 50, current prio: 50, status: 02
-  stat after terminate: succeeded -> result: 10, init prio: 50, current prio: 50, status: 10
+  stat before start: succeeded -> result: 10, init prio: 50, current prio: 50, status: 10, wait type: 0
+  stat after start: succeeded -> result: 02, init prio: 50, current prio: 50, status: 02, wait type: 0
+  stat after suspend: succeeded -> result: 08, init prio: 50, current prio: 50, status: 08, wait type: 0
+  stat after resume: succeeded -> result: 02, init prio: 50, current prio: 50, status: 02, wait type: 0
+  stat after terminate: succeeded -> result: 10, init prio: 50, current prio: 50, status: 10, wait type: 0
 sleeping thread:
-  stat after start: succeeded -> result: 04, init prio: 30, current prio: 30, status: 04
-  stat after suspend: succeeded -> result: 0c, init prio: 30, current prio: 30, status: 0c
-  stat after resume: succeeded -> result: 04, init prio: 30, current prio: 30, status: 04
+  stat after start: succeeded -> result: 04, init prio: 30, current prio: 30, status: 04, wait type: 1
+  stat after suspend: succeeded -> result: 0c, init prio: 30, current prio: 30, status: 0c, wait type: 1
+  stat after resume: succeeded -> result: 04, init prio: 30, current prio: 30, status: 04, wait type: 1
 waiting thread:
-  stat after start: succeeded -> result: 04, init prio: 30, current prio: 30, status: 04
-  stat after suspend: succeeded -> result: 0c, init prio: 30, current prio: 30, status: 0c
-  stat after resume: succeeded -> result: 04, init prio: 30, current prio: 30, status: 04
+  stat after start: succeeded -> result: 04, init prio: 30, current prio: 30, status: 04, wait type: 2
+  stat after suspend: succeeded -> result: 0c, init prio: 30, current prio: 30, status: 0c, wait type: 2
+  stat after resume: succeeded -> result: 04, init prio: 30, current prio: 30, status: 04, wait type: 2
 corner cases:
   thread stat with invalid tid: failed -> result: -1
   self thread stat with null struct: 01

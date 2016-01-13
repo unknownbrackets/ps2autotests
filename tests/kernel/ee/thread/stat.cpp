@@ -41,8 +41,8 @@ void printThreadStatus(int threadId) {
 	memset(&threadStat, 0, sizeof(ee_thread_status_t));
 	int result = ReferThreadStatus(threadId, &threadStat);
 	if(result >= 0) {
-		schedf("succeeded -> result: %02x, init prio: %02x, current prio: %02x, status: %02x\n", 
-			result, threadStat.initial_priority, threadStat.current_priority, threadStat.status);
+		schedf("succeeded -> result: %02x, init prio: %02x, current prio: %02x, status: %02x, wait type: %d\n", 
+			result, threadStat.initial_priority, threadStat.current_priority, threadStat.status, threadStat.waitType);
 	} else {
 		schedf("failed -> result: %d\n", result);
 	}
