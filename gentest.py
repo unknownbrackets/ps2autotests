@@ -35,7 +35,7 @@ class Command(object):
         while True:
           line = self.process.stdout.readline()
           self.output += str(line)
-          if line == "" or line == "-- TEST END" or line == "-- TEST END\r\n" or line == "-- TEST END\n":
+          if line == "" or line.rstrip() == "-- TEST END":
             break
       self.finish()
 
