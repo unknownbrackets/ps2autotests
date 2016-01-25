@@ -1,4 +1,4 @@
-TARGETS = delete exit resume stat suspend terminate wakeup
+TARGETS = delete exit resume sleep stat suspend terminate wakeup
 EE_LIBS =
 
 COMMON_DIR=../../../../common
