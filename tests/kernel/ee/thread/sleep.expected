@@ -1,0 +1,4 @@
+-- TEST BEGIN
+sleep result (wakeupCount == 0): thread id
+sleep result (wakeupCount > 0): thread id
+-- TEST END
