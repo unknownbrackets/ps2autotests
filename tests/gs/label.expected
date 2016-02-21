@@ -1,0 +1,4 @@
+-- TEST BEGIN
+Set label bits -> SIGLBLID: 000000f076543210
+Clear label bits -> SIGLBLID: 3333330333333333
+-- TEST END
