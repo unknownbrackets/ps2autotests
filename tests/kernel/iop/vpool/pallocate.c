@@ -2,9 +2,7 @@
 #include <thpool.h>
 #include "vpl-common.h"
 
-#define MAX_ALLOC_SIZES 24
-
-static const s32 g_allocSizes[MAX_ALLOC_SIZES] = {
+static const s32 g_allocSizes[] = {
 	0x80, 0x81, 0x82, 0x83, 
 	0x84, 0x85, 0x86, 0x87, 
 	0x88, 0x89, 0x8A, 0x8B,
@@ -34,7 +32,7 @@ void testSingleAllocs() {
 	s32 vplId = CreateVpl(&vplParam);
 	
 	s32 i = 0;
-	for(i = 0; i < MAX_ALLOC_SIZES; i++) {
+	for(i = 0; i < ARRAY_SIZE(g_allocSizes); i++) {
 		s32 allocSize = g_allocSizes[i];
 		printf("  allocate %d bytes:\n", allocSize);
 		printf("  "); doAllocate(vplId, allocSize);
@@ -57,7 +55,7 @@ void testMultiAllocs() {
 	pAllocateVpl(vplId, 0x100);
 	
 	s32 i = 0;
-	for(i = 0; i < MAX_ALLOC_SIZES; i++) {
+	for(i = 0; i < ARRAY_SIZE(g_allocSizes); i++) {
 		s32 allocSize = g_allocSizes[i];
 		printf("  allocate %d bytes:\n", allocSize);
 		printf("  "); doAllocate(vplId, allocSize);
