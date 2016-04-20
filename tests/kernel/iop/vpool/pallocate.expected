@@ -1,0 +1,104 @@
+-- TEST BEGIN
+single allocations:
+  allocate 128 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3920
+  allocate 129 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3912
+  allocate 130 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3912
+  allocate 131 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3912
+  allocate 132 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3912
+  allocate 133 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3912
+  allocate 134 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3912
+  allocate 135 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3912
+  allocate 136 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3912
+  allocate 137 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3904
+  allocate 138 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3904
+  allocate 139 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3904
+  allocate 140 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3904
+  allocate 141 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3904
+  allocate 142 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3904
+  allocate 143 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3904
+  allocate 256 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 3792
+  allocate 2048 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 2000
+  allocate 4096 bytes:
+    failed -> result (-427)
+  allocate 32768 bytes:
+    failed -> result (-427)
+  allocate -1 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 4048
+  allocate -5 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 4048
+  allocate -8 bytes:
+    failed -> result (-400)
+  allocate -128 bytes:
+    failed -> result (-400)
+multiple allocations:
+  allocate 128 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 48
+  allocate 129 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 40
+  allocate 130 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 40
+  allocate 131 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 40
+  allocate 132 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 40
+  allocate 133 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 40
+  allocate 134 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 40
+  allocate 135 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 40
+  allocate 136 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 40
+  allocate 137 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 32
+  allocate 138 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 32
+  allocate 139 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 32
+  allocate 140 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 32
+  allocate 141 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 32
+  allocate 142 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 32
+  allocate 143 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 32
+  allocate 256 bytes:
+    failed -> result (-400)
+  allocate 2048 bytes:
+    failed -> result (-400)
+  allocate 4096 bytes:
+    failed -> result (-427)
+  allocate 32768 bytes:
+    failed -> result (-427)
+  allocate -1 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 176
+  allocate -5 bytes:
+    succeeded -> attr: 0, option: 0, wait threads: 0, size: 4056, free size: 176
+  allocate -8 bytes:
+    failed -> result (-400)
+  allocate -128 bytes:
+    failed -> result (-400)
+alloc from invalid vpl:
+  failed -> result (-411)
+alloc negative from invalid vpl:
+  failed -> result (-411)
+-- TEST END

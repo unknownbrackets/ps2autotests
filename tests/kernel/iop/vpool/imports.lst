@@ -1,0 +1,8 @@
+
+thvpool_IMPORTS_start
+I_CreateVpl
+I_DeleteVpl
+I_pAllocateVpl
+I_FreeVpl
+I_ReferVplStatus
+thvpool_IMPORTS_end

@@ -1,0 +1,14 @@
+-- TEST BEGIN
+valid:
+  succeeded -> attr: 200, option: 1234, wait threads: 0, size: 8152, free size: 8152
+bad attr (2):
+  failed -> result: -401
+bad attr (~0):
+  failed -> result: -401
+bad alloc (huge):
+  succeeded -> attr: 200, option: 1234, wait threads: 0, size: -4, free size: -4
+bad alloc (negative):
+  succeeded -> attr: 200, option: 1234, wait threads: 0, size: -4, free size: -4
+bad attr & bad alloc:
+  failed -> result: -401
+-- TEST END
