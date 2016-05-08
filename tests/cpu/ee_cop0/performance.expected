@@ -1,0 +1,13 @@
+-- TEST BEGIN
+setting pcr0: 89abcdef
+setting pcr1: 01234567
+setting pccr: 000ffbfe
+reading from even/odd numbered pcr specifier maps to pcr0/pcr1: 12121212121212121212121212121212
+writing to even/odd numbered pcr specifier maps to pcr0/pcr1: 45454545454545454545454545454545
+reading from any pccr specifier maps to pccr: 00008020
+writing to any pccr specifier other than 0 is no-op: 00000000
+counter 0 (all modes, processor cycles), counter 1 (no modes, 0): pcr0 -> changed, pcr1 -> unchanged
+counter 0 (no modes, 0), counter 1 (all modes, processor cycles): pcr0 -> unchanged, pcr1 -> changed
+counter 0 (all modes, processor cycles), counter 1 (all modes, processor cycles): pcr0 -> changed, pcr1 -> changed
+counter 0 (no modes, processor cycles), counter 1 (no modes, processor cycles): pcr0 -> unchanged, pcr1 -> unchanged
+-- TEST END
