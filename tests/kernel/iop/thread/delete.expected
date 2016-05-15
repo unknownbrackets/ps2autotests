@@ -1,0 +1,15 @@
+-- TEST BEGIN
+self thread:
+  delete (with TH_SELF): failed -> result: -406
+  delete (with current tid): failed -> result: -414
+low prio thread:
+  delete before start: succeeded
+  delete after start: failed -> result: -414
+  delete after terminate: succeeded
+  delete after delete: failed -> result: -407
+waiting thread:
+  delete after start: failed -> result: -414
+  delete after terminate: succeeded
+corner cases:
+  delete with invalid tid: failed -> result: -407
+-- TEST END

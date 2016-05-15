@@ -1,4 +1,4 @@
-TARGETS = stat
+TARGETS = delete stat
 
 EXTRA_OBJS = imports.o
 
