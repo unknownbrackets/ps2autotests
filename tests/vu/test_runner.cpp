@@ -250,6 +250,19 @@ static inline void printFloatBits(const FloatBits &bits) {
 	printFloatString(bits);
 }
 
+void TestRunner::PrintRegisterField(VU::Reg r, VU::Field field, bool newline) {
+	using namespace VU;
+	
+	assert(r >= VF00 && r <= VF31);
+	
+	const u8 *regs = vu_ == 0 ? vu0_reg_mem : vu1_reg_mem;
+	const FloatBits *p = (const FloatBits *)(regs + 16 * (16 + r));
+	printFloatBits(p[field]);
+	if (newline) {
+		printf("\n");
+	}
+}
+
 void TestRunner::PrintVectorRegister(int i) {
 	const u8 *regs = vu_ == 0 ? vu0_reg_mem : vu1_reg_mem;
 	// Skip the 16 integer registers, and jump to the vector.
