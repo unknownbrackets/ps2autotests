@@ -34,6 +34,8 @@ public:
 
 	// Print out any integer or float/vector register.
 	void PrintRegister(VU::Reg r, bool newline);
+	void PrintRegisterField(VU::Reg r, VU::Field field, bool newline);
+	
 	// Print out a summary of status register changes.
 	void PrintStatus(bool newline);
 
