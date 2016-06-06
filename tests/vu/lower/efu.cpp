@@ -14,6 +14,9 @@ static const u32 __attribute__((aligned(16))) C_GARBAGE1[4] = {0x00001337, 0x000
 static const u32 __attribute__((aligned(16))) C_GARBAGE2[4] = {0xDEADBEEF, 0xDEADBEEF, 0xDEADBEEF, 0xDEADBEEF};
 static const u32 __attribute__((aligned(16))) C_INCREASING[4] = {0x3F800000, 0x40000000, 0x40400000, 0x40800000};
 static const u32 __attribute__((aligned(16))) C_DECREASING[4] = {0x40800000, 0x40400000, 0x40000000, 0x3F800000};
+static const u32 __attribute__((aligned(16))) C_PI_OVER2[4] = {0x3FC90FDB, 0x3FC90FDB, 0x3FC90FDB, 0x3FC90FDB};
+static const u32 __attribute__((aligned(16))) C_PI[4] = {0x40490FDB, 0x40490FDB, 0x40490FDB, 0x40490FDB};
+static const u32 __attribute__((aligned(16))) C_3PI_OVER2[4] = {0x4096CBE4, 0x4096CBE4, 0x4096CBE4, 0x4096CBE4};
 
 static u32 *const CVF_ZERO         = (u32 *)(vu1_mem + 0x0000);
 static u32 *const CVF_NEGZERO      = (u32 *)(vu1_mem + 0x0010);
@@ -28,6 +31,9 @@ static u32 *const CVF_GARBAGE1     = (u32 *)(vu1_mem + 0x0090);
 static u32 *const CVF_GARBAGE2     = (u32 *)(vu1_mem + 0x00A0);
 static u32 *const CVF_INCREASING   = (u32 *)(vu1_mem + 0x00B0);
 static u32 *const CVF_DECREASING   = (u32 *)(vu1_mem + 0x00C0);
+static u32 *const CVF_PI_OVER2     = (u32 *)(vu1_mem + 0x00D0);
+static u32 *const CVF_PI           = (u32 *)(vu1_mem + 0x00E0);
+static u32 *const CVF_3PI_OVER2    = (u32 *)(vu1_mem + 0x00F0);
 
 static void setup_vf_constants() {
 	*(vu128 *)CVF_ZERO = *(vu128 *)C_ZERO;
@@ -43,6 +49,9 @@ static void setup_vf_constants() {
 	*(vu128 *)CVF_GARBAGE2 = *(vu128 *)C_GARBAGE2;
 	*(vu128 *)CVF_INCREASING = *(vu128 *)C_INCREASING;
 	*(vu128 *)CVF_DECREASING = *(vu128 *)C_DECREASING;
+	*(vu128 *)CVF_PI_OVER2 = *(vu128 *)C_PI_OVER2;
+	*(vu128 *)CVF_PI = *(vu128 *)C_PI;
+	*(vu128 *)CVF_3PI_OVER2 = *(vu128 *)C_3PI_OVER2;
 }
 
 class EfuTestRunner : public TestRunner {
@@ -108,6 +117,9 @@ public:
 		PerformS_M(name, func, CVF_GARBAGE2);
 		PerformS_M(name, func, CVF_INCREASING);
 		PerformS_M(name, func, CVF_DECREASING);
+		PerformS_M(name, func, CVF_PI_OVER2);
+		PerformS_M(name, func, CVF_PI);
+		PerformS_M(name, func, CVF_3PI_OVER2);
 	}
 	
 	void PerformV(const char *name, EfuFunctionVector func) {
@@ -126,6 +138,9 @@ public:
 		PerformV_M(name, func, CVF_GARBAGE2);
 		PerformV_M(name, func, CVF_INCREASING);
 		PerformV_M(name, func, CVF_DECREASING);
+		PerformV_M(name, func, CVF_PI_OVER2);
+		PerformV_M(name, func, CVF_PI);
+		PerformV_M(name, func, CVF_3PI_OVER2);
 	}
 	
 #undef PerformS_M
