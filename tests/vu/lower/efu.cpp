@@ -127,6 +127,9 @@ public:
 		PerformV_M(name, func, CVF_INCREASING);
 		PerformV_M(name, func, CVF_DECREASING);
 	}
+	
+#undef PerformS_M
+#undef PerformV_M
 };
 
 int main(int argc, char *argv[]) {
