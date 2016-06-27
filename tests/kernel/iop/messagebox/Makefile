@@ -1,4 +1,4 @@
-TARGETS = receive send
+TARGETS = poll receive send
 
 EXTRA_OBJS = imports.o mbx-common.o
 

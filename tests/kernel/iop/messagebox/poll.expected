@@ -1,0 +1,9 @@
+-- TEST BEGIN
+basic polling:
+  polling from empty box: -424
+  box contents before polling: attr: 0, option: 0, wait threads: 0, messages: 3 -> { payload: 1, priority: 3 }, { payload: 2, priority: 2 }, { payload: 3, priority: 1 }
+  polling from non-empty box: 0, message: 1
+  box contents after polling: attr: 0, option: 0, wait threads: 0, messages: 2 -> { payload: 2, priority: 2 }, { payload: 3, priority: 1 }
+invalid params:
+  polling message from invalid box: -410
+-- TEST END
