@@ -1,0 +1,26 @@
+-- TEST BEGIN
+valid:
+  succeeded -> attr: 02000000, option: 01234567, stack size: 00000800, init prio: 0a, curr prio: 00, status: 10, entry: &nullThreadProc
+huge stack size (~0):
+  failed -> result: -400
+small stack size (300):
+  failed -> result: -404
+invalid attr (~0):
+  failed -> result: -401
+known attribute (TH_NO_FILLSTACK):
+  failed -> result: -401
+known attribute (TH_CLEAR_STACK):
+  failed -> result: -401
+known valid attributes (TH_UMODE | TH_ASM | TH_C):
+  succeeded -> attr: 03000008, option: 00000000, stack size: 00000800, init prio: 0a, curr prio: 00, status: 10, entry: &nullThreadProc
+invalid entry point (NULL):
+  succeeded -> attr: 00000000, option: 00000000, stack size: 00000800, init prio: 0a, curr prio: 00, status: 10, entry: 00000000
+invalid entry point (3):
+  failed -> result: -402
+invalid entry point (~3):
+  succeeded -> attr: 00000000, option: 00000000, stack size: 00000800, init prio: 0a, curr prio: 00, status: 10, entry: fffffffc
+invalid priority (0):
+  failed -> result: -403
+invalid priority (127):
+  failed -> result: -403
+-- TEST END
