@@ -24,6 +24,7 @@ void doTest(VIF::Unit* unit) {
 	volatile u32 *vu_32 = (volatile u32 *)vuMem;
 
 	VIF::Packet vifcode(64);
+	vifcode.STCYCL(4, 4);
 	vifcode.UNPACK(VIF::UNPACK_TYPE_S32, 4, 0);
 	vifcode.Data32(0x1337C0DE);
 	vifcode.Data32(0x1337C1DE);
