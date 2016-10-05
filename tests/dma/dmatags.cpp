@@ -19,45 +19,45 @@ namespace DMA {
 		addr_ = start_;
 	}
 
-	void SrcChainPacket::CNT(u16 size) {
-		Emit(size, SRC_CNT, 0);
+	void SrcChainPacket::CNT(u16 size, bool irq) {
+		Emit(size, SRC_CNT, 0, irq);
 	}
 
-	void SrcChainPacket::NEXT(u16 size, void *nextdma, u16 nextsize) {
+	void SrcChainPacket::NEXT(u16 size, void *nextdma, u16 nextsize, bool irq) {
 		if (nextsize != 0) {
 			SyncDCache(nextdma, (u8 *)nextdma + nextsize * 16);
 		}
-		Emit(size, SRC_NEXT, nextdma);
+		Emit(size, SRC_NEXT, nextdma, irq);
 	}
 
-	void SrcChainPacket::REF(void *addr, u16 size) {
+	void SrcChainPacket::REF(void *addr, u16 size, bool irq) {
 		SyncDCache(addr, (u8 *)addr + size * 16);
-		Emit(size, SRC_REF, addr);
+		Emit(size, SRC_REF, addr, irq);
 	}
 
-	void SrcChainPacket::REFS(void *addr, u16 size) {
+	void SrcChainPacket::REFS(void *addr, u16 size, bool irq) {
 		SyncDCache(addr, (u8 *)addr + size * 16);
-		Emit(size, SRC_REFS, addr);
+		Emit(size, SRC_REFS, addr, irq);
 	}
 
-	void SrcChainPacket::REFE(void *addr, u16 size) {
+	void SrcChainPacket::REFE(void *addr, u16 size, bool irq) {
 		SyncDCache(addr, (u8 *)addr + size * 16);
-		Emit(size, SRC_REFE, addr);
+		Emit(size, SRC_REFE, addr, irq);
 	}
 
-	void SrcChainPacket::CALL(u16 size, void *nextdma, u16 nextsize) {
+	void SrcChainPacket::CALL(u16 size, void *nextdma, u16 nextsize, bool irq) {
 		if (nextsize != 0) {
 			SyncDCache(nextdma, (u8 *)nextdma + nextsize * 16);
 		}
-		Emit(size, SRC_CALL, nextdma);
+		Emit(size, SRC_CALL, nextdma, irq);
 	}
 
-	void SrcChainPacket::RET(u16 size) {
-		Emit(size, SRC_RET, 0);
+	void SrcChainPacket::RET(u16 size, bool irq) {
+		Emit(size, SRC_RET, 0, irq);
 	}
 
-	void SrcChainPacket::END(u16 size) {
-		Emit(size, SRC_END, 0);
+	void SrcChainPacket::END(u16 size, bool irq) {
+		Emit(size, SRC_END, 0, irq);
 	}
 
 	void SrcChainPacket::DataQ(u128 v) {
@@ -69,10 +69,11 @@ namespace DMA {
 		addr_ += size;
 	}
 
-	void SrcChainPacket::Emit(u16 QWC, SrcChainType ID, void *addr) {
+	void SrcChainPacket::Emit(u16 QWC, SrcChainType ID, void *addr, bool irq) {
 		addr_->QWC = QWC;
 		addr_->ID = ID;
 		addr_->addr = addr;
+		addr_->IRQ = irq ? 1 : 0;
 		addr_++;
 	}
 
