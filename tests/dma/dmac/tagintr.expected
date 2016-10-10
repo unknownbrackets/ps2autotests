@@ -1,6 +1,8 @@
 -- TEST BEGIN
 Tag interrupt enabled, Tag IRQ enabled:
   CHCR(tag): b0000000, TADR offset: 00000010, CIS(before): 00000000, CIS(after): 00000200
+Tag interrupt enabled, Tag IRQ disabled:
+  CHCR(tag): 70000000, TADR offset: 00000020, CIS(before): 00000000, CIS(after): 00000200
 Tag interrupt disabled, Tag IRQ enabled:
   CHCR(tag): 70000000, TADR offset: 00000020, CIS(before): 00000000, CIS(after): 00000200
 Tag interrupt disabled, Tag IRQ disabled:

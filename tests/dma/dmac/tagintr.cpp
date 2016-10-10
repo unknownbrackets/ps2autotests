@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
 	buf[3] = 0x1337C0DE;
 	
 	testTagIrq(buf, true, true);
+	testTagIrq(buf, true, false);
 	testTagIrq(buf, false, true);
 	testTagIrq(buf, false, false);
 	
