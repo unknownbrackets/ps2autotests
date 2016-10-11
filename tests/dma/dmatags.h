@@ -37,14 +37,14 @@ namespace DMA {
 
 		void Reset();
 
-		void CNT(u16 size);
-		void NEXT(u16 size, void *nextdma, u16 nextsize);
-		void REF(void *addr, u16 size);
-		void REFS(void *addr, u16 size);
-		void REFE(void *addr, u16 size);
-		void CALL(u16 size, void *nextdma, u16 nextsize);
-		void RET(u16 size);
-		void END(u16 size);
+		void CNT(u16 size, bool irq = false);
+		void NEXT(u16 size, void *nextdma, u16 nextsize, bool irq = false);
+		void REF(void *addr, u16 size, bool irq = false);
+		void REFS(void *addr, u16 size, bool irq = false);
+		void REFE(void *addr, u16 size, bool irq = false);
+		void CALL(u16 size, void *nextdma, u16 nextsize, bool irq = false);
+		void RET(u16 size, bool irq = false);
+		void END(u16 size, bool irq = false);
 
 		void DataQ(u128 v);
 		void DataQPtr(const void *p, u16 size);
@@ -54,7 +54,7 @@ namespace DMA {
 		}
 
 	protected:
-		void Emit(u16 QWC, SrcChainType ID, void *addr);
+		void Emit(u16 QWC, SrcChainType ID, void *addr, bool irq);
 
 		SrcChainTag *start_;
 		SrcChainTag *addr_;
