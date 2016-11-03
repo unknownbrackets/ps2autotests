@@ -1,4 +1,4 @@
-TARGETS = delete
+TARGETS = delete poll
 
 EXTRA_OBJS = imports.o
 
