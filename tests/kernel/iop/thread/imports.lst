@@ -1,5 +1,6 @@
 
 thbase_IMPORTS_start
+I_CancelWakeupThread
 I_ReferThreadStatus
 thbase_IMPORTS_end
 

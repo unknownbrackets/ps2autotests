@@ -1,0 +1,11 @@
+-- TEST BEGIN
+self thread:
+  cancel wakeup self thread: succeeded -> result: 4
+  cancel wakeup self thread after cancelling: succeeded -> result: 0
+standard usage:
+  cancel wakeup after starting: succeeded -> result: 0
+  cancel wakeup after wakeups: succeeded -> result: 3
+  cancel wakeup after cancelling: succeeded -> result: 0
+corner cases:
+  cancel wakeup with invalid thread id: failed -> result: -407
+-- TEST END
