@@ -1,4 +1,4 @@
-TARGETS = create delete stat
+TARGETS = cancelwakeup create delete stat
 
 EXTRA_OBJS = imports.o
 
