@@ -3,7 +3,8 @@ unused event flag:
   delete after creation: succeeded
 used event flag:
   delete while thread is waiting: succeeded
-  delete thread returned: 0
+  WaitEventFlag returned: -425
+  DeleteThread returned: 0
 corner cases:
   delete with invalid tid: failed -> result: -409
 -- TEST END

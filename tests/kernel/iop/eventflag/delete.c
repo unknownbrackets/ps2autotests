@@ -5,8 +5,13 @@
 
 #define STACK_SIZE 0x800
 
-void waitThreadProc(u32 eventFlagId) {
-	WaitEventFlag(eventFlagId, ~0, WEF_OR | WEF_CLEAR, NULL);
+typedef struct {
+	int eventFlagId;
+	s32 waitEventFlagResult;
+} WAIT_THREAD_PARAMS;
+
+void waitThreadProc(WAIT_THREAD_PARAMS* params) {
+	params->waitEventFlagResult = WaitEventFlag(params->eventFlagId, ~0, WEF_OR | WEF_CLEAR, NULL);
 }
 
 int createTestThread(void *entry, int prio, u32 stackSize) {
@@ -64,17 +69,23 @@ int _start(int argc, char **argv) {
 		
 		int eventFlagId = createTestEventFlag();
 		
+		WAIT_THREAD_PARAMS waitThreadParams;
+		waitThreadParams.eventFlagId         = eventFlagId;
+		waitThreadParams.waitEventFlagResult = 0;
+		
 		int currentThreadPriority = getThreadPriority(TH_SELF);
 		int threadId = createTestThread((void*)&waitThreadProc, currentThreadPriority - 1, STACK_SIZE);
-		StartThread(threadId, (void*)eventFlagId);
+		StartThread(threadId, &waitThreadParams);
 		
 		schedf("  delete while thread is waiting: ");
 		doDeleteEventFlag(eventFlagId);
 		
+		schedf("  WaitEventFlag returned: %d\n", waitThreadParams.waitEventFlagResult);
+		
 		//DeleteThread should succeed since WaitEventFlag will abort due to the
 		//event flag being deleted and the thread being put in a dormant state
 		int deleteThreadResult = DeleteThread(threadId);
-		schedf("  delete thread returned: %d\n", deleteThreadResult);
+		schedf("  DeleteThread returned: %d\n", deleteThreadResult);
 	}
 	
 	{
