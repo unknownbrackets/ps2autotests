@@ -1,0 +1,11 @@
+-- TEST BEGIN
+unused event flag:
+  delete after creation: succeeded
+used event flag:
+  delete while thread is waiting: succeeded
+  WaitEventFlag returned: -425
+  DeleteThread returned: 0
+corner cases:
+  delete with invalid id: failed -> result: -409
+  delete with deleted id: failed -> result: -409
+-- TEST END
