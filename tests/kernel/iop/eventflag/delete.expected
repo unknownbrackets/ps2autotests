@@ -6,5 +6,6 @@ used event flag:
   WaitEventFlag returned: -425
   DeleteThread returned: 0
 corner cases:
-  delete with invalid tid: failed -> result: -409
+  delete with invalid id: failed -> result: -409
+  delete with deleted id: failed -> result: -409
 -- TEST END

@@ -41,6 +41,12 @@ int createTestEventFlag() {
 	return CreateEventFlag(&eventFlagParams);
 }
 
+int generateDeletedEventFlagId() {
+	int eventFlagId = createTestEventFlag();
+	DeleteEventFlag(eventFlagId);
+	return eventFlagId;
+}
+
 void doDeleteEventFlag(int eventFlagId) {
 	int result = DeleteEventFlag(eventFlagId);
 	if(result == KE_OK) {
@@ -91,8 +97,12 @@ int _start(int argc, char **argv) {
 	{
 		schedf("corner cases:\n");
 		
-		schedf("  delete with invalid tid: ");
+		schedf("  delete with invalid id: ");
 		doDeleteEventFlag(0);
+		
+		schedf("  delete with deleted id: ");
+		int eventFlagId = generateDeletedEventFlagId();
+		doDeleteEventFlag(eventFlagId);
 		
 		flushschedf();
 	}
