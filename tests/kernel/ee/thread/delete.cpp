@@ -3,7 +3,6 @@
 #include <string.h>
 
 #define STACK_SIZE 0x8000
-#define TEST_THREAD_PRIORITY 0x40
 
 char nullThreadStack[STACK_SIZE] __attribute__ ((aligned(16)));
 void nullThreadProc(u32) {
@@ -47,7 +46,9 @@ void doDeleteThread(int threadId) {
 
 int main(int argc, char *argv[]) {
 	printf("-- TEST BEGIN\n");
-
+	
+	int testThreadPriority = getThreadPriority(GetThreadId());
+	
 	{
 		schedf("self thread:\n");
 
@@ -60,14 +61,14 @@ int main(int argc, char *argv[]) {
 	{
 		schedf("worse prio thread:\n");
 		
-		int threadId = createTestThread((void*)&nullThreadProc, TEST_THREAD_PRIORITY + 0x10, nullThreadStack, STACK_SIZE);
+		int threadId = createTestThread((void*)&nullThreadProc, testThreadPriority + 0x10, nullThreadStack, STACK_SIZE);
 		schedf("  delete before start: ");
 		doDeleteThread(threadId);
 
 		schedf("  delete after delete: ");
 		doDeleteThread(threadId);
 		
-		threadId = createTestThread((void*)&nullThreadProc, TEST_THREAD_PRIORITY + 0x10, nullThreadStack, STACK_SIZE);
+		threadId = createTestThread((void*)&nullThreadProc, testThreadPriority + 0x10, nullThreadStack, STACK_SIZE);
 		StartThread(threadId, NULL);
 		schedf("  delete after start: ");
 		doDeleteThread(threadId);
@@ -90,7 +91,7 @@ int main(int argc, char *argv[]) {
 	{
 		schedf("sleeping thread:\n");
 		
-		int threadId = createTestThread((void*)&sleepingThreadProc, TEST_THREAD_PRIORITY - 0x10, sleepingThreadStack, STACK_SIZE);
+		int threadId = createTestThread((void*)&sleepingThreadProc, testThreadPriority - 0x10, sleepingThreadStack, STACK_SIZE);
 
 		StartThread(threadId, 0);
 		schedf("  delete after start: ");
@@ -113,7 +114,7 @@ int main(int argc, char *argv[]) {
 	{
 		schedf("waiting thread:\n");
 
-		int threadId = createTestThread((void*)&waitingThreadProc, TEST_THREAD_PRIORITY - 0x10, waitingThreadStack, STACK_SIZE);
+		int threadId = createTestThread((void*)&waitingThreadProc, testThreadPriority - 0x10, waitingThreadStack, STACK_SIZE);
 
 		StartThread(threadId, 0);
 		schedf("  delete after start: ");
