@@ -54,8 +54,8 @@ inline void STOREF_##OP(const register u128 &val, void *address) { \
 			"sync\n" \
 			: "=r"(x__printvi) : : "t0" \
 		); \
-		printf("ctc2 -> " #reg ": %08x\n", x__printvi);\
-	} while (false) \
+		printf("ctc2 -> " #reg ": %08x\n", x__printvi); \
+	} while (false)
 
 void test_cfc2() {
 	register u128 vi21 = 0;
