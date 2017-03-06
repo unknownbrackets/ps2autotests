@@ -1,4 +1,4 @@
-TARGETS = integer
+TARGETS = transfer integer
 EXTRA_OBJS = shared.o
 EE_LIBS =
 
