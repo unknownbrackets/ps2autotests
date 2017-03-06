@@ -1,0 +1,18 @@
+-- TEST BEGIN
+match success cases:
+  poll with matching pattern, OR wait mode: succeeded, resultPattern: 0000000f
+  poll with matching pattern, AND wait mode: succeeded, resultPattern: 0000000f
+match failure cases:
+  poll with non-matching pattern, OR wait mode: failed -> result: -421, resultPattern: 0000cccc
+  poll with non-matching pattern, AND wait mode: failed -> result: -421, resultPattern: 0000cccc
+clear on success:
+  poll with matching pattern, OR and CLEAR wait mode: succeeded, resultPattern: 00003333
+  poll a second time with matching pattern, OR wait mode: failed -> result: -421, resultPattern: 0000cccc
+test busy event flag:
+  single wait event flag: failed -> result: -422, resultPattern: 0000cccc
+  multi wait event flag: failed -> result: -422, resultPattern: 0000cccc
+corner cases:
+  poll with zero pattern: failed -> result: -423, resultPattern: 0000cccc
+  poll with null result pattern: succeeded
+  poll with invalid tid: failed -> result: -409
+-- TEST END
