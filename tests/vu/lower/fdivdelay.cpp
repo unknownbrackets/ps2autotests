@@ -98,21 +98,10 @@ public:
 		Wr(MULq(DEST_XYZW, VF14, VF00));
 		
 		Execute();
-
-		printf("  VF01: "); PrintRegister(VF01, true);
-		printf("  VF02: "); PrintRegister(VF02, true);
-		printf("  VF03: "); PrintRegister(VF03, true);
-		printf("  VF04: "); PrintRegister(VF04, true);
-		printf("  VF05: "); PrintRegister(VF05, true);
-		printf("  VF06: "); PrintRegister(VF06, true);
-		printf("  VF07: "); PrintRegister(VF07, true);
-		printf("  VF08: "); PrintRegister(VF08, true);
-		printf("  VF09: "); PrintRegister(VF09, true);
-		printf("  VF10: "); PrintRegister(VF10, true);
-		printf("  VF11: "); PrintRegister(VF11, true);
-		printf("  VF12: "); PrintRegister(VF12, true);
-		printf("  VF13: "); PrintRegister(VF13, true);
-		printf("  VF14: "); PrintRegister(VF14, true);
+		
+		for(u32 i = 1; i <= 14; i++) {
+			printf("  VF%02d: ", i); PrintRegister(static_cast<VU::Reg>(VF00 + i), true);
+		}
 	}
 	
 	void PerformMultipleDelayed1(const char *name, FdivFunction func) {
@@ -150,21 +139,10 @@ public:
 		Wr(MULq(DEST_XYZW, VF14, VF00));
 		
 		Execute();
-
-		printf("  VF01: "); PrintRegister(VF01, true);
-		printf("  VF02: "); PrintRegister(VF02, true);
-		printf("  VF03: "); PrintRegister(VF03, true);
-		printf("  VF04: "); PrintRegister(VF04, true);
-		printf("  VF05: "); PrintRegister(VF05, true);
-		printf("  VF06: "); PrintRegister(VF06, true);
-		printf("  VF07: "); PrintRegister(VF07, true);
-		printf("  VF08: "); PrintRegister(VF08, true);
-		printf("  VF09: "); PrintRegister(VF09, true);
-		printf("  VF10: "); PrintRegister(VF10, true);
-		printf("  VF11: "); PrintRegister(VF11, true);
-		printf("  VF12: "); PrintRegister(VF12, true);
-		printf("  VF13: "); PrintRegister(VF13, true);
-		printf("  VF14: "); PrintRegister(VF14, true);
+		
+		for(u32 i = 1; i <= 14; i++) {
+			printf("  VF%02d: ", i); PrintRegister(static_cast<VU::Reg>(VF00 + i), true);
+		}
 	}
 	
 	void PerformMultipleDelayed2(const char *name, FdivFunction func) {
@@ -202,21 +180,10 @@ public:
 		Wr(MULq(DEST_XYZW, VF14, VF00));
 		
 		Execute();
-
-		printf("  VF01: "); PrintRegister(VF01, true);
-		printf("  VF02: "); PrintRegister(VF02, true);
-		printf("  VF03: "); PrintRegister(VF03, true);
-		printf("  VF04: "); PrintRegister(VF04, true);
-		printf("  VF05: "); PrintRegister(VF05, true);
-		printf("  VF06: "); PrintRegister(VF06, true);
-		printf("  VF07: "); PrintRegister(VF07, true);
-		printf("  VF08: "); PrintRegister(VF08, true);
-		printf("  VF09: "); PrintRegister(VF09, true);
-		printf("  VF10: "); PrintRegister(VF10, true);
-		printf("  VF11: "); PrintRegister(VF11, true);
-		printf("  VF12: "); PrintRegister(VF12, true);
-		printf("  VF13: "); PrintRegister(VF13, true);
-		printf("  VF14: "); PrintRegister(VF14, true);
+		
+		for(u32 i = 1; i <= 14; i++) {
+			printf("  VF%02d: ", i); PrintRegister(static_cast<VU::Reg>(VF00 + i), true);
+		}
 	}
 
 	void Perform(const char *name, FdivFunction func) {
