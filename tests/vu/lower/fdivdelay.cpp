@@ -27,10 +27,10 @@ public:
 
 		//Prepare registers
 		WrImm(4.0f);
-		Wr(MULi(DEST_W, VF01, VF00));
+		Wr(MULi(DEST_W, VF16, VF00));
 		
 		//Op
-		Wr(func(FIELD_W, VF01));
+		Wr(func(FIELD_W, VF16));
 		Wr(WAITQ());
 		Wr(MULq(DEST_XYZW, VF01, VF00));
 		
@@ -48,14 +48,14 @@ public:
 
 		//Prepare registers
 		WrImm(4.0f);
-		WrImm(MULi(DEST_W, VF01, VF00), 16.0f);
-		Wr(MULi(DEST_W, VF02, VF00));
+		WrImm(MULi(DEST_W, VF16, VF00), 16.0f);
+		Wr(MULi(DEST_W, VF17, VF00));
 		
 		//Op
-		Wr(func(FIELD_W, VF01));
+		Wr(func(FIELD_W, VF16));
 		Wr(WAITQ());
 		Wr(MULq(DEST_XYZW, VF01, VF00));
-		Wr(func(FIELD_W, VF02));
+		Wr(func(FIELD_W, VF17));
 		Wr(WAITQ());
 		Wr(MULq(DEST_XYZW, VF02, VF00));
 
@@ -78,10 +78,10 @@ public:
 
 		//Prepare registers
 		WrImm(4.0f);
-		Wr(MULi(DEST_W, VF01, VF00));
+		Wr(MULi(DEST_W, VF16, VF00));
 		
 		//Op
-		Wr(func(FIELD_W, VF01));
+		Wr(func(FIELD_W, VF16));
 		Wr(MULq(DEST_XYZW, VF01, VF00));
 		Wr(MULq(DEST_XYZW, VF02, VF00));
 		Wr(MULq(DEST_XYZW, VF03, VF00));
@@ -117,12 +117,12 @@ public:
 
 		//Prepare registers
 		WrImm(4.0f);
-		WrImm(MULi(DEST_W, VF01, VF00), 16.0f);
-		Wr(MULi(DEST_W, VF02, VF00));
+		WrImm(MULi(DEST_W, VF16, VF00), 16.0f);
+		Wr(MULi(DEST_W, VF17, VF00));
 		
 		//Op
-		Wr(func(FIELD_W, VF01));
-		Wr(func(FIELD_W, VF02));
+		Wr(func(FIELD_W, VF16));
+		Wr(func(FIELD_W, VF17));
 		Wr(MULq(DEST_XYZW, VF01, VF00));
 		Wr(MULq(DEST_XYZW, VF02, VF00));
 		Wr(MULq(DEST_XYZW, VF03, VF00));
@@ -158,13 +158,13 @@ public:
 
 		//Prepare registers
 		WrImm(4.0f);
-		WrImm(MULi(DEST_W, VF01, VF00), 16.0f);
-		Wr(MULi(DEST_W, VF02, VF00));
+		WrImm(MULi(DEST_W, VF16, VF00), 16.0f);
+		Wr(MULi(DEST_W, VF17, VF00));
 		
 		//Op
-		Wr(func(FIELD_W, VF01));
+		Wr(func(FIELD_W, VF16));
 		Wr(MULq(DEST_XYZW, VF01, VF00));
-		Wr(func(FIELD_W, VF02));
+		Wr(func(FIELD_W, VF17));
 		Wr(MULq(DEST_XYZW, VF02, VF00));
 		Wr(MULq(DEST_XYZW, VF03, VF00));
 		Wr(MULq(DEST_XYZW, VF04, VF00));
@@ -199,11 +199,10 @@ public:
 		
 		//Prepare registers
 		WrImm(4.0f);
-		WrImm(MULi(DEST_W, VF01, VF00), 16.0f);
-		Wr(MULi(DEST_W, VF02, VF00));
+		Wr(MULi(DEST_W, VF16, VF00));
 		
 		//Op
-		Wr(func(FIELD_W, VF01));
+		Wr(func(FIELD_W, VF16));
 		Wr(MADD(DEST_XYZW, VF30, VF23, VF00));
 		for(u32 i = 0; i < stallDelay; i++) {
 			Wr(MULq(DEST_XYZW, VF00, VF00));
@@ -244,12 +243,11 @@ public:
 		
 		//Prepare registers
 		WrImm(4.0f);
-		WrImm(MULi(DEST_W, VF01, VF00), 16.0f);
-		Wr(MULi(DEST_W, VF02, VF00));
+		Wr(MULi(DEST_W, VF16, VF00));
 		
 		//Op
 		Label label = L();
-		Wr(func(FIELD_W, VF01));
+		Wr(func(FIELD_W, VF16));
 		IBLTZ(MADD(DEST_XYZW, VF30, VF23, VF00), label, VI00);
 		Wr(CLIP(VF30, VF30));
 		Wr(MULq(DEST_XYZW, VF01, VF00));
