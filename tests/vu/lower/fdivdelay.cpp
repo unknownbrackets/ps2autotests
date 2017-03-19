@@ -20,49 +20,60 @@ public:
 
 	void PerformSingleWaitQ(const char *name, FdivFunction func) {
 		using namespace VU;
-
+		
 		printf("%s single waitq:\n", name);
-
+		
 		Reset();
-
+		
+		//Set Q to 1.0f
+		Wr(DIV(FIELD_W, VF00, FIELD_W, VF00));
+		Wr(WAITQ());
+		
 		//Prepare registers
 		WrImm(4.0f);
 		Wr(MULi(DEST_W, VF16, VF00));
 		
 		//Op
-		Wr(func(FIELD_W, VF16));
-		Wr(WAITQ());
-		Wr(MULq(DEST_XYZW, VF01, VF00));
+		Wr(MULq(DEST_XYZW, VF01, VF00), func(FIELD_W, VF16));
+		Wr(MULq(DEST_XYZW, VF02, VF00), WAITQ());
+		Wr(MULq(DEST_XYZW, VF03, VF00));
 		
 		Execute();
-
-		printf("  VF01: "); PrintRegister(VF01, true);
+		
+		for(u32 i = 1; i <= 3; i++) {
+			printf("  VF%02d: ", i); PrintRegister(static_cast<VU::Reg>(VF00 + i), true);
+		}
 	}
 
 	void PerformMultipleWaitQ(const char *name, FdivFunction func) {
 		using namespace VU;
-
+		
 		printf("%s multiple waitq:\n", name);
-
+		
 		Reset();
-
+		
+		//Set Q to 1.0f
+		Wr(DIV(FIELD_W, VF00, FIELD_W, VF00));
+		Wr(WAITQ());
+		
 		//Prepare registers
 		WrImm(4.0f);
 		WrImm(MULi(DEST_W, VF16, VF00), 16.0f);
 		Wr(MULi(DEST_W, VF17, VF00));
 		
 		//Op
-		Wr(func(FIELD_W, VF16));
-		Wr(WAITQ());
-		Wr(MULq(DEST_XYZW, VF01, VF00));
-		Wr(func(FIELD_W, VF17));
-		Wr(WAITQ());
-		Wr(MULq(DEST_XYZW, VF02, VF00));
-
+		Wr(MULq(DEST_XYZW, VF01, VF00), func(FIELD_W, VF16));
+		Wr(MULq(DEST_XYZW, VF02, VF00), WAITQ());
+		Wr(MULq(DEST_XYZW, VF03, VF00));
+		Wr(MULq(DEST_XYZW, VF04, VF00), func(FIELD_W, VF17));
+		Wr(MULq(DEST_XYZW, VF05, VF00), WAITQ());
+		Wr(MULq(DEST_XYZW, VF06, VF00));
+		
 		Execute();
-
-		printf("  VF01: "); PrintRegister(VF01, true);
-		printf("  VF02: "); PrintRegister(VF02, true);
+		
+		for(u32 i = 1; i <= 6; i++) {
+			printf("  VF%02d: ", i); PrintRegister(static_cast<VU::Reg>(VF00 + i), true);
+		}
 	}
 
 	void PerformSingleDelayed(const char *name, FdivFunction func) {
