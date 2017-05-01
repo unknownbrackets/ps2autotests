@@ -5,6 +5,7 @@
 #include <thsemap.h>
 #include <thevent.h>
 #include <thmsgbx.h>
+#include "thread-common.h"
 
 #define STACK_SIZE 0x800
 
@@ -54,17 +55,6 @@ int createTestThread(void *entry, int prio, u32 stackSize) {
 	threadParam.priority  = prio;
 	threadParam.stacksize = stackSize;
 	return CreateThread(&threadParam);
-}
-
-int getThreadPriority(int threadId) {
-	iop_thread_info_t threadStat;
-	memset(&threadStat, 0, sizeof(iop_thread_info_t));
-	int result = ReferThreadStatus(threadId, &threadStat);
-	if (result >= 0) {
-		return threadStat.currentPriority;
-	} else {
-		return -1;
-	}
 }
 
 void printThreadStatus(int threadId) {
