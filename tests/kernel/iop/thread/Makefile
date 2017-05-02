@@ -1,4 +1,4 @@
-TARGETS = cancelwakeup create delete stat
+TARGETS = cancelwakeup create delete releasewait stat
 
 EXTRA_OBJS = imports.o thread-common.o
 

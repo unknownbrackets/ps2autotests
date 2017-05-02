@@ -1,0 +1,23 @@
+-- TEST BEGIN
+running thread: failed -> result: -416
+dormant thread: failed -> result: -416
+invalid thread: failed -> result: -407
+sleeping thread:
+  ReleaseWaitThread returned: succeeded -> result: 0
+  wait function returned: -418
+delayed thread:
+  ReleaseWaitThread returned: succeeded -> result: 0
+  wait function returned: -418
+waiting semaphore thread:
+  ReleaseWaitThread returned: succeeded -> result: 0
+  wait function returned: -418
+waiting event flag thread:
+  ReleaseWaitThread returned: succeeded -> result: 0
+  wait function returned: -418
+waiting message box thread:
+  ReleaseWaitThread returned: succeeded -> result: 0
+  wait function returned: -418
+self thread:
+  With TH_SELF: failed -> result: -406
+  With current thread id: failed -> result: -406
+-- TEST END
