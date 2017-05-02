@@ -47,16 +47,6 @@ void messageBoxThreadProc(u32 param) {
 	ReceiveMbx(NULL, dummyMessageBox);
 }
 
-int createTestThread(void *entry, int prio, u32 stackSize) {
-	iop_thread_t threadParam;
-	memset(&threadParam, 0, sizeof(iop_thread_t));
-	threadParam.attr      = TH_C;
-	threadParam.thread    = entry;
-	threadParam.priority  = prio;
-	threadParam.stacksize = stackSize;
-	return CreateThread(&threadParam);
-}
-
 void printThreadStatus(int threadId) {
 	iop_thread_info_t threadStat;
 	memset(&threadStat, 0, sizeof(iop_thread_info_t));

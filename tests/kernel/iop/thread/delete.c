@@ -13,16 +13,6 @@ void sleepThreadProc(u32 param) {
 	SleepThread();
 }
 
-int createTestThread(void *entry, int prio, u32 stackSize) {
-	iop_thread_t threadParam;
-	memset(&threadParam, 0, sizeof(iop_thread_t));
-	threadParam.attr      = TH_C;
-	threadParam.thread    = entry;
-	threadParam.priority  = prio;
-	threadParam.stacksize = stackSize;
-	return CreateThread(&threadParam);
-}
-
 void doDeleteThread(int threadId) {
 	int result = DeleteThread(threadId);
 	if(result == KE_OK) {

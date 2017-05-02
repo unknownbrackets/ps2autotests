@@ -11,3 +11,13 @@ s32 getThreadPriority(s32 threadId) {
 		return -1;
 	}
 }
+
+s32 createTestThread(void *entry, s32 prio, u32 stackSize) {
+	iop_thread_t threadParam;
+	memset(&threadParam, 0, sizeof(iop_thread_t));
+	threadParam.attr      = TH_C;
+	threadParam.thread    = entry;
+	threadParam.priority  = prio;
+	threadParam.stacksize = stackSize;
+	return CreateThread(&threadParam);
+}
