@@ -1,6 +1,7 @@
 #include <common-iop.h>
 #include <kerr.h>
 #include <thbase.h>
+#include "thread-common.h"
 
 #define STACK_SIZE 0x800
 
@@ -10,27 +11,6 @@ void nullThreadProc(u32 param) {
 
 void sleepThreadProc(u32 param) {
 	SleepThread();
-}
-
-int createTestThread(void *entry, int prio, u32 stackSize) {
-	iop_thread_t threadParam;
-	memset(&threadParam, 0, sizeof(iop_thread_t));
-	threadParam.attr      = TH_C;
-	threadParam.thread    = entry;
-	threadParam.priority  = prio;
-	threadParam.stacksize = stackSize;
-	return CreateThread(&threadParam);
-}
-
-int getThreadPriority(int threadId) {
-	iop_thread_info_t threadStat;
-	memset(&threadStat, 0, sizeof(iop_thread_info_t));
-	int result = ReferThreadStatus(threadId, &threadStat);
-	if (result >= 0) {
-		return threadStat.currentPriority;
-	} else {
-		return -1;
-	}
 }
 
 void doDeleteThread(int threadId) {

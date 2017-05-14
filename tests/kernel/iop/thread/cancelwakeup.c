@@ -1,5 +1,6 @@
 #include <common-iop.h>
 #include <thbase.h>
+#include "thread-common.h"
 
 #define STACK_SIZE 0x800
 
@@ -22,16 +23,6 @@ void cancelThreadProc(u32 param) {
 	
 	schedf("  cancel wakeup self thread after cancelling: ");
 	doCancelWakeupThread(TH_SELF);
-}
-
-int createTestThread(void *entry, int prio, u32 stackSize) {
-	iop_thread_t threadParam;
-	memset(&threadParam, 0, sizeof(iop_thread_t));
-	threadParam.attr      = TH_C;
-	threadParam.thread    = entry;
-	threadParam.priority  = prio;
-	threadParam.stacksize = stackSize;
-	return CreateThread(&threadParam);
 }
 
 int generateDeletedThreadId() {
