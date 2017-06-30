@@ -718,7 +718,7 @@ LowerOp RSQRT(Field fsf, Reg s, Field ftf, Reg t) {
 }
 
 LowerOp RXOR(Field fsf, Reg s) {
-	return LowerType4(OP_RSQRT, fsf, s, FIELD_X, VF00);
+	return LowerType4(OP_RXOR, fsf, s, FIELD_X, VF00);
 }
 
 LowerOp SQ(Dest dest, Reg s, Reg t, s16 imm11) {
