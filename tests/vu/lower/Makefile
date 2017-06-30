@@ -1,4 +1,4 @@
-TARGETS = efu fdivdelay integer
+TARGETS = efu fdivdelay integer random
 EXTRA_OBJS = ../assemble/block.o ../assemble/ops.o ../test_runner.o
 EE_LIBS = -lg
 
