@@ -1,0 +1,8 @@
+-- TEST BEGIN
+initial value: 1
+value after setting PCR.CPC: 0
+value after sending DMA: 1
+value after clearing PCR.CPC: 1
+value after restoring PCR.CPC: 1
+value after resetting STAT.CIS: 0
+-- TEST END
