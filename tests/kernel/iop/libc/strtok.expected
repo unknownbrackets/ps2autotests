@@ -1,0 +1,10 @@
+-- TEST BEGIN
+strtok('val1, val2,   val3,val4', ', ') -> 'val1'
+strtok('null', ', ') -> 'val2'
+strtok('null', ', ') -> 'val3'
+strtok('null', ', ') -> 'val4'
+strtok('null', ', ') -> 'null'
+strtok('val1,val2,val3,val4', 'null') -> 'val1,val2,val3,val4'
+strtok('null', 'null') -> 'null'
+strtok('null', 'null') -> 'null'
+-- TEST END
