@@ -1,4 +1,4 @@
-TARGETS = tagintr
+TARGETS = cpcond tagintr
 EXTRA_OBJS = ../dmatags.o ../dmasend.o
 EE_LIBS = -lg -ldma
 
