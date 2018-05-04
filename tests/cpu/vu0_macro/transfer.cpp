@@ -114,6 +114,27 @@ void test_ctc2() {
 	TEST_CTC2(vi31);    //CMSAR1
 }
 
+void test_cfc2_tpc() {
+	//Setup a dummy microprogram in VU0 memory to test TPC register value
+	u32 *const vu0_micro = (u32 * const)0x11000000;
+	static const u32 size = 0x100;
+	memset(vu0_micro, 0, size);
+	//Write E bit before the end
+	vu0_micro[(size - 0x14) / 4] = 0x40000000;
+
+	u32 tpc = 0;
+	asm volatile (
+		"vcallms 0\n"
+		"vnop\n"
+		"cfc2.i $0, vi01\n"
+		"cfc2 %0, vi26\n"
+		"sync\n"
+		: "+&r"(tpc)
+	);
+	
+	printf("TPC's value after executing VU subroutine: %08x\n", tpc);
+}
+
 void test_qmfc2() {
 	register u128 vf = 0;
 	
@@ -232,6 +253,7 @@ int main(int argc, char **argv) {
 	test_sqc2();
 	
 	test_cfc2();
+	test_cfc2_tpc();
 	test_ctc2();
 	
 	test_qmfc2();

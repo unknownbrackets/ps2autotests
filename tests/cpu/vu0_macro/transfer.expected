@@ -12,6 +12,7 @@ sqc2:
 
 cfc2: 12345678 12345678 ffffffff ffffffff
 cfc2 -> $0: 00000000 00000000 00000000 00000000
+TPC's value after executing VU subroutine: 0000001f
 ctc2 -> vi00: 00000000
 ctc2 -> vi01: 0000ffff
 ctc2 -> vi16: 00000fc0
