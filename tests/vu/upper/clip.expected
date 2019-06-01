@@ -1,0 +1,32 @@
+-- TEST BEGIN
+Basic test: FULL POS x -1 -> 0015
+Basic test: FULL NEG x -1 -> 002a
+Basic test: HALF POS x -1 -> 0019
+Basic test: HALF NEG x -1 -> 0026
+Basic test: HALF NEG x  0 -> 0026
+Basic test: HALF NEG x -0 -> 0026
+Basic test:  0 x -0 -> 0000
+Basic test: -0 x  0 -> 0000
+Basic test: FULL POS x FULL POS -> 0000
+Basic test: HALF NEG x HALF NEG -> 0000
+Basic test: MIN x 0 -> 002a
+Basic test: MAX x 0 -> 0015
+Basic test: 0 x MIN -> 0000
+Basic test: 0 x MAX -> 0000
+Multi test:
+0000
+0000
+0000
+0000
+0015
+056a
+0a99
+0666
+0666
+0666
+Multi test 2:
+0555
+0aaa
+0659
+09a6
+-- TEST END
