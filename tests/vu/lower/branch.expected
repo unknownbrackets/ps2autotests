@@ -1,0 +1,4 @@
+-- TEST BEGIN
+  JALR /w diff regs -> targetReg: 0006 returnReg: 0004 resultReg: 0001
+  JALR /w same regs -> targetReg: 0004 returnReg: 0004 resultReg: 0001
+-- TEST END
